@@ -1,0 +1,18 @@
+.login {
+	margin : 16px auto;
+	float : none;
+	max-width: 400px;
+	border : 1px solid rgb(238,238,238);
+	min-height: 260px;
+	max-height: 460px;
+	height: auto;
+	padding: 16px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+}
+
+.list-group-item-signIn {
+	display : block;
+	border : none;
+	float: right;
+}

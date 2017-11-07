@@ -1,0 +1,30 @@
+.time-log-form {
+	margin : 15px auto;
+	float : none;
+	max-width: 400px;
+	border : 1px solid rgb(238,238,238);
+	height: auto;
+	padding: 16px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+}
+
+.ant-calendar-picker {
+	margin: 5px 0px;
+    width: 49%;
+}
+
+.ant-time-picker {
+	float: right;
+    margin: 10px 0;
+    height: 32px;
+    width: 50%;
+}
+
+.ant-form-item-label {
+	float: left;
+}
+
+.ant-upload.ant-upload-select {
+	float: right;
+}

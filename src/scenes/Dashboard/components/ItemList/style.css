@@ -1,0 +1,19 @@
+.item-container{
+	height: 100px;
+    background: #efefef;
+    padding: 10px;
+    width: 90%;
+    margin: 10px;
+    line-height: 90px;
+    display: inline;
+    cursor: pointer;
+}
+.item-container:hover{
+	background: grey
+}
+
+.receipe-logo{
+	border-radius: 50px;
+	height: 70px;
+	width: 70px;
+}

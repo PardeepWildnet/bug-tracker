@@ -1,0 +1,151 @@
+import React, { Component } from 'react';
+import { Input, Menu, Dropdown, Icon, Button, Form, Select, Radio, InputNumber } from 'antd';
+import { connect } from 'react-redux';
+import { withRouter, Route } from 'react-router';
+
+import * as addTaskApi from './../../data/AddTasks/api';
+import * as config from './../../../../config.js';
+import participants from './../../../../Assets/participantsList.json';
+import './AddTask.css';
+
+const Option = Select.Option;
+const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
+
+class AddTasksView extends Component {
+	constructor(props){
+		super(props);
+		this.addTask = this.addTask.bind(this);
+		this.onChange = this.onChange.bind(this);
+		this.state = {
+			value : 1
+		}
+	}
+
+	addTask(e) {
+		e.preventDefault();
+		this.props.form.validateFields((err, values) => {
+			if (!err) {
+				console.log('Received values of form in add task: ', values);
+			    this.props.dispatch(addTaskApi.AddTaskApi(values, config.token))
+			    this.props.form.resetFields();
+			}
+		});
+	}
+
+	onChange = (e) => {
+		console.log('radio checked', e.target.value);
+		this.setState({
+		  value: e.target.value,
+		});
+	}
+
+
+	render() {
+		/*var loginForAdd = {
+			border : '1px solid green'
+		}*/
+
+	    const { 
+	    	getFieldDecorator 
+	    } = this.props.form;
+
+	    const renderParticipants = participants.map((pariticipant) => (
+	    	<Option value={ pariticipant.name } key = { pariticipant.id }>{ pariticipant.name }</Option>
+	    ));
+
+
+		console.log("inside add task the taken is :-" + config.token);
+		
+		return(
+			<Form onSubmit={this.addTask} className = 'login-form-add' >
+		        <FormItem>
+		          {getFieldDecorator('category', {
+		            rules: [{ required: true, message: 'Please input title of task!' }],
+		          })(
+		            <Input placeholder="Give the list a title" />
+		          )}
+		        </FormItem>
+				
+				{/*
+				<Dropdown overlay={menu} trigger={['click']} className = 'milestone-'>
+				   <a className="ant-dropdown-link" href="#">
+				      Click me <Icon type="down" />
+				    </a>
+				</Dropdown>		
+				*/}
+				<FormItem>
+		          {getFieldDecorator('participants', {
+		            rules: [{ required: true, message: 'Please input participant name!' }],
+		          })(
+			          <Select setFieldsValue="Select default Assignee">
+				    	<Option value= 'Select default Assignee'>Select default Assignee</Option>
+			            {renderParticipants}
+			         </Select>
+		          )}
+		        </FormItem>
+
+		        <FormItem>
+		          {getFieldDecorator('desc', {
+		            rules: [{ required: true, message: 'Please input your task option!' }],
+		          })(
+		            <Input placeholder="Describe this List (optional)" />
+		          )}
+		        </FormItem>
+
+		        <p style = {{marginTop : '16px'}}> Who can view this task list :-</p>
+		        <FormItem>
+		          {getFieldDecorator('scope', {
+		            rules: [{ required: true, message: 'Please input your task option!' }],
+		          })(
+			        <RadioGroup setFieldsValue={this.state.value}>
+				        <Radio value={1}> Everyone </Radio>
+				        <Radio value={2}> Private </Radio>
+				    </RadioGroup>
+		          )}
+		        </FormItem>
+
+			    <div>
+			    	<span> Select number of days </span> 
+			    	<FormItem>
+			          {getFieldDecorator('days', {
+			            rules: [{ required: true, message: 'Please input your task option!' }],
+			          })(
+			    		<InputNumber min={1} max={10} Value={3} />
+			          )}
+			        </FormItem>
+			    </div>
+
+			    <div>
+			   {/* <Button type="primary" htmlType="submit" className="login-form-add-button">
+			   	            	Cancel
+			   	    </Button>	*/}
+
+				<Button type="primary" htmlType="submit" className="login-form-add-button">
+	            	Add Task
+	         	</Button>
+	         	</div>	
+	         	<br />	
+         	</Form>		
+		)
+	}
+}
+const AddTasks = Form.create()(AddTasksView);
+export default connect(
+
+)(AddTasks);
+
+{/*		const menu = (
+			<Menu>
+				<Menu.Item key="0">
+					<a href="">1st menu item</a>
+				</Menu.Item>
+				<Menu.Item key="1">
+					<a href="">2nd menu item</a>
+				</Menu.Item>
+				<Menu.Item key="3">3rd menu item</Menu.Item>
+			</Menu>
+		);*/}
+// <Form onSubmit={this.addTask} id="loginFormAdd">
+// <Form onSubmit={this.addTask} style = {loginForAdd} >
+//  ReactDOM.findDOMNode(myDiv).style.color = 'green';

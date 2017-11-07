@@ -1,0 +1,31 @@
+.project-box-style{
+	margin: 20px 10px;
+	width : 240px;
+	height: 100px;
+	float: none;
+	display: inline-block;
+}
+
+.project-list-container {
+	text-align: center;
+}
+
+.project-block-style {
+	border-radius: 2px;
+}
+
+.custom-image {
+	border-radius: 45px;
+    width: 65px;
+    height: 65px;
+    margin: 10px;
+    border : 1px solid rgb(238,238,238);
+}
+
+.custom-card {
+	padding: 10px;
+}
+
+.loader-style {
+	height : 50px;
+}

@@ -1,0 +1,84 @@
+/* All atrribute having some id
+[id] {
+	border : 2px solid red;
+}*/
+
+/*	All attribute having id ends with add 
+[id$=Add] {
+	border : 2px solid red;
+}
+*/
+
+/*All attribute having id started with l
+[id^=l] {
+	border : 2px solid red;
+}
+*/
+
+/*All attribute having id cotaining with add
+[id~=l] {
+	border : 2px solid red;
+}
+*/
+/*:enabled {
+	color : YELLOW;
+}
+*/
+
+/* All tr elements having even and odd number of rows
+tr:nth-child(even)
+tr:nth-child(odd)
+*/
+/*	All attribute having id ==loginformAdd
+[id|=loginFormAdd] {
+	border : 2px dotted green;
+}
+*/
+.ant-input {
+	margin: 5px 0;
+}
+
+.ant-form-item {
+	margin-bottom: 0;
+}
+
+.ant-radio-group {
+	margin : 5px 0 20px;
+}
+
+.login-form-button {
+	margin: 20px 0;
+}
+
+.ant-select{
+	margin: 10px 0;
+}
+
+.login-form-add-button {
+	width : auto;
+	float : right;
+	margin-left: 12px;
+	margin-top: 0;
+}
+
+.login-form-add {
+	margin : 16px auto;
+	float : none;
+	max-width: 400px;
+	border : 1px solid rgb(238,238,238);
+	min-height: 350px;
+	max-height: 460px;
+	height: auto;
+	padding: 16px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+
+}
+
+.ant-input-number{
+	margin-top: 4px;
+}
+
+.ant-form-item-control-wrapper{
+	margin-top: 5px;
+}

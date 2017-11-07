@@ -1,0 +1,16 @@
+.options{
+	color: red;
+	cursor: pointer;
+	height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    background: #89cc6e;
+}
+.option{
+	color: grey;
+	cursor: pointer;
+	height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    background: #efefef;
+}

@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.app-bar-style{
+	height: 50px;
+    line-height: 3;
+    font-size: 16px;
+}
+
+.link-style {
+	padding: 0 24px;
+
+}
+
+h3 {
+	font-size:  16px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p {
+	overflow: hidden;
+    text-overflow: ellipsis;	
+}
