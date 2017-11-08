@@ -70,7 +70,7 @@ class AddSubTask extends Component {
 			         </div> :
 		         	<Form onSubmit={this.addSubTask} className="login-form">
 				        <FormItem style = {{width : '85%', float : 'left'}}>
-				          {getFieldDecorator('client_id', {
+				          {getFieldDecorator('clientId', {
 				            rules: [{ required: true, message: 'Please input client_id' }],
 				          })(
 				            <Input placeholder="Add New Task" />

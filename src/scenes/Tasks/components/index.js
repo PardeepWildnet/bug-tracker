@@ -13,8 +13,13 @@ class Tasks extends Component {
 	}
 
 	render () {
-		const { taskLists, id } = this.props;
+		const { 
+			taskLists, 
+			id 
+		} = this.props;
+
 		console.log( " id id :- " + id);
+
 		return (
 			<div>
 				<AddTasks />

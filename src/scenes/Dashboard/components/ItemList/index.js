@@ -11,7 +11,10 @@ class ItemList extends Component{
 	}
 
 	render(){
-		const { receipeList, filterKeyword } = this.props;
+		const { 
+			receipeList, 
+			filterKeyword 
+		} = this.props;
 
 		let filteredList = receipeList.length && [...receipeList[0].data.results];
 

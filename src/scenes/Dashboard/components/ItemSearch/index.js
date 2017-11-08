@@ -5,7 +5,6 @@ import * as dashBoardActions from './../../data/dashboard/action';
 import './style.css';
 
 class ItemSearch extends Component{
-	
 	constructor(props){
 		super(props);
 		this.onSearch = this.onSearch.bind(this);

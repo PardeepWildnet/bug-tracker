@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router';
 
 import * as addTaskApi from './../../data/AddTasks/api';
-import * as config from './../../../../config.js';
 import participants from './../../../../Assets/participantsList.json';
 import './AddTask.css';
 
@@ -27,7 +26,7 @@ class AddTasksView extends Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				console.log('Received values of form in add task: ', values);
-			    this.props.dispatch(addTaskApi.AddTaskApi(values, config.token))
+			    this.props.dispatch(addTaskApi.AddTaskApi(values))
 			    this.props.form.resetFields();
 			}
 		});
@@ -51,12 +50,14 @@ class AddTasksView extends Component {
 	    } = this.props.form;
 
 	    const renderParticipants = participants.map((pariticipant) => (
-	    	<Option value={ pariticipant.name } key = { pariticipant.id }>{ pariticipant.name }</Option>
+	    	<Option 
+	    		value={ pariticipant.name } 
+	    		key = { pariticipant.id }
+	    	>
+	    		{ pariticipant.name }
+	    	</Option>
 	    ));
 
-
-		console.log("inside add task the taken is :-" + config.token);
-		
 		return(
 			<Form onSubmit={this.addTask} className = 'login-form-add' >
 		        <FormItem>
@@ -67,13 +68,6 @@ class AddTasksView extends Component {
 		          )}
 		        </FormItem>
 				
-				{/*
-				<Dropdown overlay={menu} trigger={['click']} className = 'milestone-'>
-				   <a className="ant-dropdown-link" href="#">
-				      Click me <Icon type="down" />
-				    </a>
-				</Dropdown>		
-				*/}
 				<FormItem>
 		          {getFieldDecorator('participants', {
 		            rules: [{ required: true, message: 'Please input participant name!' }],
@@ -94,6 +88,7 @@ class AddTasksView extends Component {
 		        </FormItem>
 
 		        <p style = {{marginTop : '16px'}}> Who can view this task list :-</p>
+		        
 		        <FormItem>
 		          {getFieldDecorator('scope', {
 		            rules: [{ required: true, message: 'Please input your task option!' }],
@@ -121,9 +116,9 @@ class AddTasksView extends Component {
 			   	            	Cancel
 			   	    </Button>	*/}
 
-				<Button type="primary" htmlType="submit" className="login-form-add-button">
-	            	Add Task
-	         	</Button>
+					<Button type="primary" htmlType="submit" className="login-form-add-button">
+		            	Add Task
+		         	</Button>
 	         	</div>	
 	         	<br />	
          	</Form>		
@@ -149,3 +144,10 @@ export default connect(
 // <Form onSubmit={this.addTask} id="loginFormAdd">
 // <Form onSubmit={this.addTask} style = {loginForAdd} >
 //  ReactDOM.findDOMNode(myDiv).style.color = 'green';
+{/*
+<Dropdown overlay={menu} trigger={['click']} className = 'milestone-'>
+   <a className="ant-dropdown-link" href="#">
+      Click me <Icon type="down" />
+    </a>
+</Dropdown>		
+*/}

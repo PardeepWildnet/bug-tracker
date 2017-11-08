@@ -24,13 +24,13 @@ class DashboardView extends Component{
 	}
 
 	render(){
-		const { receipeList } = this.props;
+		const { 
+			receipeList 
+		} = this.props;
 
 		return(
 			<div> 
-				<ItemSearch 
-					onSearch={this.onSearch} 
-				/>
+				<ItemSearch onSearch={this.onSearch} />
 				<ItemList 
 					receipeList = {receipeList} 
 					filterKeyword = {this.filterKeyword} 

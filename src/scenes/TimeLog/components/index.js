@@ -8,16 +8,14 @@ import * as api from './../data/ShowTimeStamps/api';
 const timeLog1 = "hi";
 
 class TimeLog extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentWillMount () {
 		this.props.dispatch(api.ShowTimeLogApi());
 	}
 
 	render () {
-		const { timeLogs } = this.props;
+		const { 
+			timeLogs 
+		} = this.props;
 		
 		return (
 			<div>

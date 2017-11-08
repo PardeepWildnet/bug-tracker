@@ -17,7 +17,9 @@ class Projects extends Component {
 	}
 
 	render() {
-		const { productLists } = this.props;
+		const { 
+			productLists 
+		} = this.props;
 
 		return (
 			<div>

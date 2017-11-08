@@ -6,14 +6,12 @@ import taskList from './../../../../Assets/taskList.json';
 
 export const ShowSubTaskListApi = () => (dispatch) => {
 	const url = config.base_url + 'admin/skills/list';
-	const token = config.token;
 	
 	var parameters = {
 		page_number : '1',
-		token : token
+		token : config.token
 	}
 	
-	console.log("inside api in taskList and token is :- " + token);
 	console.log("url of tasklist is :- " + url);
 	console.log("taskList json data is :- " + taskList);
 

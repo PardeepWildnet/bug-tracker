@@ -30,7 +30,9 @@ class QuizView extends Component {
 	}
 
 	render(){
-		const { questionList } = this.props;
+		const { 
+			questionList 
+		} = this.props;
 
 		return(
 			<div>

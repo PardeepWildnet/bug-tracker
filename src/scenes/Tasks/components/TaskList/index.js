@@ -6,11 +6,12 @@ import './TaskList.css';
 import { SubTaskList } from './../SubTaskList';
 
 class TaskList extends Component {
-	constructor(props){
-		super(props);
-	}
 
 	render () {
+		const { 
+			tasks 
+		} = this.props;
+		
 		return(
 			<div >
 				{

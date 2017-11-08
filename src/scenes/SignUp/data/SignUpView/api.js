@@ -4,8 +4,6 @@ import * as signUpActions from './action';
 import * as config from './../../../../config';
 
 export const SignUpAPI = (signUpData) => (dispatch) => {
-	console.log("inside signup api, data is :- ", signUpData);
-	
 	let signUpDetails = {
 		"first_name" : signUpData.firstName,
 		"last_name" : signUpData.lastName,

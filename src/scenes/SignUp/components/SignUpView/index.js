@@ -44,7 +44,9 @@ class SignUpView extends Component {
 	}
 
 	render(){
-		const { getFieldDecorator } = this.props.form;
+		const { 
+			getFieldDecorator 
+		} = this.props.form;
 
 		return(
 			<div>
@@ -79,57 +81,45 @@ class SignUpView extends Component {
 			          {
 			          	getFieldDecorator('email', {
 			            	rules: [
-			            		{ required: true, message: 'Please input your username!' }
+			            		{ required: true, message: 'Please input your email!' }
 			            	]
 			          	})
 			          	(
-		            		<Input placeholder="email" />
+		            		<Input placeholder="Email" />
 			          	)
 			          }
 			        </FormItem>
 
-			        <FormItem
-			          label="Password"
-			          hasFeedback
-			        >
-			          {getFieldDecorator('password', {
-			            rules: [{
-			              required: true, message: 'Please input your password!',
-			            }, {
-			              validator: this.checkConfirm,
-			            }],
+			        <FormItem>
+			          {
+			          	getFieldDecorator('password', {
+				            rules: [{
+				              required: true, message: 'Please input your password!',
+				            }, {
+				              validator: this.checkConfirm,
+				            }],
 			          })(
-			            <Input type="password" />
-			          )}
-			        </FormItem>
-
-			        <FormItem
-			          label="Confirm Password"
-			          hasFeedback
-			        >
-			          {getFieldDecorator('confirm', {
-			            rules: [{
-			              required: true, message: 'Please confirm your password!',
-			            }, {
-			              validator: this.checkPassword,
-			            }],
-			          })(
-			            <Input type="password" onBlur={this.handleConfirmBlur} />
+			            	<Input type="password" placeholder = "Password"/>
 			          )}
 			        </FormItem>
 
 			        <FormItem>
 			          {
-			          	getFieldDecorator('remember', {
-			            valuePropName: 'checked',
-			            initialValue: true,
-			          })(
-			            <Checkbox>Remember me</Checkbox>
+			          	getFieldDecorator('confirm', {
+				            rules: [{
+				              required: true, message: 'Please confirm your password!',
+				            }, {
+				              validator: this.checkPassword,
+				            }],
+				        })(
+				            <Input type="password" onBlur={this.handleConfirmBlur} placeholder = 'Confirm Password'/>
 			          )}
-			          <Button type="primary" htmlType="submit" className="login-form-button">
-			            Sign Up
-			          </Button>
 			        </FormItem>
+
+		          <Button type="primary" htmlType="submit" className="login-form-button">
+		          	Sign Up
+		          </Button>
+		          
 			    </Form>
 			</div>
 		)

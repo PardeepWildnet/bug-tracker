@@ -5,13 +5,10 @@ import { Link } from 'react-router-dom';
 import './ProjectList.css'
 
 class ProjectsList extends Component {
-
-	constructor(props){
-		super(props);
-	}
-
 	render(){
-		const { projects } = this.props;
+		const { 
+			projects 
+		} = this.props;
 		
 		return(
 			<div className = 'project-list-container'>
@@ -44,36 +41,6 @@ class ProjectsList extends Component {
 }
 
 export default ProjectsList
-/*
-0
-:
-agentCount
-:
-0
-email
-:
-"hydraulix@x.com"
-genre
-:
-"Electronic"
-hover_image
-:
-""
-id
-:
-1191
-image
-:
-"http://actaagency.com.au/administrator//images/users/150660165876525.jpeg"
-managerCount
-:
-0
-name
-:
-"Hydraulix"
-rating
-:
-0
-*/
+
 // <Link to={'/tasks?id:' + product.id + '&email:' + product.email} key = {product.id}>
 // <img src = 'https://cdn.dribbble.com/users/255512/screenshots/2215917/animation.gif' className = 'loader-style'/>

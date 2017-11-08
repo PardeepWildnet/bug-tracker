@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 
 import timeLogs from './../../../../Assets/timeLogList.json';
 import './ShowTimeStamps.css';
 
 class ShowTimeStamps extends Component {
-	constructor(props) {
-		super(props)
-	}
-
 	render () {
-		const { timeLog } = this.props;
+		const { 
+			timeLog 
+		} = this.props;
 		
 		return (
 			<div>
@@ -22,7 +19,7 @@ class ShowTimeStamps extends Component {
 							<p className = 'date-style'> { item.date } </p>
 							<p className = 'detail-style'>{ item.detail } </p>
 							<p className = 'time-style'>{ item.time } </p>
-								<i className="fa fa-pencil icon-style" aria-hidden="true"></i>
+							<i className="fa fa-pencil icon-style" aria-hidden="true"></i>
 							<i className="fa fa-clock-o icon-style" aria-hidden="true"></i>
 							<br />
 						</div>

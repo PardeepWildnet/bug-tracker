@@ -62,8 +62,16 @@ class AddProjects extends Component {
 	}
 
 	render(){
-		const { visible, confirmLoading, ModalText } = this.state;
-		const { getFieldDecorator, loginState } = this.props.form;
+		const { 
+			visible, 
+			confirmLoading, 
+			ModalText 
+		} = this.state;
+
+		const { 
+			getFieldDecorator, 
+			loginState 
+		} = this.props.form;
 
 		return(
 			<div className = 'add-project-container'>
@@ -73,22 +81,16 @@ class AddProjects extends Component {
 		          onOk={this.handleOk}
 		          confirmLoading={confirmLoading}
 		          onCancel={this.handleCancel}
-		          footer={[
-				   
-				  ]}
+		          footer={[]}
 		        >
 		          <Form onSubmit = { this.handleSubmit }>
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
-			            	rules: [
-			            		{ required: true, message: 'Please input your project name!' }
-			            	]
-			          	})
-			          	(
+			             rules: [{ required: true, message: 'Please input your project name!' }]
+			          })(
 		            		<Input prefix={<Icon type="plus" style={{ fontSize: 13 }} />} placeholder="Name the project" />
-			          	)
-			          }
+			          )}
 			        </FormItem>
 
 			        <FormItem>

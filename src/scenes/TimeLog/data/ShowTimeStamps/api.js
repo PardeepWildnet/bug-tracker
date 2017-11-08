@@ -6,11 +6,10 @@ import taskList from './../../../../Assets/taskList.json';
 
 export const ShowTimeLogApi = () => (dispatch) => {
 	const url = config.base_url + 'admin/skills/list';
-	const token = config.token;
 	
 	var parameters = {
 		page_number : '1',
-		token : token
+		token : config.token
 	}
 	
 	axios.post(url, parameters)

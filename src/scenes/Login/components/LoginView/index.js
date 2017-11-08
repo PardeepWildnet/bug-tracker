@@ -37,7 +37,10 @@ class LoginView extends Component{
 	}
 
 	render(){
-		const { getFieldDecorator, loginState } = this.props.form;
+		const { 
+			getFieldDecorator, 
+			loginState 
+		} = this.props.form;
 
 		return(
 			<div>
@@ -45,30 +48,26 @@ class LoginView extends Component{
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
-			            	rules: [
-			            		{ required: true, message: 'Please input your username!' }
-			            	]
-			          	})
-			          	(
+			            	rules: [{ required: true, message: 'Please input your username!' }]
+			          	})(
 		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('password', {
-			            rules: [{ required: true, message: 'Please input your Password!' }],
-			          })(
-			            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
-			          )}
-			        </FormItem>
+					<FormItem>
+					  {
+					  	getFieldDecorator('password', {
+					    rules: [{ required: true, message: 'Please input your Password!' }],
+					  })(
+					    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+					  )}
+					</FormItem>
 
 			        <FormItem>
 			          {
 			          	getFieldDecorator('remember', {
 			            valuePropName: 'checked',
-			            initialValue: true,
+			            initialValue: false,
 			          })(
 			            <Checkbox>Remember me</Checkbox>
 			          )}
@@ -76,8 +75,8 @@ class LoginView extends Component{
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			            Log in
 			          </Button>Or &nbsp;
-        			  <NavLink to="/signUp" className = 'list-group-item-signIn'>
-        			  	register now!
+        			  <NavLink to="/sign-up" className = 'list-group-item-signIn'>
+        			  	Register now
         			  </NavLink>
 			        </FormItem>
 			    </Form>

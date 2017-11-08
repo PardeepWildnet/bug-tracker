@@ -42,7 +42,7 @@ return (
                 <Links />
 
                 <Route exact path = '/' component = { Login } />
-                <Route path = '/signUp' component = { SignUp } />
+                <Route path = '/sign-up' component = { SignUp } />
                 <Route path = '/login' component = { Login } />
                 <Route path = '/contents' component = { Content } />
                 <Route path = '/quiz' component = { Quiz } />
