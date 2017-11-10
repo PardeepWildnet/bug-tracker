@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 import * as signUpApi from './../../data/SignUpView/api';
 const FormItem = Form.Item;
@@ -116,10 +117,19 @@ class SignUpView extends Component {
 			          )}
 			        </FormItem>
 
-		          <Button type="primary" htmlType="submit" className="login-form-button">
-		          	Sign Up
-		          </Button>
-		          
+			    	 <FormItem>
+			          {
+			          	getFieldDecorator('remember', {
+			            valuePropName: 'checked',
+			          })}
+				        <Button type="primary" htmlType="submit" className="login-form-button">
+			          		Sign Up
+			          	</Button>
+        			  	<NavLink to="/sign-up" className = 'list-group-item-signIn'>
+        			  		Login
+        			  	</NavLink>
+			        </FormItem>
+
 			    </Form>
 			</div>
 		)

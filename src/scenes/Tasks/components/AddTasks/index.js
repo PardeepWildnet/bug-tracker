@@ -72,8 +72,7 @@ class AddTasksView extends Component {
 		          {getFieldDecorator('participants', {
 		            rules: [{ required: true, message: 'Please input participant name!' }],
 		          })(
-			          <Select setFieldsValue="Select default Assignee">
-				    	<Option value= 'Select default Assignee'>Select default Assignee</Option>
+			          <Select placeholder="Select default Assignee">
 			            {renderParticipants}
 			         </Select>
 		          )}
@@ -105,8 +104,9 @@ class AddTasksView extends Component {
 			    	<FormItem>
 			          {getFieldDecorator('days', {
 			            rules: [{ required: true, message: 'Please input your task option!' }],
+			            initialValue : '3'
 			          })(
-			    		<InputNumber min={1} max={10} Value={3} />
+			    		<InputNumber min={1} max={10} />
 			          )}
 			        </FormItem>
 			    </div>

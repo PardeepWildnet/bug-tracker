@@ -9,7 +9,9 @@ import Dashboard from './scenes/Dashboard';
 import Quiz from './scenes/Quiz';
 import Projects from './scenes/Projects';
 import Tasks from './scenes/Tasks';
+import Videos from './scenes/Videos';
 import Links from './scenes/Links';
+import PaginationView from './scenes/Pagination';
 import Content from './scenes/Content';
 import TimeLogs from './scenes/TimeLog';
 import DashboardView from './scenes/Dashboard/components/DashboardView';
@@ -47,7 +49,9 @@ return (
                 <Route path = '/contents' component = { Content } />
                 <Route path = '/quiz' component = { Quiz } />
                 <Route path = '/time' component = { TimeLogs } />
+                <Route path = '/pagination' component = { PaginationView } />
                 <Route path = '/projects' component = { Projects } />                
+                <Route path = '/videos' component = { Videos } />                
                 <Route path = '/tasks/:id' component = { Tasks }  />
                 <Route path = '/dashboard' component = { Dashboard } />
                 <Route path = '/dashboard/:receipe' component = { DashboardView } />

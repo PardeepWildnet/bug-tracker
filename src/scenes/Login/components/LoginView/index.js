@@ -71,12 +71,12 @@ class LoginView extends Component{
 			          })(
 			            <Checkbox>Remember me</Checkbox>
 			          )}
-			          <a className="login-form-forgot" href="">Forgot password</a>
+			          <a className="login-form-forgot" href="">Forgot Password</a>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			            Log in
 			          </Button>Or &nbsp;
         			  <NavLink to="/sign-up" className = 'list-group-item-signIn'>
-        			  	Register now
+        			  	Register Now
         			  </NavLink>
 			        </FormItem>
 			    </Form>

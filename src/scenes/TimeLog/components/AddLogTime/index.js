@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { Form, Input, Button, DatePicker, LocaleProvider, TimePicker, Upload, Icon, message  } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { connect } from 'react-redux';
+import ReactPlayer from 'react-player'
 
 import * as api from './../../data/AddLogTime/api';
+import { PriceInput } from './PriceInput.js';
 import './AddLogTime.css';
+import moment from 'moment';
 const FormItem = Form.Item;
+const dateFormat = 'YYYY-MM-DD';
 
 class AddLogTimeView extends Component {
 	constructor(props) {
@@ -13,13 +17,33 @@ class AddLogTimeView extends Component {
 		this.submitTime = this.submitTime.bind(this);
 		this.onChangeTime = this.onChangeTime.bind(this);
 		this.onChangeDate = this.onChangeDate.bind(this);
+		const value = this.props.value || {};
 		this.state = {
 			selectedTime : '', 
 			selectedDate : '',
 			fileList: [],
+			name : 'mansi',
+		    date: value.date || '22',
+		    currency: value.currency || 'rmb',
 		}
 	}
 
+	handleNumberChange = (e) => {
+	    const date = parseInt(e.target.value || 0, 10);
+	    if (!('value' in this.props)) {
+	      this.setState({ date });
+	    }
+	    this.triggerChange({ date });
+	  }
+
+	   triggerChange = (changedValue) => {
+	    // Should provide an event to pass value to Form.
+	    const onChange = this.props.onChange;
+	    if (onChange) {
+	      onChange(Object.assign({}, this.state, changedValue));
+	    }
+	  }
+	  
 	submitTime(e) {
 		e.preventDefault();
 		const { 
@@ -60,7 +84,7 @@ class AddLogTimeView extends Component {
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
-
+		console.log("props value in add time log is :- ", this.props.value);
 	    const props = {
 	    	onRemove: (file) => {
 		        this.setState(({ fileList }) => {
@@ -85,21 +109,19 @@ class AddLogTimeView extends Component {
 		return (
 			<div>
 				 <Form onSubmit={this.submitTime} className="time-log-form">
-
-			        <FormItem>
-			          {getFieldDecorator('task', {
-			            rules: [{ required: true, message: 'Please input your task!' }],
-			          })(
-			            <Input placeholder = "Enter your task title"/>
-			          )}
-			        </FormItem>
+					 <Input
+				          type="text"
+				          value={this.state.date}
+				          onChange={this.handleNumberChange}
+				          style={{ width: '100%', marginRight: '3%' }}
+			        />
 			        
 					<LocaleProvider locale={enUS}> 
-						<DatePicker  onChange={this.onChangeDate}/>
+						<DatePicker  onChange={this.onChangeDate} defaultValue = {moment(this.state.date, dateFormat)}/>
 					</LocaleProvider>
 
 		          	<LocaleProvider locale={enUS}> 
-		            	<TimePicker use12Hours format="h:mm a" onChange={this.onChangeTime} />
+		            	<TimePicker use12Hours format="h:mm a" onChange={this.onChangeTime} defaultValue = {moment('2015-06-06', dateFormat)}/>
 					</LocaleProvider>
 
 					<Upload {...props}>
