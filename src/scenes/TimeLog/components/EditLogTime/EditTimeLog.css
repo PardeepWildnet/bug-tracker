@@ -1,0 +1,20 @@
+
+.edit-ant-form-input {
+	width : 100%;
+}
+.edit-ant-btn-lg {
+	width: 100% !important;
+    color: #fff !important;
+    background-color: #108ee9 !important;
+    border-color: #108ee9 !important;
+}
+
+.edit-form-button {
+	margin : 0;
+	font-size: 14px;
+	height: 32px;
+}
+.edit-ant-modal-footer {
+	padding: 10px 16px 10px 16px;
+}
+

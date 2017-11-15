@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../../data/quiz/action';
 import * as fetchAPI from '../../data/quiz/api';
 
 import './style.css';

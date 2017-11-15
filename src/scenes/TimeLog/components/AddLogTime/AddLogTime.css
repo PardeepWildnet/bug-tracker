@@ -11,14 +11,14 @@
 
 .ant-calendar-picker {
 	margin: 5px 0px;
-    width: 49%;
+    width: 100%;
 }
 
 .ant-time-picker {
 	float: right;
     margin: 10px 0;
     height: 32px;
-    width: 50%;
+    width: 100%;
 }
 
 .ant-form-item-label {

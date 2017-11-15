@@ -4,9 +4,11 @@ import * as action from './action.js';
 import * as config from './../../../../config.js';
 
 export const addLogTime = (values, fileList, date, time) => (dispatch) => {
-	// const url = config.base_url+'admin/skills/add';
 	const url = 'http://180.151.103.85:3013/api/admin/upload/image';
-	console.log("inside api is :- ", values);
+	// const url = config.base_url+'admin/skills/add';
+	// const date = values.date.format("MMM Do YY");
+	// const time = values.time.format('LT');
+
 	let formData = new FormData();
 	formData.append('token', config.token);
 	fileList.forEach((file) => {

@@ -5,7 +5,7 @@ import * as action from './action';
 
 export const addProject = () => (dispatch) => {
 	const url = config.acta_url + 'getartistlistforweb';
-	let body_params = {token: config.token, page_number: 1};
+	// let body_params = {token: config.token, page_number: 1};
 
 	axios.get(url)
 		.then((response) => {

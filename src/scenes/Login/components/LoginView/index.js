@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { withRouter, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
 import * as loginAPI from './../../data/LoginView/api';
@@ -24,15 +24,17 @@ class LoginView extends Component{
 		    console.log('Received values of form: ', values, this.props.history);
 		    this.props.dispatch(loginAPI.LoginAPI(values))
 		    this.props.form.resetFields();
+
 		  }
 		});
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.loginState);
-		if(nextProps.loginState.length && nextProps.loginState[0].data.status_code == 200){
+		debugger
+		if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
+			this.props.history.push('/main');
 			console.log("After Login in componentWillReceiveProps ");
-			this.props.history.push('/dashboard');
 		}
 	}
 
@@ -44,6 +46,7 @@ class LoginView extends Component{
 
 		return(
 			<div>
+				Login Form
 				<Form onSubmit = { this.handleSubmit } className = "login">
 			        <FormItem>
 			          {
@@ -64,17 +67,12 @@ class LoginView extends Component{
 					</FormItem>
 
 			        <FormItem>
-			          {
-			          	getFieldDecorator('remember', {
-			            valuePropName: 'checked',
-			            initialValue: false,
-			          })(
-			            <Checkbox>Remember me</Checkbox>
-			          )}
-			          <a className="login-form-forgot" href="">Forgot Password</a>
+        			  <NavLink to="/forgot-password" className = 'list-group-item-signIn'>
+			           	Forgot Password
+			          </NavLink>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			            Log in
-			          </Button>Or &nbsp;
+			          </Button>
         			  <NavLink to="/sign-up" className = 'list-group-item-signIn'>
         			  	Register Now
         			  </NavLink>

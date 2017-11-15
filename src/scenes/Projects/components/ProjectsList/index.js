@@ -17,19 +17,13 @@ class ProjectsList extends Component {
 					projects.data.map((product) => (
 						<Link to={'/tasks/' + product.id } key = {product.id}>
 							
-							<div  className = 'project-box-style'>
-								<Card style={{ width: 240 }} bodyStyle={{ padding: 0 }} className = 'project-block-style'>
-									<div className="custom-image-container">
-									    <img alt="example" height="200px" width="100%" src = {product.image} className = 'custom-image'/>
-										<hr />
-									</div>
-									<div className="custom-card">
-									  <h3>{product.email}</h3>
-									  <p>www.instagram.com</p>
-									  <p> { product.name } </p>
-									</div>
-								</Card>
-
+							<div key = {product.id} className = 'time-log-list-container'>
+								<p className = 'date-style'> {product.email} </p>
+								<p className = 'detail-style'>www.instagram.com </p>
+								<p className = 'time-style'>{ product.name } </p>
+								<i className="fa fa-pencil icon-style" aria-hidden="true"></i>
+								<i className="fa fa-clock-o icon-style" aria-hidden="true"></i>
+								<br />
 							</div>
 						</Link>
 					)) :
@@ -44,3 +38,4 @@ export default ProjectsList
 
 // <Link to={'/tasks?id:' + product.id + '&email:' + product.email} key = {product.id}>
 // <img src = 'https://cdn.dribbble.com/users/255512/screenshots/2215917/animation.gif' className = 'loader-style'/>
+

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import * as signUpApi from './../../data/SignUpView/api';
@@ -18,10 +18,12 @@ class SignUpView extends Component {
 
 	handleSubmit (e) {
 		e.preventDefault();
+		debugger
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
 		    this.props.dispatch(signUpApi.SignUpAPI(values))
+		    message.success('Please verify your email first');
 		    this.props.form.resetFields();
 		  }
 		});
@@ -125,7 +127,7 @@ class SignUpView extends Component {
 				        <Button type="primary" htmlType="submit" className="login-form-button">
 			          		Sign Up
 			          	</Button>
-        			  	<NavLink to="/sign-up" className = 'list-group-item-signIn'>
+        			  	<NavLink to="/login" className = 'list-group-item-signIn'>
         			  		Login
         			  	</NavLink>
 			        </FormItem>

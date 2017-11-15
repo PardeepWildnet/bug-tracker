@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-import { base_url } from './../../../../config';
+import * as config from './../../../../config';
 import * as loginActions from './action';
 
 export const LoginAPI = (loginData) => (dispatch) => {
-	const url = 'http://180.151.103.85:3015/api/admin/login';
+	const url = config.base_url + 'api/login';
 	console.log("login api data is :- ", loginData);
 
 	const loginDetails = {
-		email : loginData.email,
-		password : window.btoa(loginData.password) 
+		username : loginData.email,
+		password : loginData.password
 	}
-
 	axios.post(url, loginDetails)
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
+			debugger
 			dispatch(loginActions.login(response))
 			// console.log(response, "login response");
 		},

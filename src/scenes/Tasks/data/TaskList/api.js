@@ -20,6 +20,7 @@ export const ShowTaskListApi = () => (dispatch) => {
 	},
 	error =>{
 		console.log("error in fetching task");
-		dispatch({type: 'error'})
+		dispatch(action.showTask(taskList));
+		// dispatch({type: 'error'})
 	})
 }

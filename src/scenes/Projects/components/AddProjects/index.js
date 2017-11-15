@@ -84,7 +84,7 @@ class AddProjects extends Component {
 		          footer={[]}
 		        >
 		          <Form onSubmit = { this.handleSubmit }>
-			        <FormItem>
+			        <FormItem label = 'Add Projects'>
 			          {
 			          	getFieldDecorator('email', {
 			             rules: [{ required: true, message: 'Please input your project name!' }]

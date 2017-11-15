@@ -8,6 +8,9 @@
 
 .project-list-container {
 	text-align: center;
+	margin: 20px 5%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }
 
 .project-block-style {
@@ -28,4 +31,42 @@
 
 .loader-style {
 	height : 50px;
+}
+
+.date-style {
+	float : left;
+	margin : 0 16px;
+	padding: 10px 0;
+	font-size: 16px;
+	width: 20%;
+}
+
+.detail-style {
+	float : left;
+	margin : 0 16px;
+	padding: 10px 0;
+	font-weight: bold;
+	font-size: 16px;
+	width: 40%;
+}
+
+.time-style {
+	float : left;
+	margin : 0 16px;
+	padding: 10px 0;
+	width : 20%;
+	margin-right: 0;
+}
+
+
+.time-log-list-container {
+	height : 50px;
+	border-bottom: 1px solid;
+}
+
+.icon-style {
+	padding: 12px;
+    font-size: 20px;
+    float: right;
+    cursor : pointer;
 }

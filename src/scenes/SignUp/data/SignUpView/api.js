@@ -5,16 +5,13 @@ import * as config from './../../../../config';
 
 export const SignUpAPI = (signUpData) => (dispatch) => {
 	let signUpDetails = {
-		"first_name" : signUpData.firstName,
-		"last_name" : signUpData.lastName,
+		"firstName" : signUpData.firstName,
+		"lastName" : signUpData.lastName,
 		"email" : signUpData.email,
 		"password" : signUpData.password,
-		"username" : signUpData.firstName + signUpData.lastName,
-		"is_active" : 1,
-		"token" : config.token
 	}
 
-	const url = config.base_url + 'admin/admin-users/add';
+	const url = config.base_url + 'api/register';
 	axios.post(url, signUpDetails)
 		.then(response => {
 			dispatch(signUpActions.signUp(response))
