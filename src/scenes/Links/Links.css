@@ -1,0 +1,52 @@
+.list-group-item {
+	display : inline-block;
+}
+
+.title-style {
+	background: white;
+    color: #007bff;
+    border: none;
+    padding: .75rem 1.25rem;
+    line-height: 3;
+    font-size: 18px;
+    font-weight: bold;
+    background: #efefef;
+}
+
+.list-group-item {
+    padding: .75rem 1.25rem;
+	border : none;
+	background: #efefef;
+	line-height: 3;
+}
+
+.navigations-style {
+	width: 72%;
+    text-align: right;
+	background: #efefef;
+    padding-right: 5%;
+}
+
+.user-profile-style {
+	width: 5%;
+    float: right;
+    height: 55px;
+    margin-right: 3%;
+}
+
+.logo-style {
+	width : 5%;
+	float: left;
+	height: 55px;
+	margin-left: 3%;
+}
+
+.nav {
+	background : #efefef; 
+}
+
+.ant-dropdown-menu {
+	width: 130px;
+	padding: 16px;
+	font-size: 16px;
+}

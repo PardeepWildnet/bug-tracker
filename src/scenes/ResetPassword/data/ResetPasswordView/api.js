@@ -1,13 +1,13 @@
 import axios from 'axios';
-
+import { message } from 'antd'
 import * as config from './../../../../config';
 import * as action from './action';
 
-export const ResetPasswordApi = (data) => (dispatch) => {
+export const ResetPasswordApi = (data, token) => (dispatch) => {
 	const url = config.base_url + 'api/reset_password';
 
 	const loginDetails = {
-		token : config.token,
+		token : token,
 		newPassword1 : data.password
 	}
 	console.log("token is :- ", config.token);
@@ -15,6 +15,7 @@ export const ResetPasswordApi = (data) => (dispatch) => {
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
 			dispatch(action.resetPassword(response))
+	        message.success('password change successfully.');
 			console.log("success", response);
 			// console.log(response, "login response");
 		},

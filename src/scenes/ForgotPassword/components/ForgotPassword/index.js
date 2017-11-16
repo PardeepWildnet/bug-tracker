@@ -35,6 +35,7 @@ class ForgotPassword extends Component{
 
 		return(
 			<div>
+				<p className = 'heading-style'> Forgot Password </p>
 				<Form onSubmit = { this.handleSubmit } className = "forgot-password">
 			        <FormItem>
 			          {

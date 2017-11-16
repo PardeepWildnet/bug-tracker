@@ -4,6 +4,7 @@ import { Form, Input, Select, Button } from 'antd';
 
 import AddLogTime from './AddLogTime';
 import ShowTimeStamps from './ShowTimeStamps';
+import './style.css';
 import * as api from './../data/ShowTimeStamps/api';
 const FormItem = Form.Item;
 
@@ -19,6 +20,7 @@ class TimeLog extends Component {
 
 		return (
 			<div>
+				<p className = 'heading-style timelog-style'> Time Log </p>
 				<AddLogTime key = "add" />
 				<ShowTimeStamps timeLog = { timeLogs }/>
 			</div>

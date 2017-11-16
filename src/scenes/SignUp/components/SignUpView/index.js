@@ -53,6 +53,7 @@ class SignUpView extends Component {
 
 		return(
 			<div>
+				<p className = 'heading-style'> Sign Up </p>
 				<Form onSubmit = { this.handleSubmit } className = "login">
 			        <FormItem>
 			          {

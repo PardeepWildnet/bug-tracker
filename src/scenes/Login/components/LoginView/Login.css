@@ -1,13 +1,8 @@
 .login {
-	
-
-	
 	border : 1px solid rgb(238,238,238);
-
 	padding: 16px;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
-
 
 	width: 400px;
 	top: 50%;
@@ -24,4 +19,13 @@
 	display : block;
 	border : none;
 	float: right;
+}
+
+.heading-style {
+	top: 12%;
+    position: absolute;
+    text-align: center !important;
+    font-size: 32px;
+    color: #49a9ee;
+    width: 100%;
 }

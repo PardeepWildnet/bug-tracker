@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Radio, Icon, Modal, Form, Input, Checkbox, DatePicker } from 'antd';
+import { connect } from 'react-redux';
 
 import * as api from './../../data/AddProjects/api';
 import './AddProjects.css';
@@ -9,7 +10,7 @@ import enUS from 'antd/lib/locale-provider/en_US';
 const FormItem = Form.Item;
 const { MonthPicker, RangePicker } = DatePicker;
 
-class AddProjects extends Component {
+class AddProjectView extends Component {
 
 	constructor(props){
 		super(props);
@@ -52,9 +53,10 @@ class AddProjects extends Component {
 
 	handleSubmit (e) {
 		e.preventDefault();
+		debugger
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
-		    console.log('Received values of form: ', values, this.props.history);
+		    console.log('Received values of form: ', values.daterange[1]);
 		    this.props.dispatch(api.addProject(values))
 		    this.props.form.resetFields();
 		  }
@@ -74,55 +76,58 @@ class AddProjects extends Component {
 		} = this.props.form;
 
 		return(
-			<div className = 'add-project-container'>
-				<Button type="primary" onClick={this.showModal} shape="circle" icon="plus-circle-o" className = 'add-project-button'/>
-		        <Modal title="Add Projects"
-		          visible={visible}
-		          onOk={this.handleOk}
-		          confirmLoading={confirmLoading}
-		          onCancel={this.handleCancel}
-		          footer={[]}
-		        >
-		          <Form onSubmit = { this.handleSubmit }>
-			        <FormItem label = 'Add Projects'>
-			          {
-			          	getFieldDecorator('email', {
-			             rules: [{ required: true, message: 'Please input your project name!' }]
-			          })(
-		            		<Input prefix={<Icon type="plus" style={{ fontSize: 13 }} />} placeholder="Name the project" />
-			          )}
-			        </FormItem>
+			<LocaleProvider locale={enUS}> 
+				<div className = 'add-project-container'>
+					<Button type="primary"  icon="plus-circle-o" >Add Projects</Button>
+			        <Modal title="Add Projects"
+			          visible={visible}
+			          onOk={this.handleOk}
+			          confirmLoading={confirmLoading}
+			          onCancel={this.handleCancel}
+			          footer={[]}
+			        >
+			          <Form onSubmit = { this.handleSubmit }>
+				        <FormItem label = 'Add Projects'>
+				          {
+				          	getFieldDecorator('name', {
+				             rules: [{ required: true, message: 'Please input your project name!' }]
+				          })(
+			            		<Input prefix={<Icon type="plus" style={{ fontSize: 13 }} />} placeholder="Name the project" />
+				          )}
+				        </FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('password', {
-			            rules: [{ required: true, message: 'Please input details!' }],
-			          })(
-			            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} placeholder="Detail" />
-			          )}
-			        </FormItem>
+				        <FormItem>
+				          {
+				          	getFieldDecorator('details', {
+				            rules: [{ required: true, message: 'Please input details!' }],
+				          })(
+				            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} placeholder="Detail" />
+				          )}
+				        </FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('daterange', {
-			            rules: [{ required: false, message: 'Please input time duration!' }],
-			          })(
-						<LocaleProvider locale={enUS}> 
+				        <FormItem>
+				          {
+				          	getFieldDecorator('daterange', {
+				            rules: [{ required: false, message: 'Please input time duration!' }],
+				          })(
 							<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
-						</LocaleProvider>
-			          )}
-			        </FormItem>
+				          )}
+				        </FormItem>
 
-			        <FormItem>
-			          <Button type="primary" htmlType="submit" className="login-form-button">
-			            Start the project
-			          </Button>
-			        </FormItem>
-			    </Form>
-		        </Modal>
-			</div>
+				        <FormItem>
+				          <Button type="primary" htmlType="submit" className="login-form-button">
+				            Start the project
+				          </Button>
+				        </FormItem>
+				    </Form>
+			        </Modal>
+				</div>
+			</LocaleProvider>
 		)
 	}
 }
 
-export default AddProjects = Form.create()(AddProjects);
+const AddProjects = Form.create()(AddProjectView);
+export default connect(
+
+)(AddProjects);

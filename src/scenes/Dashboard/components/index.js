@@ -30,11 +30,12 @@ class DashboardView extends Component{
 
 		return(
 			<div> 
-				<ItemSearch onSearch={this.onSearch} />
-				<ItemList 
-					receipeList = {receipeList} 
-					filterKeyword = {this.filterKeyword} 
-				/>
+			<p className = 'heading-style'> Dashboard </p>
+				{/*<ItemSearch onSearch={this.onSearch} />
+								<ItemList 
+									receipeList = {receipeList} 
+									filterKeyword = {this.filterKeyword} 
+								/>*/}
 			</div>
 		)
 	}

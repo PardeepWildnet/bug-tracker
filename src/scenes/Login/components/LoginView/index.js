@@ -46,7 +46,7 @@ class LoginView extends Component{
 
 		return(
 			<div>
-				Login Form
+				<p className = 'heading-style'> Login</p>
 				<Form onSubmit = { this.handleSubmit } className = "login">
 			        <FormItem>
 			          {

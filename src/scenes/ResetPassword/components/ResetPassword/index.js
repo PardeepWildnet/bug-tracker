@@ -14,6 +14,8 @@ class ResetPassword extends Component{
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		console.log(this.props, "this props");
+		const token = this.props.match.params.token;
+		console.log ("token is :- ", token);
 		this.state = {
 		    confirmDirty: false,
 	    };
@@ -24,9 +26,8 @@ class ResetPassword extends Component{
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
-		    this.props.dispatch(api.ResetPasswordApi(values))
+		    this.props.dispatch(api.ResetPasswordApi(values, this.props.match.params.token))
 		    this.props.form.resetFields();
-	        message.success('password change successfully.');
 			this.props.history.push('/login');
 		  }
 		});
@@ -58,6 +59,7 @@ class ResetPassword extends Component{
 
 		return(
 			<div>
+				<p className = 'heading-style'> Reset Password </p>
 				<Form onSubmit = { this.handleSubmit } className = "reset-password">
 			        <FormItem>
 			         {

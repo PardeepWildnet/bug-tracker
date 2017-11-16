@@ -20,8 +20,9 @@ class Main extends Component {
             <Provider store={store}>
                 <Router>
                     <div>
+                        
                         <Links />
-                        <Redirect exact from = '/main' to = '/dashboard' />
+                        <Redirect from = '/main' to = '/dashboard' />
                         <Route path = '/contents' component = { Content } />
                         <Route path = '/quiz' component = { Quiz } />
                         <Route path = '/time' component = { TimeLogs } />

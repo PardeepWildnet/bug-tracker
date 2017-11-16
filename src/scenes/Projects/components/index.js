@@ -23,6 +23,7 @@ class Projects extends Component {
 
 		return (
 			<div>
+				<p className = 'heading-style project-style'> Projects </p>
 				<AddProjects />
 				<ProjectsList projects = { productLists } />
 			</div>

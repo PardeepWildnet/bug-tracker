@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom';
 import './ProjectList.css'
 
 class ProjectsList extends Component {
+	constructor() {
+		super();
+		this.editProject = this.editProject.bind(this);
+	}
+
+	editProject (data) {
+		console.log("inside edit project");
+	}
+
 	render(){
 		const { 
 			projects 
@@ -12,23 +21,35 @@ class ProjectsList extends Component {
 		
 		return(
 			<div className = 'project-list-container'>
+				<table width = '100%' className = 'table table-striped'>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Link</th>
+						<th>Action</th>
+					</tr>
+					<tbody>
 				{
 					projects ? 
 					projects.data.map((product) => (
-						<Link to={'/tasks/' + product.id } key = {product.id}>
-							
-							<div key = {product.id} className = 'time-log-list-container'>
-								<p className = 'date-style'> {product.email} </p>
-								<p className = 'detail-style'>www.instagram.com </p>
-								<p className = 'time-style'>{ product.name } </p>
-								<i className="fa fa-pencil icon-style" aria-hidden="true"></i>
-								<i className="fa fa-clock-o icon-style" aria-hidden="true"></i>
-								<br />
-							</div>
-						</Link>
+							<tr>
+								<td><Link to={'/tasks/' + product.id } key = {product.id}>{product.name}</Link></td>
+								<td><Link to={'/tasks/' + product.id } key = {product.id}>{product.email}</Link></td>
+								<td><Link to={'/tasks/' + product.id } key = {product.id}>www.instagram.com</Link></td>
+								<td>
+								/<i className="fa fa-clock-o icon-style" aria-hidden="true"></i></td>
+							</tr>
 					)) :
-					<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
+					<tr>
+						<td colspan = '4'>
+							<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
+						</td>
+					</tr>
 				}
+				</tbody>
+				</table>
+
+
 			</div>
 		)
 	}
