@@ -16,6 +16,7 @@ class ResetPassword extends Component{
 		console.log(this.props, "this props");
 		const token = this.props.match.params.token;
 		console.log ("token is :- ", token);
+		localStorage.setItem('isNavBar','hide');
 		this.state = {
 		    confirmDirty: false,
 	    };
@@ -59,7 +60,7 @@ class ResetPassword extends Component{
 
 		return(
 			<div>
-				<p className = 'heading-style'> Reset Password </p>
+				<p className = 'heading-style reset-password-heading'> Reset Password </p>
 				<Form onSubmit = { this.handleSubmit } className = "reset-password">
 			        <FormItem>
 			         {

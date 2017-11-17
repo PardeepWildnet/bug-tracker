@@ -18,30 +18,36 @@ class ProjectsList extends Component {
 		const { 
 			projects 
 		} = this.props;
-		
+		debugger
 		return(
 			<div className = 'project-list-container'>
 				<table width = '100%' className = 'table table-striped'>
 					<tr>
+						<th>S No.</th>
 						<th>Name</th>
-						<th>Email</th>
-						<th>Link</th>
+						<th>Created By</th>
+						<th>Details</th>
+						<th>Start Date</th>
+						<th>End Date</th>
 						<th>Action</th>
 					</tr>
 					<tbody>
 				{
 					projects ? 
-					projects.data.map((product) => (
-							<tr>
-								<td><Link to={'/tasks/' + product.id } key = {product.id}>{product.name}</Link></td>
-								<td><Link to={'/tasks/' + product.id } key = {product.id}>{product.email}</Link></td>
-								<td><Link to={'/tasks/' + product.id } key = {product.id}>www.instagram.com</Link></td>
-								<td>
-								/<i className="fa fa-clock-o icon-style" aria-hidden="true"></i></td>
+					projects.result.map((product, index) => (
+							<tr key = {product.id}>
+								<td><Link to={'/tasks/' + product.id }>{index}</Link></td>
+								<td><Link to={'/tasks/' + product.id }>{product.projectName}</Link></td>
+								<td><Link to={'/tasks/' + product.id }>{product.projectCreatedBy}</Link></td>
+								<td><Link to={'/tasks/' + product.id }>{product.projectDetails}</Link></td>
+								<td><Link to={'/tasks/' + product.id }>{product.projectStartDate}</Link></td>
+								<td><Link to={'/tasks/' + product.id }>{product.projectEndDate}</Link></td>
+								<td><i className="fa fa-pencil icon-style" aria-hidden="true"></i>
+								/<i className="fa fa-trash-o icon-style" aria-hidden="true"></i></td>
 							</tr>
 					)) :
 					<tr>
-						<td colspan = '4'>
+						<td colSpan = '7'>
 							<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
 						</td>
 					</tr>

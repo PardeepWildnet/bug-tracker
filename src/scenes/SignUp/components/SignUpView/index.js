@@ -4,11 +4,13 @@ import { Form, Input, Button, message } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import * as signUpApi from './../../data/SignUpView/api';
+import './SignUp.css'
 const FormItem = Form.Item;
 
 class SignUpView extends Component {
 	constructor(props){
 		super(props);
+		localStorage.setItem('isNavBar','hide');
 		this.handleSubmit = this.handleSubmit.bind(this);
 		console.log(this.props, "this props")
 		this.state = {
@@ -53,7 +55,7 @@ class SignUpView extends Component {
 
 		return(
 			<div>
-				<p className = 'heading-style'> Sign Up </p>
+				<p className = 'heading-style sign-up-heading'> Sign Up </p>
 				<Form onSubmit = { this.handleSubmit } className = "login">
 			        <FormItem>
 			          {

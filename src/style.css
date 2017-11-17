@@ -18,10 +18,19 @@ body {
 h3 {
 	font-size:  16px;
 	overflow: hidden;
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 p {
 	overflow: hidden;
-    text-overflow: ellipsis;	
+  text-overflow: ellipsis;	
+}
+
+.heading-style {
+  top: 12%;
+  font-size: 32px;
+  color: #49a9ee;
+  width: 100%;
+  padding-left: 5%;
+  font-weight: bold;
 }

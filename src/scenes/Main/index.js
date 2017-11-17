@@ -16,26 +16,31 @@ import DashboardView from './../Dashboard/components/DashboardView';
 
 class Main extends Component {
 	render () {
-		return (
-            <Provider store={store}>
-                <Router>
-                    <div>
-                        
-                        <Links />
-                        <Redirect from = '/main' to = '/dashboard' />
-                        <Route path = '/contents' component = { Content } />
-                        <Route path = '/quiz' component = { Quiz } />
-                        <Route path = '/time' component = { TimeLogs } />
-                        <Route path = '/pagination' component = { PaginationView } />
-                        <Route path = '/projects' component = { Projects } />                
-                        <Route path = '/videos' component = { Videos } />                
-                        <Route path = '/tasks/:id' component = { Tasks }  />
-                        <Route path = '/dashboard' component = { Dashboard } />
-                        <Route path = '/dashboard/:receipe' component = { DashboardView } />
-                    </div>
-                </Router>
-            </Provider>
-        )
+        if(!(localStorage.getItem('userDetail') != null)){
+            return( <div>{this.props.history.push('/login')}</div>)
+        }
+        else{
+            return (
+                <Provider store={store}>
+                    <Router>
+                        <div>
+                            
+                            <Links />
+                            <Redirect from = '/main' to = '/dashboard' />
+                            <Route path = '/contents' component = { Content } />
+                            <Route path = '/quiz' component = { Quiz } />
+                            <Route path = '/time' component = { TimeLogs } />
+                            <Route path = '/pagination' component = { PaginationView } />
+                            <Route path = '/projects' component = { Projects } />                
+                            <Route path = '/videos' component = { Videos } />                
+                            <Route path = '/tasks/:id' component = { Tasks }  />
+                            <Route path = '/dashboard' component = { Dashboard } />
+                            <Route path = '/dashboard/:receipe' component = { DashboardView } />
+                        </div>
+                    </Router>
+                </Provider>
+            )
+        }
 	}
 }
 

@@ -74,11 +74,11 @@ class AddProjectView extends Component {
 			getFieldDecorator, 
 			loginState 
 		} = this.props.form;
-
+		
 		return(
 			<LocaleProvider locale={enUS}> 
 				<div className = 'add-project-container'>
-					<Button type="primary"  icon="plus-circle-o" >Add Projects</Button>
+					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>
 			        <Modal title="Add Projects"
 			          visible={visible}
 			          onOk={this.handleOk}

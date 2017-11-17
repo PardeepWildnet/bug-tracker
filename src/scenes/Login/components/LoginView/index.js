@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
 import * as loginAPI from './../../data/LoginView/api';
+import * as config from './../../../../config.js';
 import './Login.css';
 
 const FormItem = Form.Item;
@@ -14,6 +15,7 @@ class LoginView extends Component{
 	constructor(props){
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		localStorage.setItem('isNavBar','hide');
 		console.log(this.props, "this props")
 	}
 
@@ -33,7 +35,7 @@ class LoginView extends Component{
 		console.log("After Login ", nextProps.loginState);
 		debugger
 		if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
-			this.props.history.push('/main');
+			this.props.history.push('/projects');
 			console.log("After Login in componentWillReceiveProps ");
 		}
 	}
@@ -43,10 +45,11 @@ class LoginView extends Component{
 			getFieldDecorator, 
 			loginState 
 		} = this.props.form;
+		console.log("value of nav bar is :- ", typeof(localStorage.getItem('isNavBar')));
 
 		return(
 			<div>
-				<p className = 'heading-style'> Login</p>
+				<p className = 'heading-style login-heading'> Login</p>
 				<Form onSubmit = { this.handleSubmit } className = "login">
 			        <FormItem>
 			          {

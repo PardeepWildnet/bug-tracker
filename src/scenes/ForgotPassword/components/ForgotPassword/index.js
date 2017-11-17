@@ -12,6 +12,7 @@ class ForgotPassword extends Component{
 	
 	constructor(props){
 		super(props);
+		localStorage.setItem('isNavBar','hide');
 		this.handleSubmit = this.handleSubmit.bind(this);
 		console.log(this.props, "this props")
 	}
@@ -35,7 +36,7 @@ class ForgotPassword extends Component{
 
 		return(
 			<div>
-				<p className = 'heading-style'> Forgot Password </p>
+				<p className = 'heading-style forgot-password-heading'> Forgot Password </p>
 				<Form onSubmit = { this.handleSubmit } className = "forgot-password">
 			        <FormItem>
 			          {

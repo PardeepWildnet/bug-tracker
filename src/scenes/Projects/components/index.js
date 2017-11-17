@@ -7,6 +7,10 @@ import ProjectsList from './ProjectsList';
 import * as api from './../data/ProjectsList/api';
 
 class Projects extends Component {
+	constructor() {
+		super();
+		localStorage.setItem('isNavBar','show');
+	}
 
 	componentWillMount(){
 		this.props.dispatch(api.fetchProjectsList());
@@ -20,6 +24,7 @@ class Projects extends Component {
 		const { 
 			productLists 
 		} = this.props;
+		console.log("value of nav bar is :- ", localStorage.getItem('isNavBar'))
 
 		return (
 			<div>

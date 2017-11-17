@@ -5,11 +5,14 @@ import * as action from './action';
 
 export const fetchProjectsList = () => (dispatch) => {
 	const url = config.base_url + 'users/viewprojects/1';
-	let body_params = {token: config.token};
+	
+	const token = "jwt " + config.token
 debugger
-	axios.get(url)
+	axios.get(url, {headers: {
+            'Content-Type': 'application/json',
+            'authorization' : token
+        }})
 		.then((response) => {
-			console.log(response.data.data, "fetchProjectsList response");
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {

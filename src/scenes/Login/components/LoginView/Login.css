@@ -21,11 +21,9 @@
 	float: right;
 }
 
-.heading-style {
-	top: 12%;
+
+.login-heading {
+	text-align: center !important;
     position: absolute;
-    text-align: center !important;
-    font-size: 32px;
-    color: #49a9ee;
-    width: 100%;
+    padding-left: 0 !important;
 }
