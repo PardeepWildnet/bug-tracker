@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd'
 
 import * as config from './../../../../config';
 import * as loginActions from './action';
@@ -14,13 +15,12 @@ export const LoginAPI = (loginData) => (dispatch) => {
 	axios.post(url, loginDetails)
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
-			debugger
 			dispatch(loginActions.login(response))
 			// console.log(response, "login response");
 		},
 		err => {
 			dispatch({type: 'error'})
-			alert("login failed");
+	        message.error('login failed');
 			console.log(err, "login error response");
 		})
 }

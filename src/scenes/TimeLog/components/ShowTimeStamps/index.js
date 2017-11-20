@@ -63,7 +63,7 @@ class ShowTimeStampView extends Component {
 						</div>
 					))
 				}
-				<FormItem label="Price">
+				<FormItem>
 		          {getFieldDecorator('addTimeLog', {
 		            initialValue: { title : this.state.title, category : this.state.category},
 		          })(
@@ -81,33 +81,4 @@ class ShowTimeStampView extends Component {
 const ShowTimeStamps = Form.create()(ShowTimeStampView);
 export default ShowTimeStamps
 
-				/*
-				when data is coming from api
-				{
-					timeLog &&
-					timeLog.map((item) => (
-						<div key = {item.id} className = 'time-log-list-container'>
-							<p className = 'date-style'> { item.desc } </p>
-							<p className = 'detail-style'>{ item.category } </p>
-							<p className = 'time-style'>{ item.desc } </p>
-							<i className="fa fa-pencil icon-style" aria-hidden="true"></i>
-							<i className="fa fa-clock-o icon-style" aria-hidden="true"></i>
-							<br />
-						</div>
-					))
-				}*/
-
-				/*
-				when data is coming from json
-				{
-					timeLogs.map((item) => (
-						<div key = { item.id } className = 'time-log-list-container'>
-							<p className = 'date-style'> { item.date } </p>
-							<p className = 'detail-style'>{ item.detail } </p>
-							<p className = 'time-style'>{ item.time } </p>
-							<i className="fa fa-pencil icon-style" aria-hidden="true"></i>
-							<i className="fa fa-clock-o icon-style" aria-hidden="true"></i>
-							<br />
-						</div>
-					))
-				}*/
+				

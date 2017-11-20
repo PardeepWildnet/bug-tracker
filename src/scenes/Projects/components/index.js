@@ -24,7 +24,6 @@ class Projects extends Component {
 		const { 
 			productLists 
 		} = this.props;
-		console.log("value of nav bar is :- ", localStorage.getItem('isNavBar'))
 
 		return (
 			<div>

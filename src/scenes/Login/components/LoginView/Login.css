@@ -24,6 +24,14 @@
 
 .login-heading {
 	text-align: center !important;
-    position: absolute;
     padding-left: 0 !important;
+}
+
+@media screen and (max-height: 450px){
+	.login {
+		position:initial;
+		top: initial;
+		left: initial;
+		transform: initial;
+	}
 }

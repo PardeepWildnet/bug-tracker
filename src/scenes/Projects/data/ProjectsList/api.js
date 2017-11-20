@@ -7,7 +7,6 @@ export const fetchProjectsList = () => (dispatch) => {
 	const url = config.base_url + 'users/viewprojects/1';
 	
 	const token = "jwt " + config.token
-debugger
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token

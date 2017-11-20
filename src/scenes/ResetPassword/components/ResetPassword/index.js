@@ -60,8 +60,8 @@ class ResetPassword extends Component{
 
 		return(
 			<div>
-				<p className = 'heading-style reset-password-heading'> Reset Password </p>
 				<Form onSubmit = { this.handleSubmit } className = "reset-password">
+					<p className = 'heading-style reset-password-heading'> Reset Password </p>
 			        <FormItem>
 			         {
 			          	getFieldDecorator('password', {

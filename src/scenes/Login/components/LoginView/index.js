@@ -33,10 +33,10 @@ class LoginView extends Component{
 
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.loginState);
-		debugger
 		if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
-			this.props.history.push('/projects');
+			this.props.history.push('/dashboard');
 			console.log("After Login in componentWillReceiveProps ");
+			this.forceUpdate();
 		}
 	}
 
@@ -49,8 +49,8 @@ class LoginView extends Component{
 
 		return(
 			<div>
-				<p className = 'heading-style login-heading'> Login</p>
 				<Form onSubmit = { this.handleSubmit } className = "login">
+					<p className = 'heading-style login-heading'> Login</p>
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {

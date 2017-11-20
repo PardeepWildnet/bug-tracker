@@ -6,7 +6,6 @@ import { reducer as ForgotPasswordReducer } from './scenes/ForgotPassword/reduce
 import { reducer as SignUpReducer } from './scenes/SignUp/reducer';
 import { reducer as ResetPasswordReducer } from './scenes/ResetPassword/reducer';
 import { reducer as DashboardReducer } from './scenes/Dashboard/reducer';
-import { reducer as QuizReducer } from './scenes/Quiz/reducer';
 import { reducer as ProjectsReducer } from './scenes/Projects/reducer';
 import { reducer as TaskReducer } from './scenes/Tasks/reducer';
 import { reducer as TimeLogReducer } from './scenes/TimeLog/reducer';
@@ -17,7 +16,6 @@ const appReducers = combineReducers({
 	signUp : SignUpReducer,
 	resetPassword : ResetPasswordReducer,
 	dashboard: DashboardReducer,
-	quiz: QuizReducer,
 	projects: ProjectsReducer,
 	tasks: TaskReducer,
 	timeLogs : TimeLogReducer

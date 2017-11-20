@@ -41,10 +41,6 @@ class AddTasksView extends Component {
 
 
 	render() {
-		/*var loginForAdd = {
-			border : '1px solid green'
-		}*/
-
 	    const { 
 	    	getFieldDecorator 
 	    } = this.props.form;
@@ -111,15 +107,9 @@ class AddTasksView extends Component {
 			        </FormItem>
 			    </div>
 
-			    <div>
-			   {/* <Button type="primary" htmlType="submit" className="login-form-add-button">
-			   	            	Cancel
-			   	    </Button>	*/}
-
-					<Button type="primary" htmlType="submit" className="login-form-add-button">
-		            	Add Task
-		         	</Button>
-	         	</div>	
+				<Button type="primary" htmlType="submit" className="login-form-add-button">
+	            	Add Task
+	         	</Button>
 	         	<br />	
          	</Form>		
 		)
@@ -129,25 +119,3 @@ const AddTasks = Form.create()(AddTasksView);
 export default connect(
 
 )(AddTasks);
-
-{/*		const menu = (
-			<Menu>
-				<Menu.Item key="0">
-					<a href="">1st menu item</a>
-				</Menu.Item>
-				<Menu.Item key="1">
-					<a href="">2nd menu item</a>
-				</Menu.Item>
-				<Menu.Item key="3">3rd menu item</Menu.Item>
-			</Menu>
-		);*/}
-// <Form onSubmit={this.addTask} id="loginFormAdd">
-// <Form onSubmit={this.addTask} style = {loginForAdd} >
-//  ReactDOM.findDOMNode(myDiv).style.color = 'green';
-{/*
-<Dropdown overlay={menu} trigger={['click']} className = 'milestone-'>
-   <a className="ant-dropdown-link" href="#">
-      Click me <Icon type="down" />
-    </a>
-</Dropdown>		
-*/}

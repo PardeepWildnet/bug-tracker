@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 import * as config from './../../../../config';
 import * as action from './action';
@@ -6,18 +7,18 @@ import * as action from './action';
 export const ForgotPasswordApi = (data) => (dispatch) => {
 	const url = config.base_url + 'api/forgot_password';
 
-	const loginDetails = {
+	const forgotPasswordData = {
 		email : data.email,
 	}
-	axios.post(url, loginDetails)
+	axios.post(url, forgotPasswordData)
 		.then(response => {
-			localStorage.setItem('userDetail',JSON.stringify(response));
+			message.success("email send successfully");
 			dispatch(action.forgotPassword(response))
 			console.log("success", response);
-			// console.log(response, "login response");
 		},
 		err => {
 			dispatch({type: 'error'})
+			message.error("email doesn't send successfully");
 			alert("email doesn't send successfully");
 			console.log(err, "login error response");
 		})

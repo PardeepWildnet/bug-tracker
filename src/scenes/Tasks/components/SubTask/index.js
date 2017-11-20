@@ -109,11 +109,3 @@ AddSubTask = Form.create()(AddSubTask);
 export default connect(
 
 )(AddSubTask);
-/*{
-	this.props.tasks && 
-	this.props.tasks.map((subTask) => (
-		<div key = { subTask.id }>
-			subtask column
-		</div>
-	))
-}*/

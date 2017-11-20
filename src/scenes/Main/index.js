@@ -4,15 +4,11 @@ import { Provider } from 'react-redux';
 
 import store from './../../store';
 import Dashboard from './../Dashboard';
-import Quiz from './../Quiz';
 import Projects from './../Projects';
 import Tasks from './../Tasks';
-import Videos from './../Videos';
+import Login from './../Login';
 import Links from './../Links';
-import PaginationView from './../Pagination';
-import Content from './../Content';
 import TimeLogs from './../TimeLog';
-import DashboardView from './../Dashboard/components/DashboardView';
 
 class Main extends Component {
 	render () {
@@ -24,18 +20,11 @@ class Main extends Component {
                 <Provider store={store}>
                     <Router>
                         <div>
-                            
                             <Links />
-                            <Redirect from = '/main' to = '/dashboard' />
-                            <Route path = '/contents' component = { Content } />
-                            <Route path = '/quiz' component = { Quiz } />
-                            <Route path = '/time' component = { TimeLogs } />
-                            <Route path = '/pagination' component = { PaginationView } />
-                            <Route path = '/projects' component = { Projects } />                
-                            <Route path = '/videos' component = { Videos } />                
-                            <Route path = '/tasks/:id' component = { Tasks }  />
-                            <Route path = '/dashboard' component = { Dashboard } />
-                            <Route path = '/dashboard/:receipe' component = { DashboardView } />
+                            <Route path = '/dashboard/time' component = { TimeLogs } />
+                            <Route path = '/dashboard/home' component = { Dashboard } />                
+                            <Route path = '/dashboard/projects' component = { Projects } />                
+                            <Route path = '/dashboard/tasks/:id' component = { Tasks }  />
                         </div>
                     </Router>
                 </Provider>

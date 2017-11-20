@@ -20,7 +20,6 @@ class SignUpView extends Component {
 
 	handleSubmit (e) {
 		e.preventDefault();
-		debugger
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
@@ -55,8 +54,8 @@ class SignUpView extends Component {
 
 		return(
 			<div>
-				<p className = 'heading-style sign-up-heading'> Sign Up </p>
 				<Form onSubmit = { this.handleSubmit } className = "login">
+					<p className = 'heading-style sign-up-heading'> Sign Up </p>
 			        <FormItem>
 			          {
 			          	getFieldDecorator('firstName', {

@@ -38,27 +38,16 @@ class AddProjectView extends Component {
 		console.log(date, dateString);
 	}
 
-	handleOk = () => {
-		this.setState({
-		  ModalText: 'The modal will be closed after two seconds',
-		  confirmLoading: true,
-		});
-		setTimeout(() => {
-		  this.setState({
-		    visible: false,
-		    confirmLoading: false,
-		  });
-		}, 2000);
-	}
-
 	handleSubmit (e) {
 		e.preventDefault();
-		debugger
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values.daterange[1]);
 		    this.props.dispatch(api.addProject(values))
 		    this.props.form.resetFields();
+		    this.setState({
+			  visible: !this.state.visible,
+			});
 		  }
 		});
 	}
@@ -81,7 +70,6 @@ class AddProjectView extends Component {
 					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>
 			        <Modal title="Add Projects"
 			          visible={visible}
-			          onOk={this.handleOk}
 			          confirmLoading={confirmLoading}
 			          onCancel={this.handleCancel}
 			          footer={[]}

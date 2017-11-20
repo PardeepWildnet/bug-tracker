@@ -12,8 +12,8 @@ class ForgotPassword extends Component{
 	
 	constructor(props){
 		super(props);
-		localStorage.setItem('isNavBar','hide');
 		this.handleSubmit = this.handleSubmit.bind(this);
+		localStorage.setItem('isNavBar','hide');
 		console.log(this.props, "this props")
 	}
 
@@ -36,8 +36,8 @@ class ForgotPassword extends Component{
 
 		return(
 			<div>
-				<p className = 'heading-style forgot-password-heading'> Forgot Password </p>
 				<Form onSubmit = { this.handleSubmit } className = "forgot-password">
+					<p className = 'heading-style forgot-password-heading'> Forgot Password </p>
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
@@ -47,14 +47,14 @@ class ForgotPassword extends Component{
 			          	)}
 			        </FormItem>
 
-		        <FormItem>
-			        <Button type="primary" htmlType="submit" className="login-form-button">
-			            Forgot Password
-			        </Button>
-	        		<NavLink to="/" className = 'list-group-item-signIn'>
-		        	   Back
-		        	</NavLink>
-		        </FormItem>
+			        <FormItem>
+				        <Button type="primary" htmlType="submit" className="login-form-button">
+				            Forgot Password
+				        </Button>
+		        		<NavLink to="/" className = 'list-group-item-signIn'>
+			        	   Back
+			        	</NavLink>
+			        </FormItem>
 			    </Form>
 			</div>
 		)

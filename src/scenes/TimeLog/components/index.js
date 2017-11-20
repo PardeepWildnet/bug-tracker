@@ -9,6 +9,11 @@ import * as api from './../data/ShowTimeStamps/api';
 const FormItem = Form.Item;
 
 class TimeLog extends Component {
+	constructor() {
+		super();
+		localStorage.setItem('isNavBar','show');
+	}
+
 	componentWillMount () {
 		this.props.dispatch(api.ShowTimeLogApi());
 	}
