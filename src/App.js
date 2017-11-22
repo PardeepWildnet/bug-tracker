@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import store from './store';
 import Login from './scenes/Login';
 import Main from './scenes/Main';
+import EditProfile from './scenes/EditProfile';
 import ForgotPassword from './scenes/ForgotPassword';
 import ResetPassword from './scenes/ResetPassword';
 import SignUp from './scenes/SignUp';
@@ -23,6 +24,7 @@ class App extends Component {
                         <Route path = '/dashboard' component = { Main }  /> 
                         <Route path = '/sign-up' component = { SignUp } />
                         <Route path = '/login' component = { Login } />
+                        <Route path = '/edit-profile' component = { EditProfile } />
                         <Route path = '/forgot-password' component = { ForgotPassword } />
                         <Route path = '/reset-password/:token' component = { ResetPassword } />
                         <Route exact path = '/verifyemail/:id' component = { VerifyEmail } />

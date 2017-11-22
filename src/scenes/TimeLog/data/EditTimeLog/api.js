@@ -25,11 +25,3 @@ export const editLogTime = (values) => (dispatch) => {
 			console.log(err, "time-log error response");
 		})
 }
-    
- 	/*let timeLogDetails = {
-		'category': date,
-		'desc':values.task,
-		'id' : time,
-		'token' : token
-	}*/
-	

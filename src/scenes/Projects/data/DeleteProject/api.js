@@ -2,7 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 
 import * as config from './../../../../config';
-import * as action from './action';
+import * as action from './action.js'
 
 export const deleteProject = (data) => (dispatch) => {
 	const url = config.base_url + 'users/deleteproject';
@@ -15,10 +15,11 @@ export const deleteProject = (data) => (dispatch) => {
             'authorization' : token
     }})
 		.then((response) => {
-			message.success("Project added successfully")
+			message.success("Project deleted successfully")
+			dispatch(action.deleteProjectAction(response))
 		},
 		err => {
-			message.error("Project is not added")
-			console.log(err, "fetchProjectsList err");
+			message.error("Project is not deleted")
+			dispatch({type : 'error'})
 		})
 }

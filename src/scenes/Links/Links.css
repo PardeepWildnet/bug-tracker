@@ -28,20 +28,20 @@
 .user-profile-style {
 	width: 5%;
     float: right;
-    height: 55px;
+    height: 60px;
     margin-right: 3%;
 }
 
 .logo-style {
 	width : 5%;
 	float: left;
-	height: 55px;
+	height: 60px;
 	margin-left: 3%;
 }
 
 .nav {
 	background : #efefef; 
-	height: 60px;
+	height: auto;
 }
 
 .ant-dropdown-menu {

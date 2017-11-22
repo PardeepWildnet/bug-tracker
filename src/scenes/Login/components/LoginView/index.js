@@ -74,7 +74,7 @@ class LoginView extends Component{
 			           	Forgot Password
 			          </NavLink>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
-			            Log in
+			            Login
 			          </Button>
         			  <NavLink to="/sign-up" className = 'list-group-item-signIn'>
         			  	Register Now

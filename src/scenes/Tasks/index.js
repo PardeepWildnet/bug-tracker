@@ -2,6 +2,6 @@ import React from 'react'
 import Tasks from './components'
 
 const Task = (props) => 
-	<Tasks id = {props.match.params.id}/>
-
+	<Tasks />
 export default Task
+	// <Tasks id = {props.match.params.id}/>

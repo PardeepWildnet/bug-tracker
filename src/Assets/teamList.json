@@ -1,0 +1,62 @@
+[
+	{  
+	   "teamId":1,
+	   "teamName":"MEAN STACK 1",
+	   "teamManager":"@Singh",
+	   "teamDesc":"on Home PAGE",
+	   "teamLeads":[  
+	      {  
+	         "teamLeadId":11,
+	         "teamLeadName":"kunvar"
+	      },
+	      {  
+	         "teamLeadId":21,
+	         "teamLeadName":"singh"
+	      },
+	      {  
+	         "teamLeadId":31,
+	         "teamLeadName":"kunvar singh"
+	      }
+	   ]
+	},
+	{  
+	   "teamId":2,
+	   "teamName":"MEAN STACK 2",
+	   "teamManager":"@Singh",
+	   "teamDesc":"on Home PAGE",
+	   "teamLeads":[  
+	      {  
+	         "teamLeadId":12,
+	         "teamLeadName":"kunvar"
+	      }
+	   ]
+	},
+	{  
+	   "teamId":3,
+	   "teamName":"MEAN STACK 3",
+	   "teamManager":"@Singh",
+	   "teamDesc":"on Home PAGE",
+	   "teamLeads":[  
+	      {  
+	         "teamLeadId":13,
+	         "teamLeadName":"kunvar"
+	      },
+	      {  
+	         "teamLeadId":32,
+	         "teamLeadName":"@singh"
+	      }
+	   ]
+	},
+	{  
+	   "teamId":4,
+	   "teamName":"MEAN STACK 4",
+	   "teamManager":"@Singh",
+	   "teamDesc":"on Home PAGE",
+	   "teamLeads":[  
+	      {  
+	         "teamLeadId":14,
+	         "teamLeadName":"kunvar"
+	      }
+	   ]
+	}
+]

@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
-import { Button, Radio, Icon, Modal, Form, Input, Checkbox, DatePicker } from 'antd';
+import { 
+	Button, 
+	Radio, 
+	Icon, 
+	Modal, 
+	Form, 
+	Input, 
+	DatePicker, 
+	Select 
+} from 'antd';
 import { connect } from 'react-redux';
 
 import * as api from './../../data/AddProjects/api';
+import participants from './../../../../Assets/participantsList.json';
 import './AddProjects.css';
 import { LocaleProvider } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 
 const FormItem = Form.Item;
-const { MonthPicker, RangePicker } = DatePicker;
+const Option = Select.Option;
+const {  RangePicker } = DatePicker;
 
 class AddProjectView extends Component {
 
@@ -17,7 +28,8 @@ class AddProjectView extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
 			visible: false,
-			confirmLoading: false
+			confirmLoading: false,
+			teams : []
 		}
 	}
 
@@ -64,6 +76,15 @@ class AddProjectView extends Component {
 			loginState 
 		} = this.props.form;
 		
+		 const renderTeams = participants.map((team) => (
+	    	<Option 
+	    		value={ team.name } 
+	    		key = { team.id }
+	    	>
+	    		{ team.name }
+	    	</Option>
+	    ));
+
 		return(
 			<LocaleProvider locale={enUS}> 
 				<div className = 'add-project-container'>
@@ -80,7 +101,17 @@ class AddProjectView extends Component {
 				          	getFieldDecorator('name', {
 				             rules: [{ required: true, message: 'Please input your project name!' }]
 				          })(
-			            		<Input prefix={<Icon type="plus" style={{ fontSize: 13 }} />} placeholder="Name the project" />
+			            		<Input placeholder="Name the project" />
+				          )}
+				        </FormItem>
+
+				        <FormItem>
+				          {getFieldDecorator('teams', {
+				            rules: [{ required: true, message: 'Please input participant name!' }],
+				          })(
+					          <Select mode="multiple" placeholder="Select teams">
+					            {renderTeams}
+					         </Select>
 				          )}
 				        </FormItem>
 
@@ -89,7 +120,7 @@ class AddProjectView extends Component {
 				          	getFieldDecorator('details', {
 				            rules: [{ required: true, message: 'Please input details!' }],
 				          })(
-				            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} placeholder="Detail" />
+				            <Input placeholder="Detail" />
 				          )}
 				        </FormItem>
 

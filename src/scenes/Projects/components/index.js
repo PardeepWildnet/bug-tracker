@@ -13,7 +13,7 @@ class Projects extends Component {
 	}
 
 	componentWillMount(){
-		this.props.dispatch(api.fetchProjectsList());
+		this.props.dispatch(api.fetchProjectsList('1'));
 	}
 
 	componentWillReceiveProps(nextProps, nextState){

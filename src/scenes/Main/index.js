@@ -5,10 +5,11 @@ import { Provider } from 'react-redux';
 import store from './../../store';
 import Dashboard from './../Dashboard';
 import Projects from './../Projects';
-import Tasks from './../Tasks';
-import Login from './../Login';
+import Teams from './../Teams';
+import EditProfile from './../EditProfile';
 import Links from './../Links';
 import TimeLogs from './../TimeLog';
+import Task from './../Tasks';
 
 class Main extends Component {
 	render () {
@@ -21,10 +22,13 @@ class Main extends Component {
                     <Router>
                         <div>
                             <Links />
+                            <Route exact path = '/dashboard' component = { Dashboard } />
+                            <Route path = '/dashboard/edit-profile' component = { EditProfile } />
                             <Route path = '/dashboard/time' component = { TimeLogs } />
                             <Route path = '/dashboard/home' component = { Dashboard } />                
                             <Route path = '/dashboard/projects' component = { Projects } />                
-                            <Route path = '/dashboard/tasks/:id' component = { Tasks }  />
+                            <Route path = '/dashboard/teams' component = { Teams } />                
+                            <Route path = '/dashboard/task' component = { Task }  />
                         </div>
                     </Router>
                 </Provider>
