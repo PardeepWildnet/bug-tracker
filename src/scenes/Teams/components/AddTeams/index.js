@@ -92,7 +92,7 @@ class TeamView extends Component {
 		
 		const renderTeams = teams.map((team) => (
 	    	<Option 
-	    		value={ team.teamId } 
+	    		value={ team.teamName } 
 	    		key = { team.teamId }
 	    	>
 	    		{ team.teamId }

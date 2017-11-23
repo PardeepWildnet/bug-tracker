@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
@@ -27,6 +28,7 @@ export const editProjectDetails = (data) => (dispatch) => {
 			 console.log(response, "time-log response");
 		},
 		err => {
+			toast.showToast('error occured');
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

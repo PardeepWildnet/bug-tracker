@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { message } from 'antd'
+
+import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
@@ -10,7 +11,7 @@ export const ResetPasswordApi = (data, token) => (dispatch) => {
 		token :  token,
 		newPassword : data.password
 	}
-	console.log("token is :- ", config.token);
+
 	axios.post(url, loginDetails)
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
@@ -20,8 +21,6 @@ export const ResetPasswordApi = (data, token) => (dispatch) => {
 		},
 		err => {
 			dispatch({type: 'error'})
-	        message.error('reset failed');
-			alert("reset failed");
-			console.log(err, "login error response");
+			toast.showToast('reset failed');
 		})
 }

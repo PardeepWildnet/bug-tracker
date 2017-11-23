@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 import { withRouter } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ class LoginView extends Component{
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps.loginState);
+		console.log("After Login ", nextProps.loginState)
 		if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
 			this.props.history.push('/dashboard');
 			console.log("After Login in componentWillReceiveProps ");
@@ -77,6 +77,7 @@ class LoginView extends Component{
         			  	Register Now
         			  </NavLink>
 			        </FormItem>
+
 			    </Form>
 			</div>
 		)
@@ -86,7 +87,5 @@ class LoginView extends Component{
 const LoginViewForm = Form.create()(LoginView);
 
 export default connect(
-	state => ({
-			loginState: state.login.data.loginview
-		})
+
 )(withRouter(LoginViewForm));

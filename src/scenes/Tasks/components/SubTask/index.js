@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, Checkbox, Upload, Icon } from 'antd';
+import { Form, Button, Input, Upload, Icon } from 'antd';
 import { connect } from 'react-redux';
 
 import * as addSubTaskApi from './../../data/AddSubTask/api';
@@ -57,12 +57,12 @@ class AddSubTask extends Component {
 		} = this.props.form;
 
 		const {
-			id, subTasks
+			id
 		} = this.props;
 
 		return(
 			<div>
-				{ this.state.selectedAddTaskIndex != id ? 
+				{ this.state.selectedAddTaskIndex !== id ? 
 					<div>
 						<Button type="primary" className = 'add-new-subtask' htmlType="submit" onClick = { () => this.addNewTask(id) }>
 			            	Add New Task

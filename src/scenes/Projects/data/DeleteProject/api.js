@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { message } from 'antd';
 
 import * as config from './../../../../config';
+import * as toast from './../../../../App.js'
 import * as action from './action.js'
 
 export const deleteProject = (data) => (dispatch) => {
@@ -15,11 +15,10 @@ export const deleteProject = (data) => (dispatch) => {
             'authorization' : token
     }})
 		.then((response) => {
-			message.success("Project deleted successfully")
 			dispatch(action.deleteProjectAction(response))
 		},
 		err => {
-			message.error("Project is not deleted")
+			toast.showToast('project is not deleted');
 			dispatch({type : 'error'})
 		})
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as toast from './../../../../App.js'
 import * as signUpActions from './action';
 import * as config from './../../../../config';
 
@@ -9,6 +10,7 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 		"lastName" : signUpData.lastName,
 		"email" : signUpData.email,
 		"password" : signUpData.password,
+		"accountType" : 'admin'
 	}
 
 	const url = config.base_url + 'api/register';
@@ -19,7 +21,7 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 		},
 		err => {
 			dispatch({type: 'error'})
-			alert("signUp failed");
+			toast.showToast('signup failed');
 			console.log(err, "signUp error response");
 		})
 }

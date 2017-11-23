@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as config from './../../../../config.js';
+import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as showSubTask from './../ShowSubTaskList/api';
 
@@ -21,6 +22,7 @@ export const AddSubTaskApi = (subTask) => (dispatch) => {
 			console.log(response, "subTask response in SubTask");
 		},
 		err => {
+			toast.showToast('sub task is not added');
 			console.log(err, "task error response in SubTaskApi");
 		})
 }

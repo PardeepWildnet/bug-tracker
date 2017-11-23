@@ -100,7 +100,7 @@ class EditTeamDetailView extends Component {
 
 		const renderTeams = teams.map((team) => (
 	    	<Option 
-	    		value={ team.teamId } 
+	    		value={ team.teamName } 
 	    		key = { team.teamId }
 	    	>
 	    		{ team.teamName }
@@ -154,8 +154,8 @@ class EditTeamDetailView extends Component {
 				        </FormItem>
 				        
 				        { 
-				        	teams.map((team) => ( 
-				        		<div>
+				        	teams.map((team, index) => ( 
+				        		<div key = {index}>
 				        			{ team.teamId == this.state.selectedTeam ?
 				        				  <Select mode="multiple" placeholder="Select Leads" onChange={this.handleLeads} defaultValue = {this.state.teams}>
 								            { team.teamLeads.map((team) => (

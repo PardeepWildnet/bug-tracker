@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Input, DatePicker, LocaleProvider, TimePicker, Modal, Button  } from 'antd';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 
 import * as api from './../../data/EditTimeLog/api';
 import './EditTimeLog.css';
-const dateFormat = 'YYYY-MM-DD';
 const FormItem = Form.Item;
 
 class EditLogTimeView extends Component {

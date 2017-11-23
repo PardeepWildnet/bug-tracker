@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import { Provider } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import store from './store';
 import Login from './scenes/Login';
@@ -14,6 +14,20 @@ import ResetPassword from './scenes/ResetPassword';
 import SignUp from './scenes/SignUp';
 import VerifyEmail from './scenes/VerifyEmail';
 import './style.css';
+
+export const showToast = (msg) => {
+    toast(msg);
+    return (
+        <ToastContainer 
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            pauseOnHover
+        />
+    )
+}
 
 class App extends Component {
     render () {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import { NavLink } from 'react-router-dom';
 
+import * as toast from './../../../../App.js'
 import * as signUpApi from './../../data/SignUpView/api';
 import './SignUp.css'
 const FormItem = Form.Item;
@@ -24,7 +25,8 @@ class SignUpView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
 		    this.props.dispatch(signUpApi.SignUpAPI(values))
-		    message.success('Please verify your email first');
+			toast.showToast('Please verify your email first');
+			message.success("verify email");
 		    this.props.form.resetFields();
 		  }
 		});
@@ -124,7 +126,6 @@ class SignUpView extends Component {
 			    	 <FormItem>
 			          {
 			          	getFieldDecorator('remember', {
-			            valuePropName: 'checked',
 			          })}
 				        <Button type="primary" htmlType="submit" className="login-form-button">
 			          		Sign Up

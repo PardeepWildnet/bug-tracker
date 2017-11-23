@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from "react-router-dom";
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 import * as api from './../../data/ResetPasswordView/api';
 import './ResetPassword.css';

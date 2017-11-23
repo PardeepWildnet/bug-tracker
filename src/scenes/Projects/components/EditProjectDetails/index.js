@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Input, LocaleProvider, Modal, Button, Icon, DatePicker  } from 'antd';
+import { Form, Input, LocaleProvider, Modal, Icon, Button, DatePicker  } from 'antd';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 
 import * as api from './../../data/EditProject/api';
 const dateFormat = 'YYYY-MM-DD';
-const { MonthPicker, RangePicker } = DatePicker;
+const {  RangePicker } = DatePicker;
 const FormItem = Form.Item;
 
 class EditProjectDetailView extends Component {
@@ -19,11 +19,11 @@ class EditProjectDetailView extends Component {
 
 		this.state = {
 			visible : this.props.visible,
-			projectName : value.projectName || 'projectName',
-			projectDetails : value.projectDetails || 'projectDetails',
-			projectCraetedBy : value.projectCraetedBy || 'projectCraetedBy',
-			projectStartDate : value.projectStartDate || 'projectStartDate',
-			projectEndDate : value.projectEndDate| 'projectEndDate',
+			projectName : value.projectName || '',
+			projectDetails : value.projectDetails || '',
+			projectCraetedBy : value.projectCraetedBy || '',
+			projectStartDate : value.projectStartDate || '',
+			projectEndDate : value.projectEndDate| '',
 			confirmLoading: false
 		}
 	}
