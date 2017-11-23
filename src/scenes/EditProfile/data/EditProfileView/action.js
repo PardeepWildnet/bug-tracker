@@ -1,8 +1,8 @@
-export const SIGN_UP = '/scenes/SignUp/data/SIGNUP';
+export const EDIT_PROFILE = '/scenes/editProfile/data/EDIT_PROFILE';
 
-export const signUp = (payload) => {
+export const editActions = (payload) => {
 	return {
-		type : SIGN_UP,
+		type : EDIT_PROFILE,
 		payload
 	}
 }

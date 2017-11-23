@@ -13,7 +13,6 @@ class ForgotPassword extends Component{
 	constructor(props){
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		localStorage.setItem('isNavBar','hide');
 		console.log(this.props, "this props")
 	}
 

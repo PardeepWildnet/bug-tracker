@@ -5,7 +5,7 @@ const initialState = [];
 
 export const reducer = (state = initialState, action) =>{
 	switch(action.type){
-		case actions.SIGN_UP:
+		case actions.EDIT_PROFILE:
 			return [...state, action.payload]
 		default:
 			return state

@@ -12,10 +12,11 @@ const FormItem = Form.Item;
 class EditProjectDetailView extends Component {
 	constructor (props) {
 		super(props);
+		const value = this.props.value || {};
+
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-		const value = this.props.value || {};
-		console.log("props value in edit log time is :- ", value);
+
 		this.state = {
 			visible : this.props.visible,
 			projectName : value.projectName || 'projectName',
@@ -52,7 +53,6 @@ class EditProjectDetailView extends Component {
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
-		    console.log(" stringify values :- ",JSON.stringify(values, this.state.selectedDate, this.state.selectedTime));
 		    this.props.dispatch(api.editProjectDetails(values))
 		    this.props.form.resetFields();
 		  }
@@ -83,12 +83,10 @@ class EditProjectDetailView extends Component {
 			          visible={visible}
 			          confirmLoading={this.state.confirmLoading}
 			          onCancel={this.handleCancel}
-			          footer={[
-			            <Button key="back" size="large" className = 'edit-ant-btn-lg ' onClick={this.handleCancel}>Return</Button>,
-			          ]}
+			          footer={[]}
 			        >
 			          <Form onSubmit = { this.handleSubmit }>
-				        <FormItem label = 'Add Projects'>
+				        <FormItem>
 				          {
 				          	getFieldDecorator('name', {
 				             rules: [{ required: true, message: 'Please input your project name!' }],
@@ -120,7 +118,7 @@ class EditProjectDetailView extends Component {
 
 				        <FormItem>
 				          <Button type="primary" htmlType="submit" className="login-form-button">
-				            Edit Project
+				            SAVE
 				          </Button>
 				        </FormItem>
 				    </Form>

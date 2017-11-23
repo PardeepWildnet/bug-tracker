@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
-import enUS from 'antd/lib/locale-provider/en_US';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import { LocaleProvider } from 'antd';
 
 import store from './store';
 import Login from './scenes/Login';
@@ -18,8 +16,6 @@ import './style.css';
 class App extends Component {
     render () {
         return (
-            <LocaleProvider locale={enUS}> 
-
             <Provider store={store}>
                  <Router>
                     <Switch>
@@ -34,7 +30,6 @@ class App extends Component {
                     </Switch>
                 </Router>
             </Provider>
-            </LocaleProvider>
         )
     }
 }

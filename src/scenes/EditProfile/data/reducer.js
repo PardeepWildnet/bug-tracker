@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { reducer as signUpViewReducer } from './SignUpView/reducer';
+import { reducer as EditProfileViewReducer } from './EditProfileView/reducer';
 
 export const reducer = combineReducers({
-	signUpView : signUpViewReducer
+	editProfileView : EditProfileViewReducer
 })

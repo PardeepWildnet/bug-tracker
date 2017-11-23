@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
 import * as loginAPI from './../../data/LoginView/api';
-import * as config from './../../../../config.js';
 import './Login.css';
 
 const FormItem = Form.Item;
@@ -15,7 +14,6 @@ class LoginView extends Component{
 	constructor(props){
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		localStorage.setItem('isNavBar','hide');
 		console.log(this.props, "this props")
 	}
 
@@ -45,7 +43,6 @@ class LoginView extends Component{
 			getFieldDecorator, 
 			loginState 
 		} = this.props.form;
-		console.log("value of nav bar is :- ", typeof(localStorage.getItem('isNavBar')));
 
 		return(
 			<div>

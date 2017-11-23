@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
-import { 
-	Button, 
-	Radio, 
-	Icon, 
-	Modal, 
-	Form, 
-	Input, 
-	DatePicker, 
-	Select 
-} from 'antd';
+import { Button, Radio, Icon, Modal, Form, Input, DatePicker, Select } from 'antd';
 import { connect } from 'react-redux';
 
 import * as api from './../../data/AddProjects/api';
 import participants from './../../../../Assets/participantsList.json';
 import './AddProjects.css';
-import { LocaleProvider } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const {  RangePicker } = DatePicker;
 
 class AddProjectView extends Component {
-
 	constructor(props){
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -86,62 +74,60 @@ class AddProjectView extends Component {
 	    ));
 
 		return(
-			<LocaleProvider locale={enUS}> 
-				<div className = 'add-project-container'>
-					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>
-			        <Modal title="Add Projects"
-			          visible={visible}
-			          confirmLoading={confirmLoading}
-			          onCancel={this.handleCancel}
-			          footer={[]}
-			        >
-			          <Form onSubmit = { this.handleSubmit }>
-				        <FormItem label = 'Add Projects'>
-				          {
-				          	getFieldDecorator('name', {
-				             rules: [{ required: true, message: 'Please input your project name!' }]
-				          })(
-			            		<Input placeholder="Name the project" />
-				          )}
-				        </FormItem>
+			<div className = 'add-project-container'>
+				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>
+		        <Modal title="Add Projects"
+		          visible={visible}
+		          confirmLoading={confirmLoading}
+		          onCancel={this.handleCancel}
+		          footer={[]}
+		        >
+		          <Form onSubmit = { this.handleSubmit }>
+			        <FormItem>
+			          {
+			          	getFieldDecorator('name', {
+			             rules: [{ required: true, message: 'Please input your project name!' }]
+			          })(
+		            		<Input placeholder="Name the project" />
+			          )}
+			        </FormItem>
 
-				        <FormItem>
-				          {getFieldDecorator('teams', {
-				            rules: [{ required: true, message: 'Please input participant name!' }],
-				          })(
-					          <Select mode="multiple" placeholder="Select teams">
-					            {renderTeams}
-					         </Select>
-				          )}
-				        </FormItem>
+			        <FormItem>
+			          {getFieldDecorator('teams', {
+			            rules: [{ required: true, message: 'Please input participant name!' }],
+			          })(
+				          <Select mode="multiple" placeholder="Select teams">
+				            {renderTeams}
+				         </Select>
+			          )}
+			        </FormItem>
 
-				        <FormItem>
-				          {
-				          	getFieldDecorator('details', {
-				            rules: [{ required: true, message: 'Please input details!' }],
-				          })(
-				            <Input placeholder="Detail" />
-				          )}
-				        </FormItem>
+			        <FormItem>
+			          {
+			          	getFieldDecorator('details', {
+			            rules: [{ required: true, message: 'Please input details!' }],
+			          })(
+			            <Input placeholder="Detail" />
+			          )}
+			        </FormItem>
 
-				        <FormItem>
-				          {
-				          	getFieldDecorator('daterange', {
-				            rules: [{ required: false, message: 'Please input time duration!' }],
-				          })(
-							<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
-				          )}
-				        </FormItem>
+			        <FormItem>
+			          {
+			          	getFieldDecorator('daterange', {
+			            rules: [{ required: false, message: 'Please input time duration!' }],
+			          })(
+						<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
+			          )}
+			        </FormItem>
 
-				        <FormItem>
-				          <Button type="primary" htmlType="submit" className="login-form-button">
-				            Start the project
-				          </Button>
-				        </FormItem>
-				    </Form>
-			        </Modal>
-				</div>
-			</LocaleProvider>
+			        <FormItem>
+			          <Button type="primary" htmlType="submit" className="login-form-button">
+			            Start the project
+			          </Button>
+			        </FormItem>
+			    </Form>
+		        </Modal>
+			</div>
 		)
 	}
 }

@@ -11,7 +11,6 @@ class DashboardView extends Component{
 
 	constructor(props){
 		super(props);
-		localStorage.setItem('isNavBar','show');
 		this.onSearch = this.onSearch.bind(this);
 	}
 

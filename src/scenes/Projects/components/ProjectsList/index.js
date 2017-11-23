@@ -23,14 +23,10 @@ class ProjectsListView extends Component {
 			projectDetails : 'kjk',
 			projectStartDate : '',
 			projectEndDate : '',
-			pageNumber : ''
 		}
 	}
 
 	handlePageNumber (value) {
-		this.setState({pageNumber : value}, function() {
-			console.log("current page number is :- ", this.state.pageNumber);
-		})
 		this.props.dispatch(projectListApi.fetchProjectsList(value));
 	}
 
@@ -71,105 +67,105 @@ class ProjectsListView extends Component {
 
 		return(
 			<div>
-					<div className = 'project-list-container'>
-						<table className = 'table table-striped table-responsive'>
-							<thead>
-								<th>S No.</th>
-								<th>Name</th>
-								<th>Created By</th>
-								<th>Details</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								<th>Action</th>
-							</thead>
-							<tr>
-								<td> '1'</td>
-								<td> 'projectName'</td>
-								<td> 'projectCreatedBy'</td>
-								<td> 'projectDetails'</td>
-								<td> 'projectStartDate'</td>
-								<td> 'projectEndDate'</td>
-								<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
-								/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
-							</tr><tr>
-								<td> '1'</td>
-								<td> 'projectName'</td>
-								<td> 'projectCreatedBy'</td>
-								<td> 'projectDetails'</td>
-								<td> 'projectStartDate'</td>
-								<td> 'projectEndDate'</td>
-								<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
-								/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
-							</tr><tr>
-								<td> '1'</td>
-								<td> 'projectName'</td>
-								<td> 'projectCreatedBy'</td>
-								<td> 'projectDetails'</td>
-								<td> 'projectStartDate'</td>
-								<td> 'projectEndDate'</td>
-								<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
-								/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
-							</tr><tr>
-								<td> '1'</td>
-								<td> 'projectName'</td>
-								<td> 'projectCreatedBy'</td>
-								<td> 'projectDetails'</td>
-								<td> 'projectStartDate'</td>
-								<td> 'projectEndDate'</td>
-								<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
-								/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
-							</tr><tr>
-								<td> '1'</td>
-								<td> 'projectName'</td>
-								<td> 'projectCreatedBy'</td>
-								<td> 'projectDetails'</td>
-								<td> 'projectStartDate'</td>
-								<td> 'projectEndDate'</td>
-								<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
-								/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
-							</tr>
-							<tbody>
-						{
-							projects ? 
-							projects.result.map((project, index) => (
-									<tr key = {project.id}>
-										<td><Link to={'/tasks/' + project.id }> {index + 1} </Link></td>
-										<td><Link to={'/tasks/' + project.id }> {project.projectName} </Link></td>
-										<td><Link to={'/tasks/' + project.id }> {project.projectCreatedBy} </Link></td>
-										<td><Link to={'/tasks/' + project.id }> {project.projectDetails} </Link></td>
-										<td><Link to={'/tasks/' + project.id }> {project.projectStartDate} </Link></td>
-										<td><Link to={'/tasks/' + project.id }> {project.projectEndDate} </Link></td>
-										<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject(project) } aria-hidden="true"></i>
-										/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i></td>
-									</tr>
-							)) :
-							<tr>
-								<td colSpan = '7'>
-									<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
-								</td>
-							</tr>
-						}
-						</tbody>
-						</table>
-						<FormItem>
-				          {getFieldDecorator('editProjectDetails', {
-				            initialValue: { 
-				            	projectName : this.state.projectName, 
-				            	projectCreatedBy : this.state.projectCreatedBy,
-				            	projectDetails : this.state.projectDetails, 
-				            	projectStartDate : this.state.projectStartDate,
-				            	projectEndDate : this.state.projectEndDate
-				            },
-				          })(
-					          <EditProject
-								visible = {this.state.visible}
-								onCancel = { () => this.editProject()}
-							/>
-						  )}
-				        </FormItem>
-					</div>
-				<Pagination defaultCurrent={6} total={500} onChange = {this.handlePageNumber}/>
-			</div>
+				<div className = 'project-list-container'>
+					<table className = 'table table-striped table-responsive'>
+						<thead>
+							<th>S No.</th>
+							<th>Name</th>
+							<th>Created By</th>
+							<th>Details</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Action</th>
+						</thead>
+						<tr>
+							<td> '1'</td>
+							<td> 'projectName'</td>
+							<td> 'projectCreatedBy'</td>
+							<td> 'projectDetails'</td>
+							<td> 'projectStartDate'</td>
+							<td> 'projectEndDate'</td>
+							<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
+							/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
+						</tr><tr>
+							<td> '1'</td>
+							<td> 'projectName'</td>
+							<td> 'projectCreatedBy'</td>
+							<td> 'projectDetails'</td>
+							<td> 'projectStartDate'</td>
+							<td> 'projectEndDate'</td>
+							<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
+							/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
+						</tr><tr>
+							<td> '1'</td>
+							<td> 'projectName'</td>
+							<td> 'projectCreatedBy'</td>
+							<td> 'projectDetails'</td>
+							<td> 'projectStartDate'</td>
+							<td> 'projectEndDate'</td>
+							<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
+							/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
+						</tr><tr>
+							<td> '1'</td>
+							<td> 'projectName'</td>
+							<td> 'projectCreatedBy'</td>
+							<td> 'projectDetails'</td>
+							<td> 'projectStartDate'</td>
+							<td> 'projectEndDate'</td>
+							<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
+							/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
+						</tr><tr>
+							<td> '1'</td>
+							<td> 'projectName'</td>
+							<td> 'projectCreatedBy'</td>
+							<td> 'projectDetails'</td>
+							<td> 'projectStartDate'</td>
+							<td> 'projectEndDate'</td>
+							<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject() } aria-hidden="true"></i>
+							/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject() } aria-hidden="true"></i></td>
+						</tr>
+						<tbody>
+					{
+						projects ? 
+						projects.result.map((project, index) => (
+								<tr key = {project.id}>
+									<td><Link to={'/tasks/' + project.id }> {index + 1} </Link></td>
+									<td><Link to={'/tasks/' + project.id }> {project.projectName} </Link></td>
+									<td><Link to={'/tasks/' + project.id }> {project.projectCreatedBy} </Link></td>
+									<td><Link to={'/tasks/' + project.id }> {project.projectDetails} </Link></td>
+									<td><Link to={'/tasks/' + project.id }> {project.projectStartDate} </Link></td>
+									<td><Link to={'/tasks/' + project.id }> {project.projectEndDate} </Link></td>
+									<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject(project) } aria-hidden="true"></i>
+									/<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i></td>
+								</tr>
+						)) :
+						<tr>
+							<td colSpan = '7'>
+								<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
+							</td>
+						</tr>
+					}
+					</tbody>
+					</table>
+					<FormItem>
+			          {getFieldDecorator('editProjectDetails', {
+			            initialValue: { 
+			            	projectName : this.state.projectName, 
+			            	projectCreatedBy : this.state.projectCreatedBy,
+			            	projectDetails : this.state.projectDetails, 
+			            	projectStartDate : this.state.projectStartDate,
+			            	projectEndDate : this.state.projectEndDate
+			            },
+			          })(
+				          <EditProject
+							visible = {this.state.visible}
+							onCancel = { () => this.editProject()}
+						/>
+					  )}
+			        </FormItem>
+				</div>
+			<Pagination defaultCurrent={6} total={500} onChange = {this.handlePageNumber}/>
+		</div>
 		)
 	}
 }

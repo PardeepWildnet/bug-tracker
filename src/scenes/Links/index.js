@@ -17,7 +17,7 @@ class Links extends Component {
             window.location.reload();
         }
         else {
-            this.props.history.push('/dashboard/edit-profle');
+            this.props.history.push('/dashboard/edit-profile');
         }
     }
 
