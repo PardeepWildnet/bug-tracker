@@ -21,7 +21,7 @@ export const AddTaskApi = (task) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Task');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Add Task');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Add Task');
 			}
 			 dispatch(action.addTask(response))
 			 dispatch(showTask.ShowTaskListApi())

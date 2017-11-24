@@ -26,7 +26,7 @@ export const addProject = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Project ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Add Project ');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Add Project ');
 			}
 			dispatch(action.initiateItems(response.data));
 		},

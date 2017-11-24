@@ -17,7 +17,7 @@ export const fetchTeamList = () => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, ' Team List');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', ' Team List');
+				toast.openNotificationWithIcon('error', response.data.msg , ' Team List');
 			}
 			dispatch(action.initiateTeams(response.data));
 		},

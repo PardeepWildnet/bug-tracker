@@ -19,7 +19,7 @@ export const deleteTeam = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Delete Team');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Delete Team');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Delete Team');
 			}
 			dispatch(action.deleteTeamAction(response))
 

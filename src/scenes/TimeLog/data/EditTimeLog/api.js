@@ -22,7 +22,7 @@ export const editLogTime = (values) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Log Time');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Edit Log Time');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Edit Log Time');
 			}
 			 dispatch(action.editTimeAction(response))
 			 console.log(response, "time-log response");

@@ -23,7 +23,7 @@ export const LoginAPI = (loginData) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Login ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Login ');
+				toast.openNotificationWithIcon('error', response.data.msg, 'Login ');
 			}
             config.loggedInObs.next(true);
 			console.log("loggedInObs", config.loggedInObs );

@@ -28,7 +28,7 @@ export const editTeamDetails = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Team Details');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Edit Team Details');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Edit Team Details');
 			}
 			 dispatch(action.editTeamDetailAction(response))
 			 console.log(response, "time-log response");

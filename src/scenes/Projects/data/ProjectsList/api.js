@@ -19,7 +19,7 @@ export const fetchProjectsList = (value) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Projects List ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Projects List ');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Projects List ');
 			}
 			dispatch(action.initiateItems(response.data));
 		},

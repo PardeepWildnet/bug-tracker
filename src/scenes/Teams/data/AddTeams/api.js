@@ -24,7 +24,7 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Team');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Add Team');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Add Team');
 			}
 			dispatch(action.initiateTeams(response.data));
 		},

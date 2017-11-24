@@ -19,7 +19,7 @@ export const ShowTimeLogApi = () => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Time Log');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Time Log');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Time Log');
 			}
 		console.log(response.data.object.result, "time list response");
 		dispatch(action.showTimeLog(response.data.object.result));

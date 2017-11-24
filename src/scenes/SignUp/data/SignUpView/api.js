@@ -20,7 +20,7 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Sign Up');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Sign Up');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Sign Up');
 			}
 			console.log(response, "signUp response");
 		},

@@ -26,7 +26,7 @@ export const addLogTime = (values, fileList, date, time) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Log Time');
 			}
 			else {
-				toast.openNotificationWithIcon('error', 'error', 'Add Log Time');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Add Log Time');
 			}
 			 dispatch(action.timeLogAction(response))
 			 console.log(response, "time-log response");
