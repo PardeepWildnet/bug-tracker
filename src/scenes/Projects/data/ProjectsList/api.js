@@ -15,10 +15,16 @@ export const fetchProjectsList = (value) => (dispatch) => {
             'authorization' : token
         }})
 		.then((response) => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Projects List ');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Projects List ');
+			}
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.showToast('error occured in fetching list');
+			toast.openNotificationWithIcon('error', 'error', 'Projects List ');
 			dispatch({type: "error"});
 		})
 }

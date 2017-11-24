@@ -13,16 +13,16 @@ export const ForgotPasswordApi = (data) => (dispatch) => {
 	axios.post(url, forgotPasswordData)
 		.then(response => {
 			if(response.data.status == 200) {
-				dispatch(action.forgotPassword(response))
+				toast.openNotificationWithIcon('success', response.data.msg, 'Forgot Password ');
 			}
 			else {
-				toast.showToast(response.data.msg);
+				toast.openNotificationWithIcon('error', 'error', 'Forgot Password ');
 			}
+			dispatch(action.forgotPassword(response))
 			console.log("success", response);
 		},
 		err => {
+			toast.openNotificationWithIcon('error', 'error', 'Forgot Password ');
 			dispatch({type: 'error'})
-			toast.showToast("email doesn't send successfully");
-			console.log(err, "login error response");
 		})
 }

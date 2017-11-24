@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
@@ -23,10 +24,17 @@ export const editTeamDetails = (data) => (dispatch) => {
     }}
 	axios.put(url, projectDetails, header)
 		.then(response => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Team Details');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Edit Team Details');
+			}
 			 dispatch(action.editTeamDetailAction(response))
 			 console.log(response, "time-log response");
 		},
 		err => {
+			toast.openNotificationWithIcon('error', 'error', 'Edit Team Details');
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

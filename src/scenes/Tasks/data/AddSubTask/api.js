@@ -18,11 +18,17 @@ export const AddSubTaskApi = (subTask) => (dispatch) => {
 	axios.post(url, subTaskData )
 	.then(response => {
 			dispatch(action.subTask(response))
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Add Sub Task');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Add Sub Task');
+			}
 			dispatch(showSubTask.ShowSubTaskListApi())
 			console.log(response, "subTask response in SubTask");
 		},
 		err => {
-			toast.showToast('sub task is not added');
+			toast.openNotificationWithIcon('error', 'error', 'Add Sub Task');
 			console.log(err, "task error response in SubTaskApi");
 		})
 }

@@ -138,8 +138,8 @@ class TeamView extends Component {
 			        </FormItem>
 			        
 			        { 
-			        	teams.map((team) => ( 
-			        		<div>
+			        	teams.map((team, index) => ( 
+			        		<div key = {index}>
 			        			{ team.teamId == this.state.selectedTeam ?
 			        				  <Select mode="multiple" placeholder="Select Leads" onChange={this.handleLeads}>
 							            { team.teamLeads.map((team) => (

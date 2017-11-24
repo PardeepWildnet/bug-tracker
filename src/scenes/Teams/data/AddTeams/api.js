@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { message } from 'antd';
 
+import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
@@ -20,11 +20,16 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 
 	axios.post(url, projectDetails, header)
 		.then((response) => {
-			message.success("Team added successfully")
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Add Team');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Add Team');
+			}
 			dispatch(action.initiateTeams(response.data));
 		},
 		err => {
-			message.error("Team is not added")
+			toast.openNotificationWithIcon('error', 'error', 'Add Team');
 			dispatch({type: "error"});
 			console.log(err, "error");
 		})

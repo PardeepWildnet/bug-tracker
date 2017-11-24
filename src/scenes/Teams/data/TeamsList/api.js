@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
@@ -12,10 +13,17 @@ export const fetchTeamList = () => (dispatch) => {
             'authorization' : token
         }})
 		.then((response) => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, ' Team List');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', ' Team List');
+			}
 			dispatch(action.initiateTeams(response.data));
 		},
 		err => {
 			dispatch({type: "error"});
-			console.log(err, "fetchProjectsList err");
+			toast.openNotificationWithIcon('error', 'error', ' Team List');
+			console.log(err, "error");
 		})
 }

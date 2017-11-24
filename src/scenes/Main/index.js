@@ -11,10 +11,10 @@ import Task from './../Tasks';
 
 class Main extends Component {
 	render () {
-        if(!(localStorage.getItem('userDetail') != null)){
+       /* if(!(localStorage.getItem('userDetail') != null)){
             return( <div>{this.props.history.push('/login')}</div>)
         }
-        else{
+        else{*/
             return (
                 <Router>
                     <div>
@@ -29,7 +29,7 @@ class Main extends Component {
                     </div>
                 </Router>
             )
-        }
+        // }
 	}
 }
 

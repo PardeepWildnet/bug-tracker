@@ -17,7 +17,7 @@ class Projects extends Component {
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps);
+		console.log("Inside Add Projects", nextProps);
 	}
 
 	render() {

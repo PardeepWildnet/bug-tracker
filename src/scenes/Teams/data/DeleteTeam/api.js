@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { message } from 'antd';
 
+import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
 export const deleteTeam = (data) => (dispatch) => {
 	const url = config.base_url + 'users/deleteproject';
 	const teamDetails = {
-		uid : 12
+		uid : data.id
 	}
 	const token = "jwt " + config.token
 	axios.delete(url, teamDetails, {headers: {
@@ -15,12 +15,17 @@ export const deleteTeam = (data) => (dispatch) => {
             'authorization' : token
     }})
 		.then((response) => {
-			message.success("Team deleted successfully")
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Delete Team');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Delete Team');
+			}
 			dispatch(action.deleteTeamAction(response))
 
 		},
 		err => {
-			message.error("Team is not deleted")
+			toast.openNotificationWithIcon('error', 'error', 'Delete Team');
 			dispatch({type: 'error'})
 		})
 }

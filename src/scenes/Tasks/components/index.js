@@ -9,7 +9,6 @@ import * as api from './../data/TaskList/api';
 class Tasks extends Component {
 	constructor() {
 		super(); 
-		localStorage.setItem('isNavBar','show');
 	}
 
 	componentWillMount (){
@@ -21,8 +20,6 @@ class Tasks extends Component {
 			taskLists, 
 			id 
 		} = this.props;
-		console.log("value of nav bar is :- ", localStorage.getItem('isNavBar'))
-		console.log( " id id :- " + id);
 
 		return (
 			<div>

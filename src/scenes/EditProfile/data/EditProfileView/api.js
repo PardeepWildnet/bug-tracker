@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 import * as toast from './../../../../App.js'
 import * as action from './action';
@@ -16,10 +17,11 @@ export const EditProfileAPI = (data) => (dispatch) => {
 	axios.post(url, editProfileDetails)
 		.then(response => {
 			dispatch(action.editActions(response))
-			console.log(response, "signUp response");
+			toast.openNotificationWithIcon('success', response.data.msg, 'Edit Profile');
+			console.log(response, "edit profile response");
 		},
 		err => {
-			toast.showToast('something went wrong');
+			toast.openNotificationWithIcon('error', 'something went wrong', 'Edit Profile');
 			dispatch({type: 'error'})
 			console.log(err, "edit profile error response");
 		})

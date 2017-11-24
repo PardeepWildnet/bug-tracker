@@ -14,8 +14,8 @@ const RadioGroup = Radio.Group;
 class AddTasksView extends Component {
 	constructor(props){
 		super(props);
-		this.addTask = this.addTask.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.addTask = this.addTask.bind(this);
 		this.state = {
 			value : 1
 		}
@@ -32,13 +32,13 @@ class AddTasksView extends Component {
 		});
 	}
 
+	
 	onChange = (e) => {
 		console.log('radio checked', e.target.value);
 		this.setState({
 		  value: e.target.value,
 		});
 	}
-
 
 	render() {
 	    const { 

@@ -12,14 +12,15 @@ class TaskList extends Component {
 			tasks 
 		} = this.props;
 		
+		console.log("tasks", tasks);
 		return(
 			<div >
 				{
  					this.props.tasks && 
 					this.props.tasks.map((task) => (
 						<div key = {task.id}>
-							<p>{ task.desc }</p>
-							<p>{ task.category }</p>
+							<p>{ task.title }</p>
+							<p>{ task.days }</p>
 							<p>{ task.desc }</p><br /><br />
 							<AddSubTask id = {task.id} />
 							<br />

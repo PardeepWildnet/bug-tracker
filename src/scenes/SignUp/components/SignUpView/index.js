@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import * as toast from './../../../../App.js'
@@ -25,29 +25,26 @@ class SignUpView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
 		    this.props.dispatch(signUpApi.SignUpAPI(values))
-			toast.showToast('Please verify your email first');
-			message.success("verify email");
 		    this.props.form.resetFields();
 		  }
 		});
 	}
 
 	checkPassword = (rule, value, callback) => {
-		const form = this.props.form;
-		if (value && value !== form.getFieldValue('password')) {
-		  callback('Two passwords that you enter is inconsistent!');
-		} else {
-		  callback();
-		}
-	}
-
-	checkConfirm = (rule, value, callback) => {
-		const form = this.props.form;
-		if (value && this.state.confirmDirty) {
-		  form.validateFields(['confirm'], { force: true });
-		}
-		callback();
-	}
+	    const form = this.props.form;
+	    if (value && value !== form.getFieldValue('password')) {
+	      callback('Two passwords that you enter is inconsistent!');
+	    } else {
+	      callback();
+	    }
+	  }
+	  checkConfirm = (rule, value, callback) => {
+	    const form = this.props.form;
+	    if (value && this.state.confirmDirty) {
+	      form.validateFields(['confirm'], { force: true });
+	    }
+	    callback();
+	  }
 
 	render(){
 		const { 
@@ -97,43 +94,45 @@ class SignUpView extends Component {
 			          }
 			        </FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('password', {
-				            rules: [{
-				              required: true, message: 'Please input your password!',
-				            }, {
-				              validator: this.checkConfirm,
-				            }],
+			        <FormItem
+			          hasFeedback
+			        >
+			          {getFieldDecorator('password', {
+			            rules: [{
+			              required: true, message: 'Please input your password!',
+			            }, {
+			              validator: this.checkConfirm,
+			            }],
 			          })(
-			            	<Input type="password" placeholder = "Password"/>
+			            <Input type="password" placeholder = "Enter Password"/>
+			          )}
+			        </FormItem>
+			        <FormItem
+			          hasFeedback
+			        >
+			          {getFieldDecorator('confirm', {
+			            rules: [{
+			              required: true, message: 'Please confirm your password!',
+			            }, {
+			              validator: this.checkPassword,
+			            }],
+			          })(
+			            <Input type="password" onBlur={this.handleConfirmBlur} placeholder = "Confirm Password"/>
 			          )}
 			        </FormItem>
 
 			        <FormItem>
-			          {
-			          	getFieldDecorator('confirm', {
-				            rules: [{
-				              required: true, message: 'Please confirm your password!',
-				            }, {
-				              validator: this.checkPassword,
-				            }],
-				        })(
-				            <Input type="password" onBlur={this.handleConfirmBlur} placeholder = 'Confirm Password'/>
-			          )}
-			        </FormItem>
-
-			    	 <FormItem>
-			          {
-			          	getFieldDecorator('remember', {
-			          })}
-				        <Button type="primary" htmlType="submit" className="login-form-button">
+			          
+				             <Button type="primary" htmlType="submit" className="login-form-button">
 			          		Sign Up
 			          	</Button>
         			  	<NavLink to="/login" className = 'list-group-item-signIn'>
         			  		Login
         			  	</NavLink>
+
+			        
 			        </FormItem>
+
 
 			    </Form>
 			</div>

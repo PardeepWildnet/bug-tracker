@@ -11,7 +11,7 @@ class Links extends Component {
     }
 
     handleMenu (e) {
-        if(e.key == '2') {
+        if(e.key === '2') {
             localStorage.clear();
             this.forceUpdate();
             window.location.reload();

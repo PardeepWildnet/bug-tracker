@@ -16,7 +16,7 @@ class Teams extends Component {
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps);
+		console.log("Inside Team ", nextProps);
 	}
 
 	render() {

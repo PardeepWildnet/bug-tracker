@@ -22,10 +22,16 @@ export const addProject = (data) => (dispatch) => {
 
 	axios.post(url, projectDetails, header)
 		.then((response) => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Add Project ');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Add Project ');
+			}
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.showToast('project is not added');
+			toast.openNotificationWithIcon('error', 'error', 'Add Project ');
 			dispatch({type: "error"});
 		})
 }

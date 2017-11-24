@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
@@ -21,10 +22,17 @@ export const addLogTime = (values, fileList, date, time) => (dispatch) => {
 
 	axios.post(url, formData, header)
 		.then(response => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Add Log Time');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Add Log Time');
+			}
 			 dispatch(action.timeLogAction(response))
 			 console.log(response, "time-log response");
 		},
 		err => {
+			toast.openNotificationWithIcon('error', 'error', 'Add Log Time');
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

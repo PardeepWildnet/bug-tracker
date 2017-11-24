@@ -24,12 +24,18 @@ export const editProjectDetails = (data) => (dispatch) => {
     }}
 	axios.put(url, projectDetails, header)
 		.then(response => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Project Details');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Edit Project Details');
+			}
 			 dispatch(action.editProjectDetailAction(response))
-			 console.log(response, "time-log response");
+			 console.log(response, "success");
 		},
 		err => {
-			toast.showToast('error occured');
+			toast.openNotificationWithIcon('error', 'error', 'Edit Project Details');
 			dispatch({type: 'error'})
-			console.log(err, "time-log error response");
+			console.log(err, "error");
 		})
 }

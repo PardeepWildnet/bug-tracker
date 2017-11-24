@@ -62,14 +62,16 @@ class TeamsListView extends Component {
 		return(
 			<div className = 'project-list-container'>
 				<table width = '100%' className = 'table table-striped table-responsive'>
-					<tr>
-						<th>S No.</th>
-						<th>Name</th>
-						<th>Details</th>
-						<th>Manager</th>
-						<th>Team Leads</th>
-						<th>Action</th>
-					</tr>
+					<tbody>
+						<tr>
+							<th>S No.</th>
+							<th>Name</th>
+							<th>Details</th>
+							<th>Manager</th>
+							<th>Team Leads</th>
+							<th>Action</th>
+						</tr>
+					</tbody>
 					
 					<tbody>
 						{

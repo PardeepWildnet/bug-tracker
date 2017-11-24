@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as config from './../../../../config.js';
+import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import taskList from './../../../../Assets/taskList.json';
 
@@ -14,12 +15,19 @@ export const ShowTimeLogApi = () => (dispatch) => {
 	
 	axios.post(url, parameters)
 	.then(response =>{
-		console.log(response.data.object.result, "task list response");
+		if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Time Log');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Time Log');
+			}
+		console.log(response.data.object.result, "time list response");
 		dispatch(action.showTimeLog(response.data.object.result));
 		// dispatch(action.showTask(taskList));
 	},
 	error =>{
-		console.log("error in fetching task");
+		toast.openNotificationWithIcon('error', 'error', 'Time Log');
+		console.log("error in fetching timelog");
 		dispatch({type: 'error'})
 	})
 }

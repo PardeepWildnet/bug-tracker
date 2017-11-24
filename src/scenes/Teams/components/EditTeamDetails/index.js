@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, LocaleProvider, Modal, Button, Icon, DatePicker, Select  } from 'antd';
-import moment from 'moment';
+import { Form, Input, LocaleProvider, Modal, Button, Select  } from 'antd';
 import { connect } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 

@@ -14,13 +14,19 @@ export const ResetPasswordApi = (data, token) => (dispatch) => {
 
 	axios.post(url, loginDetails)
 		.then(response => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Reset Password ');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Reset Password ');
+			}
 			localStorage.setItem('userDetail',JSON.stringify(response));
 			dispatch(action.resetPassword(response))
 			console.log("success", response);
 			// console.log(response, "login response");
 		},
 		err => {
+			toast.openNotificationWithIcon('error', 'error', 'Reset Password ');
 			dispatch({type: 'error'})
-			toast.showToast('reset failed');
 		})
 }

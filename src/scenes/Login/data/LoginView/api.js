@@ -19,6 +19,12 @@ export const LoginAPI = (loginData) => (dispatch) => {
 	axios.post(url, loginDetails)
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Login ');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Login ');
+			}
             config.loggedInObs.next(true);
 			console.log("loggedInObs", config.loggedInObs );
 			// console.log(response, "login response");
@@ -26,7 +32,7 @@ export const LoginAPI = (loginData) => (dispatch) => {
 		},
 		err => {
 			dispatch({type: 'error'})
-			toast.showToast('error');
+			toast.openNotificationWithIcon('error', 'error', 'Login ');
 			console.log(err, "login error response");
 		})
 }

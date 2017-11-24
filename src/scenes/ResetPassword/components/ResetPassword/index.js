@@ -55,7 +55,6 @@ class ResetPassword extends Component{
 	render(){
 		const { 
 			getFieldDecorator, 
-			loginState 
 		} = this.props.form;
 
 		return(

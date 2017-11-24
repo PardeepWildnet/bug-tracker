@@ -12,16 +12,21 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 		"password" : signUpData.password,
 		"accountType" : 'admin'
 	}
-
 	const url = config.base_url + 'api/register';
 	axios.post(url, signUpDetails)
 		.then(response => {
 			dispatch(signUpActions.signUp(response))
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Sign Up');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Sign Up');
+			}
 			console.log(response, "signUp response");
 		},
 		err => {
+			toast.openNotificationWithIcon('error', 'error', 'Sign Up');
 			dispatch({type: 'error'})
-			toast.showToast('signup failed');
 			console.log(err, "signUp error response");
 		})
 }

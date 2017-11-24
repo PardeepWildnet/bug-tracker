@@ -87,5 +87,7 @@ class LoginView extends Component{
 const LoginViewForm = Form.create()(LoginView);
 
 export default connect(
-
+	state => ({
+		loginState: state.login.data.loginview
+	})
 )(withRouter(LoginViewForm));

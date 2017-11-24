@@ -2,4 +2,28 @@
 	text-align: center;
 	margin: 0 auto;
 	float: none;
+
+	width: 400px;
+	top: 50%;
+    left: 50%;
+    margin:0 auto;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.login-btn {
+	width : 200px;
+	border-radius: 10px;
+}
+
+@media screen and (max-height: 450px){
+	.login {
+		position:initial;
+		top: initial;
+		left: initial;
+		transform: initial;
+	}
 }

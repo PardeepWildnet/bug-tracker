@@ -15,10 +15,16 @@ export const deleteProject = (data) => (dispatch) => {
             'authorization' : token
     }})
 		.then((response) => {
+			if(response.data.status == 200) {
+				toast.openNotificationWithIcon('success', response.data.msg, 'Delete Project ');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error', 'Delete Project ');
+			}
 			dispatch(action.deleteProjectAction(response))
 		},
 		err => {
-			toast.showToast('project is not deleted');
+			toast.openNotificationWithIcon('error', 'error', 'Delete Project ');
 			dispatch({type : 'error'})
 		})
 }
