@@ -25,7 +25,7 @@ export const deleteTeam = (data) => (dispatch) => {
 
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Delete Team');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Delete Team');
 			dispatch({type: 'error'})
 		})
 }

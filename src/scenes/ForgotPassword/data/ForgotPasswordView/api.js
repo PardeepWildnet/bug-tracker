@@ -22,7 +22,7 @@ export const ForgotPasswordApi = (data) => (dispatch) => {
 			console.log("success", response);
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Forgot Password ');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Forgot Password ');
 			dispatch({type: 'error'})
 		})
 }

@@ -6,6 +6,8 @@ import Projects from './../Projects';
 import Teams from './../Teams';
 import EditProfile from './../EditProfile';
 import Links from './../Links';
+import User from './../User';
+import UserDetail from './../User/components/UserDetail';
 import TimeLogs from './../TimeLog';
 import Task from './../Tasks';
 
@@ -20,6 +22,8 @@ class Main extends Component {
                     <div>
                         <Links />
                         <Route exact path = '/dashboard' component = { Dashboard } />
+                        <Route exact path = '/dashboard/user' component = { User } />
+                        <Route exact path = '/dashboard/user/:id' component = { UserDetail } />
                         <Route path = '/dashboard/edit-profile' component = { EditProfile } />
                         <Route path = '/dashboard/time' component = { TimeLogs } />
                         <Route path = '/dashboard/home' component = { Dashboard } />                

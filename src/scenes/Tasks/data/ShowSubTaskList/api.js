@@ -22,14 +22,14 @@ export const ShowSubTaskListApi = () => (dispatch) => {
 			toast.openNotificationWithIcon('success', response.data.msg, 'Sub Task List');
 		}
 		else {
-			toast.openNotificationWithIcon('error', 'error', 'Sub Task List');
+			toast.openNotificationWithIcon('error', response.data.msg , 'Sub Task List');
 		}
 		console.log(response.data.object.result, "sub task list response");
 		{/*dispatch(action.showTask(response.data.object.result));*/}
 		dispatch(action.showSubTask(taskList));
 	},
 	error =>{
-		toast.openNotificationWithIcon('error', 'error', 'Sub Task List');
+		toast.openNotificationWithIcon('error', error.response.data.msg , 'Sub Task List');
 		console.log("error in fetching task");
 		dispatch({type: 'error'})
 	})

@@ -13,8 +13,8 @@ class Links extends Component {
     handleMenu (e) {
         if(e.key === '2') {
             localStorage.clear();
+            this.props.history.push('/logout');
             this.forceUpdate();
-            window.location.reload();
         }
         else {
             this.props.history.push('/dashboard/edit-profile');
@@ -36,6 +36,7 @@ class Links extends Component {
                     <NavLink  to="/dashboard/home" activeClassName = 'title-style' className = 'list-group-item title-style'  > Bug Tracker  </NavLink>
                     
                     <div className = 'navigations-style'>
+                        <NavLink  to="/dashboard/user" activeClassName = 'active' className = 'list-group-item' > User  </NavLink>
                         <NavLink  to="/dashboard/home" activeClassName = 'active' className = 'list-group-item' > Dashboard  </NavLink>
                         <NavLink to="/dashboard/projects" activeClassName = 'active' className = 'list-group-item' > Projects  </NavLink>
                         <NavLink to="/dashboard/teams" activeClassName = 'active' className = 'list-group-item' > Teams  </NavLink>

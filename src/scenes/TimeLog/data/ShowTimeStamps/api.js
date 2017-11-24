@@ -26,7 +26,7 @@ export const ShowTimeLogApi = () => (dispatch) => {
 		// dispatch(action.showTask(taskList));
 	},
 	error =>{
-		toast.openNotificationWithIcon('error', 'error', 'Time Log');
+		toast.openNotificationWithIcon('error', error.response.data.msg , 'Time Log');
 		console.log("error in fetching timelog");
 		dispatch({type: 'error'})
 	})

@@ -4,12 +4,15 @@ import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
-export const addTeam = (data, teamLeads) => (dispatch) => {
+export const addUser = (data, fileList) => (dispatch) => {
 	const url = config.base_url + 'users/createproject';
+	console.log("add user data", data);
 	const projectDetails = {
-		projectName : data.name,
-		projectCreatedBy : 'demo',
-		projectDetails : data.details,
+		projectName : data.Fname,
+		projectCreatedBy : data.Lname,
+		projectDetails : data.email,
+		projectStartDate : data.designation,
+		projectEndDate: '16.11.2017'
 	}
 
 	const token = "jwt " + config.token
@@ -17,20 +20,18 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : token
     }}
-
 	axios.post(url, projectDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Add Team');
+				toast.openNotificationWithIcon('success', response.data.msg, 'Add User ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Team');
+				toast.openNotificationWithIcon('error', response.data.msg , 'Add User ');
 			}
-			dispatch(action.initiateTeams(response.data));
+			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Team');
+			toast.openNotificationWithIcon('error', err.response.data.msg, 'Add User ');
 			dispatch({type: "error"});
-			console.log(err, "error");
 		})
 }

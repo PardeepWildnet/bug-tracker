@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, DatePicker, LocaleProvider, TimePicker, Upload, Icon, message  } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
+import { Form, Input, Button, DatePicker, TimePicker, Upload, Icon, message  } from 'antd';
 import { connect } from 'react-redux';
-import ReactPlayer from 'react-player'
 
 import * as api from './../../data/AddLogTime/api';
 import './AddLogTime.css';
@@ -35,7 +33,6 @@ class AddLogTimeView extends Component {
 		    this.setState({
 	          fileList: [],
 	        });
-	        message.success('upload successfully.');
 		    this.props.form.resetFields();
 		  }
 		});
@@ -69,7 +66,6 @@ class AddLogTimeView extends Component {
 
 		return (
 			<div>
-				 <LocaleProvider locale={enUS}>
 				 <Form onSubmit={this.submitTime} className="time-log-form">
 					<FormItem>
 					 {getFieldDecorator('task', {
@@ -110,7 +106,6 @@ class AddLogTimeView extends Component {
 					</Button>
 
 			       </Form>
-			</LocaleProvider>
 
 			</div>
 		)

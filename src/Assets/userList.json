@@ -1,0 +1,32 @@
+[
+	{
+		"id" : 1,
+		"firstName" : "Mansi ",
+		"lastName" : "Teharia",
+		"email" : "mansi@gmail.com"
+	},
+	{
+		"id" : 2,
+		"firstName" : " Pardeep",
+		"lastName" : "Jain",
+		"email" : "mansi@gmail.com"
+	},
+	{
+		"id" : 3,
+		"firstName" : " Akansha ",
+		"lastName" : "Raizada",
+		"email" : "mansi@gmail.com"
+	},
+	{
+		"id" : 4,
+		"firstName" : "Arun ",
+		"lastName" : "Sahani",
+		"email" : "mansi@gmail.com"
+	},
+	{
+		"id" : 5,
+		"firstName" : " Kunwar ",
+		"lastName" : "singh",
+		"email" : "mansi@gmail.com"
+	}
+]

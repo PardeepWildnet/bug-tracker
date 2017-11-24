@@ -1,0 +1,22 @@
+[
+	{
+		"id" : 1,
+		"position" : "Trainee"
+	},
+	{
+		"id" : 2,
+		"position" : "Junior Developer"
+	},
+	{
+		"id" : 3,
+		"position" : "Senior Developer"
+	},
+	{
+		"id" : 4,
+		"position" : "Associate TL"
+	},
+	{
+		"id" : 5,
+		"position" : "TL"
+	}
+]

@@ -23,7 +23,7 @@ export const fetchTeamList = () => (dispatch) => {
 		},
 		err => {
 			dispatch({type: "error"});
-			toast.openNotificationWithIcon('error', 'error', ' Team List');
+			toast.openNotificationWithIcon('error', err.response.data.msg , ' Team List');
 			console.log(err, "error");
 		})
 }

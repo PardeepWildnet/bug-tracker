@@ -30,6 +30,7 @@
     float: right;
     height: 60px;
     margin-right: 3%;
+    cursor : pointer;
 }
 
 .logo-style {

@@ -25,7 +25,7 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 			console.log(response, "signUp response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Sign Up');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Sign Up');
 			dispatch({type: 'error'})
 			console.log(err, "signUp error response");
 		})

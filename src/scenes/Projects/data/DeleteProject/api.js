@@ -24,7 +24,7 @@ export const deleteProject = (data) => (dispatch) => {
 			dispatch(action.deleteProjectAction(response))
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Delete Project ');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Delete Project ');
 			dispatch({type : 'error'})
 		})
 }

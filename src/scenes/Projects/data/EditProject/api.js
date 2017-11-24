@@ -34,7 +34,7 @@ export const editProjectDetails = (data) => (dispatch) => {
 			 console.log(response, "success");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Edit Project Details');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Edit Project Details');
 			dispatch({type: 'error'})
 			console.log(err, "error");
 		})

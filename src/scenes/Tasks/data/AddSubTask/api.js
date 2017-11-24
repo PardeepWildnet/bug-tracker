@@ -28,7 +28,7 @@ export const AddSubTaskApi = (subTask) => (dispatch) => {
 			console.log(response, "subTask response in SubTask");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Add Sub Task');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Sub Task');
 			console.log(err, "task error response in SubTaskApi");
 		})
 }

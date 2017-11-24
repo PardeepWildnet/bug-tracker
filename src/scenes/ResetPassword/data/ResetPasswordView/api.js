@@ -26,7 +26,7 @@ export const ResetPasswordApi = (data, token) => (dispatch) => {
 			// console.log(response, "login response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Reset Password ');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Reset Password ');
 			dispatch({type: 'error'})
 		})
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Provider } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { notification } from 'antd';
@@ -38,6 +38,7 @@ class App extends Component {
                             <Route path = '/forgot-password' component = { ForgotPassword } />
                             <Route path = '/reset-password/:token' component = { ResetPassword } />
                             <Route exact path = '/verifyemail/:id' component = { VerifyEmail } />
+                            <Redirect from = '/logout' to = '/login' />
                             <Route path = '*' component = { Login } />
                         </Switch>
                     </Router>

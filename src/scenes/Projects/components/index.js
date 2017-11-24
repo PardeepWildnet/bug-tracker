@@ -9,7 +9,6 @@ import * as api from './../data/ProjectsList/api';
 class Projects extends Component {
 	constructor() {
 		super();
-		localStorage.setItem('isNavBar','show');
 	}
 
 	componentWillMount(){

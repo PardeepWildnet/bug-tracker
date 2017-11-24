@@ -31,7 +31,7 @@ export const addProject = (data) => (dispatch) => {
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error', 'Add Project ');
+			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Project ');
 			dispatch({type: "error"});
 		})
 }
