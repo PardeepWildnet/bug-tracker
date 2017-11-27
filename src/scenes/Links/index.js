@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
+import AppBar from 'material-ui/AppBar';
 import { withRouter, NavLink } from "react-router-dom";
 import { Dropdown, Menu, Affix } from 'antd';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './Links.css';
+
+
+const DrawerWidth = {
+  width: '50%',
+  '@media(minWidth: 768px)' : {
+    width: '100%'
+  }
+}
 
 class Links extends Component {
     constructor(props) {
         super(props);
         this.handleMenu = this.handleMenu.bind(this);
+        this.state = {
+            open: false
+        };
     }
+
 
     handleMenu (e) {
         if(e.key === '2') {
@@ -21,37 +40,55 @@ class Links extends Component {
         }
     }
 
-    render () {
-        const menu = (
+    handleToggle = () => this.setState({open: !this.state.open});
+
+    handleClose = () => this.setState({open: false});
+
+    render() {
+         const menu = (
             <Menu onClick = { this.handleMenu } >
                 <Menu.Item key = '1'> Edit Profile </Menu.Item>
                 <Menu.Item key = '2'> Logout </Menu.Item>
             </Menu>
         );
-
         return (
-            <Affix>
-                <div className = 'nav' >
-                    <img src={require("./../../Assets/logo.jpg")}  className = 'logo-style'/>
-                    <NavLink  to="/dashboard/home" activeClassName = 'title-style' className = 'list-group-item title-style'  > Bug Tracker  </NavLink>
+            <MuiThemeProvider>
+                <div className = 'appbar-container'>
+                        <AppBar
+                            title="Bug Tracker"
+                            iconElementRight= {<Dropdown overlay={menu} trigger={['click']}>
+                                <img src={require("./../../Assets/userProfile.png")} style = {{height : '60px'}} />
+                            </Dropdown>}
+                            onLeftIconButtonTouchTap = {this.handleToggle}
+                            className = 'appbar-style'
+                            titleStyle = {{ textAlign : 'center'}}
+                        />
                     
-                    <div className = 'navigations-style'>
-                        <NavLink  to="/dashboard/user" activeClassName = 'active' className = 'list-group-item' > User  </NavLink>
-                        <NavLink  to="/dashboard/home" activeClassName = 'active' className = 'list-group-item' > Dashboard  </NavLink>
-                        <NavLink to="/dashboard/projects" activeClassName = 'active' className = 'list-group-item' > Projects  </NavLink>
-                        <NavLink to="/dashboard/teams" activeClassName = 'active' className = 'list-group-item' > Teams  </NavLink>
-                        <NavLink to="/dashboard/time" activeClassName = 'active' className = 'list-group-item' > Time Log  </NavLink>
-                        <NavLink to="/dashboard/task" activeClassName = 'active' className = 'list-group-item' > Task  </NavLink>
-                    </div>
+                    <Drawer
+                        docked={false}
+                        width= '50%'
+                        open={this.state.open}
+                        onRequestChange={(open) => this.setState({open})}
+                        containerClassName = {`drawer-width-class ${(this.state.open ? 'open' : '' )}`}
+                        width = { DrawerWidth.width }
+                    >
+                    <img src={require("./../../Assets/logo.jpg")}  className = 'logo-style'/>
+                    
+                    <i className="fa fa-times fa-lg close-icon-style" aria-hidden="true" onClick = { this.handleToggle }></i>
 
-                    <Dropdown overlay={menu} trigger={['click']}>
-                        <img src={require("./../../Assets/userProfile.png")} className = 'user-profile-style'/>
-                    </Dropdown>
+                      <ul className='list-style'>
+                            <li><NavLink  to="/dashboard/user" className = 'list-group-item' activeClassName = 'active'  > User  </NavLink></li>
+                            <li><NavLink  to="/dashboard/home" className = 'list-group-item' activeClassName = 'active'  > Dashboard  </NavLink></li>
+                            <li><NavLink to="/dashboard/projects" className = 'list-group-item' activeClassName = 'active'  > Projects  </NavLink></li>
+                            <li><NavLink to="/dashboard/teams" className = 'list-group-item' activeClassName = 'active'  > Teams  </NavLink></li>
+                            <li><NavLink to="/dashboard/time" className = 'list-group-item' activeClassName = 'active'  > Time Log  </NavLink></li>
+                            <li><NavLink to="/dashboard/task" className = 'list-group-item' activeClassName = 'active'  > Task  </NavLink></li>
+                      </ul>
+                    </Drawer>
                 </div>
-            </Affix>
-        )
-
-  }
+            </MuiThemeProvider>
+        );
+    }
 }
 
 export default withRouter(Links);

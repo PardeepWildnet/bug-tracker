@@ -1,32 +1,57 @@
 [
 	{
-		"id" : 1,
+		"id" : "1",
 		"firstName" : "Mansi ",
 		"lastName" : "Teharia",
-		"email" : "mansi@gmail.com"
+		"email" : "mansi@gmail.com",
+		"gender" : "Male",
+		"designation" : "Junior Developer",
+		"department" : "MEAN Stack",
+		"phone" : "9211420421",
+		"address" : "Noida"
 	},
 	{
-		"id" : 2,
+		"id" : "2",
 		"firstName" : " Pardeep",
 		"lastName" : "Jain",
-		"email" : "mansi@gmail.com"
+		"email" : "mansi@gmail.com",
+		"gender" : "Male",
+		"designation" : "Junior Developer",
+		"department" : "MEAN Stack",
+		"phone" : "9211420421",
+		"address" : "Noida"
 	},
 	{
-		"id" : 3,
+		"id" : "3",
 		"firstName" : " Akansha ",
 		"lastName" : "Raizada",
-		"email" : "mansi@gmail.com"
+		"email" : "mansi@gmail.com",
+		"gender" : "Male",
+		"designation" : "Junior Developer",
+		"department" : "MEAN Stack",
+		"phone" : "9211420421",
+		"address" : "Noida"
 	},
 	{
-		"id" : 4,
+		"id" : "4",
 		"firstName" : "Arun ",
 		"lastName" : "Sahani",
-		"email" : "mansi@gmail.com"
+		"email" : "mansi@gmail.com",
+		"gender" : "Male",
+		"designation" : "Junior Developer",
+		"department" : "MEAN Stack",
+		"phone" : "9211420421",
+		"address" : "Noida"
 	},
 	{
-		"id" : 5,
+		"id" : "5",
 		"firstName" : " Kunwar ",
 		"lastName" : "singh",
-		"email" : "mansi@gmail.com"
+		"email" : "mansi@gmail.com",
+		"gender" : "Male",
+		"designation" : "Junior Developer",
+		"department" : "MEAN Stack",
+		"phone" : "9211420421",
+		"address" : "Noida"
 	}
 ]

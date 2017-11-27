@@ -1,6 +1,39 @@
+.list-group-item {
+	display : inline-block;
+    padding: .75rem 1.25rem;
+	border : none;
+	background: #efefef;
+    font-size: 16px;
+	line-height: 3;
+    width : 100%;
+}
+
+.drawer-width-class {
+    width: 80% !important;
+    transform: translate(-100%, 0px) !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+}
+.drawer-width-class.open {
+    transform: translate(0, 0) !important;
+    text-align: center;
+    background: #efefef !important;
+}
+
+.appbar-container {
+    background: rgb(0, 188, 212);
+}
+
+.appbar-style {
+    width : 100%;
+    max-width: 1024px;
+    margin : 0 auto;
+    box-shadow: none !important;
+    z-index: 0 !important;
+}
 
 .title-style {
-	background: white;
+    background: white;
     color: #007bff;
     border: none;
     padding: .75rem 1.25rem;
@@ -8,14 +41,6 @@
     font-size: 18px;
     font-weight: bold;
     background: #efefef;
-}
-
-.list-group-item {
-	display : inline-block;
-    padding: .75rem 1.25rem;
-	border : none;
-	background: #efefef;
-	line-height: 3;
 }
 
 .navigations-style {
@@ -33,20 +58,87 @@
     cursor : pointer;
 }
 
-.logo-style {
-	width : 5%;
-	float: left;
-	height: 60px;
-	margin-left: 3%;
+.close-icon-style {
+    color: black;
+    border-radius: 50px;
+    width: 0;
+    height: 35px;
+    border: 0 !important;
+    position: absolute;
+    top: 5%;
+    padding-left: 15%;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
 }
 
-.nav {
-	background : #efefef; 
-	height: auto;
+.logo-style {
+    width: 35%;
+    height: 15%;
+    /* margin-left: 3%; */
+    text-align: center;
+    margin: 0 auto;
+    float: none;
+    border: 2px dashed;
+    border-color: #108ee9;
+    margin-top: 8%;
+    border-radius: 20px;
 }
 
 .ant-dropdown-menu {
 	width: 130px;
 	padding: 16px;
 	font-size: 16px;
+}
+
+.list-style {
+    padding: 12px 0;
+    margin: 0;
+    max-height: 55vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.active {
+    font-size: 16px;
+}
+
+/*To show scroll bar in the navigation menu (will use it later if needed)*/
+.list-style::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+    background: inherit;
+}
+.list-style::-webkit-scrollbar-thumb {
+    background: #015649;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+.list-style::-webkit-scrollbar-corner {
+    background: #000;
+}
+
+@media ( min-width:  768px) {
+    .list-style {
+        max-height: 50vh;
+        padding: 12px 0;
+        margin: 0;
+    }
+}
+
+@media(min-width: 992px) {
+    .list-style {
+        max-height: 60vh;
+        margin: 0;
+    }
+
+	.drawer-width-class {
+        width: 40% !important;
+        transform: translate(-100%, 0px);
+        padding: 0 4% 0 8% !important;
+        opacity: 0.9 !important;
+    }
+    .drawer-width-class .open {
+        transform: translate(0, 0) !important;
+    }
 }

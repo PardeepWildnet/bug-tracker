@@ -1,0 +1,77 @@
+.project-box-style{
+	margin: 20px 10px;
+	width : 240px;
+	height: 100px;
+	float: none;
+	display: inline-block;
+}
+
+.project-list-container {
+	text-align: center;
+	margin: 20px 5%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.project-block-style {
+	border-radius: 2px;
+}
+
+.custom-image {
+	border-radius: 45px;
+    width: 65px;
+    height: 65px;
+    margin: 10px;
+    border : 1px solid rgb(238,238,238);
+}
+
+.custom-card {
+	padding: 10px;
+}
+
+.loader-style {
+	height : 50px;
+}
+
+.date-style {
+	float : left;
+	margin : 0 16px;
+	padding: 10px 0;
+	font-size: 16px;
+	width: 20%;
+}
+
+.detail-style {
+	float : left;
+	margin : 0 16px;
+	padding: 10px 0;
+	font-weight: bold;
+	font-size: 16px;
+	width: 30%;
+}
+
+.time-style {
+	float : left;
+	margin : 0 16px;
+	padding: 10px 0;
+	width : 20%;
+	margin-right: 0;
+}
+
+
+.time-log-list-container {
+	height : 50px;
+	border-bottom: 1px solid;
+}
+
+.icon-style {
+	padding: 12px;
+    font-size: 16px !important;
+    cursor : pointer;
+    float : none !important;
+}
+
+.table td, .table th{
+	vertical-align: middle !important;
+	font-size : 16px;
+}
