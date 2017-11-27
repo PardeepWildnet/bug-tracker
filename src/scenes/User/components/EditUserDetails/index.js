@@ -156,7 +156,6 @@ class EditUserDetailView extends Component {
 				          </Button>
 				        </FormItem>
 				    </Form>
-				    hjkhhk************
 				    {projectName}
 			        </Modal>
 		)
