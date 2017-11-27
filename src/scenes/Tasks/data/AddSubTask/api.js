@@ -22,13 +22,13 @@ export const AddSubTaskApi = (subTask) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Sub Task');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Sub Task');
+				toast.openNotificationWithIcon('error', response.data.err , 'Add Sub Task');
 			}
 			dispatch(showSubTask.ShowSubTaskListApi())
 			console.log(response, "subTask response in SubTask");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Sub Task');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'SubTask is not Added' , 'SubTask');
 			console.log(err, "task error response in SubTaskApi");
 		})
 }

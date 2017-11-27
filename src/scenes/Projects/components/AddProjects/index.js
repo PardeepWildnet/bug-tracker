@@ -82,50 +82,50 @@ class AddProjectView extends Component {
 		          onCancel={this.handleCancel}
 		          footer={[]}
 		        >
-		          <Form onSubmit = { this.handleSubmit }>
-			        <FormItem>
-			          {
-			          	getFieldDecorator('name', {
-			             rules: [{ required: true, message: 'Please input your project name!' }]
-			          })(
-		            		<Input placeholder="Name the project" />
-			          )}
-			        </FormItem>
+					<Form onSubmit = { this.handleSubmit }>
+						<FormItem>
+						  {
+						  	getFieldDecorator('name', {
+						     rules: [{ required: true, message: 'Please input your project name!' }]
+						  })(
+								<Input placeholder="Name the project" />
+						  )}
+						</FormItem>
 
-			        <FormItem>
-			          {getFieldDecorator('teams', {
-			            rules: [{ required: true, message: 'Please input participant name!' }],
-			          })(
-				          <Select mode="multiple" placeholder="Select teams">
-				            {renderTeams}
-				         </Select>
-			          )}
-			        </FormItem>
+						<FormItem>
+						  {getFieldDecorator('teams', {
+						    rules: [{ required: true, message: 'Please input participant name!' }],
+						  })(
+						      <Select mode="multiple" placeholder="Select teams">
+						        {renderTeams}
+						     </Select>
+						  )}
+						</FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('details', {
-			            rules: [{ required: true, message: 'Please input details!' }],
-			          })(
-			            <Input placeholder="Detail" />
-			          )}
-			        </FormItem>
+						<FormItem>
+						  {
+						  	getFieldDecorator('details', {
+						    rules: [{ required: true, message: 'Please input details!' }],
+						  })(
+						    <Input placeholder="Detail" />
+						  )}
+						</FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('daterange', {
-			            rules: [{ required: false, message: 'Please input time duration!' }],
-			          })(
-						<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
-			          )}
-			        </FormItem>
+						<FormItem>
+						  {
+						  	getFieldDecorator('daterange', {
+						    rules: [{ required: false, message: 'Please input time duration!' }],
+						  })(
+							<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
+						  )}
+						</FormItem>
 
-			        <FormItem>
-			          <Button type="primary" htmlType="submit" className="login-form-button">
-			            Start the project
-			          </Button>
-			        </FormItem>
-			    </Form>
+						<FormItem>
+						  <Button type="primary" htmlType="submit" className="login-form-button">
+						    Start the project
+						  </Button>
+						</FormItem>
+					</Form>
 		        </Modal>
 			</div>
 		)

@@ -21,12 +21,12 @@ export const EditProfileAPI = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Profile');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg, 'Edit Profile');
+				toast.openNotificationWithIcon('error', response.data.err, 'Edit Profile');
 			}
 			console.log(response, "edit profile response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg, 'Edit Profile');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Edit Profile Failed' , 'Edit Profile');
 			dispatch({type: 'error'})
 			console.log(err, "edit profile error response");
 		})

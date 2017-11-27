@@ -53,43 +53,27 @@ class AddUserView extends Component {
 		const { 
 			visible, 
 			confirmLoading, 
-			ModalText 
+			ModalText,
 		} = this.state;
+
+		const {
+			role
+		} = this.props;
 
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
 
-	    const props = {
-	    	onRemove: (file) => {
-		        this.setState(({ fileList }) => {
-		          const index = fileList.indexOf(file);
-		          const newFileList = fileList.slice();
-		          newFileList.splice(index, 1);
-		          return {
-		            fileList: newFileList,
-		          };
-		        });
-		      },
-		    listType: 'picture',
-			beforeUpload: (file) => {
-				this.setState(({ fileList }) => ({
-				  fileList: [...fileList, file],
-				}));
-				return false;
-			},
-	        fileList: this.state.fileList,
-	       
-	    };
-		 const renderDesignation = designation.map((item) => (
+		const renderDesignation =  role ? role.result.map((item) => (
 	    	<Option 
-	    		value={ item.position } 
-	    		key = { item.id }
+	    		value={ item.roleName } 
+	    		key = { item.roleId }
 	    	>
-	    		{ item.position }
+	    		{ item.roleName }
 	    	</Option>
-	    ));
+	    )) : '';
 
+	    console.log("role is", role ? role.result : role);
 
 		return(
 			<div className = 'add-project-container'>
@@ -100,57 +84,64 @@ class AddUserView extends Component {
 			          onCancel={this.handleCancel}
 			          footer={[]}
 			        >
-			          <Form onSubmit = { this.handleSubmit }>
+						  <Form onSubmit = { this.handleSubmit }>
 
 
-				        <FormItem>
-				          {
-				          	getFieldDecorator('Fname', {
-				             rules: [{ required: true, message: 'Please input First name!' }]
-				          })(
-			            		<Input placeholder="First Name" />
-				          )}
-				        </FormItem>
-	   					<FormItem>
-				          {
-				          	getFieldDecorator('Lname', {
-				             rules: [{ required: true, message: 'Please input Last name!' }]
-				          })(
-			            		<Input placeholder="Last Name" />
-				          )}
-				        </FormItem>
-	
-	   					<FormItem>
-				          {
-				          	getFieldDecorator('email', {
-				             rules: [{ required: true, message: 'Please input email!' }]
-				          })(
-			            		<Input placeholder="Email" />
-				          )}
-				        </FormItem>
-	
-				        <FormItem>
-				          {getFieldDecorator('designation', {
-				            rules: [{ required: true, message: 'Please input designation of user!' }],
-				          })(
-					          <Select placeholder="Select designation">
-					            {renderDesignation}
-					         </Select>
-				          )}
-				        </FormItem>
-	
-						<Upload {...props}>
-							<Button>
-								<Icon type="upload" /> Select File
-							</Button>
-						</Upload>
-						
-				        <FormItem>
-				          <Button type="primary" htmlType="submit" className="login-form-button">
-				            SUBMIT
-				          </Button>
-				        </FormItem>
-				    </Form>
+						    <FormItem>
+						      {
+						      	getFieldDecorator('Fname', {
+						         rules: [{ required: true, message: 'Please input First name!' }]
+						      })(
+						    		<Input placeholder="First Name" />
+						      )}
+						    </FormItem>
+
+								<FormItem>
+						      {
+						      	getFieldDecorator('Lname', {
+						         rules: [{ required: true, message: 'Please input Last name!' }]
+						      })(
+						    		<Input placeholder="Last Name" />
+						      )}
+						    </FormItem>
+
+								<FormItem>
+						      {
+						      	getFieldDecorator('email', {
+						         rules: [{ required: true, message: 'Please input email!' }]
+						      })(
+						    		<Input placeholder="Email" />
+						      )}
+						    </FormItem>
+
+						    <FormItem>
+						      {getFieldDecorator('designation', {
+						        rules: [{ required: true, message: 'Please input designation of user!' }],
+						      })(
+						          <Select placeholder="Select designation">
+						          	{renderDesignation}
+						         </Select>
+						      )}
+						    </FormItem>
+
+						    <FormItem>
+						      {getFieldDecorator('gender', {
+						        rules: [{ required: true, message: 'Please input designation of user!' }],
+						      })(
+						          <Select placeholder="Select Gender">
+						          		<Option value="Male">Male</Option>
+										<Option value="Female">Female</Option>
+						         </Select>
+						      )}
+						    </FormItem>
+
+						    <FormItem>
+						      <Button type="primary" htmlType="submit" className="login-form-button">
+						        SUBMIT
+						      </Button>
+						    </FormItem>
+						    
+						</Form>
 
 			        </Modal>
 			</div>

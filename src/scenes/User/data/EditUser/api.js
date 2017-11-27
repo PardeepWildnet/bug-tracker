@@ -4,7 +4,7 @@ import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
-export const editTeamDetails = (data) => (dispatch) => {
+export const editUserDetails = (data) => (dispatch) => {
 	// const url = 'http://180.151.103.85:3013/api/admin/upload/image';
 	const url = config.base_url+'users/updateproject';
 	// const date = values.date.format("MMM Do YY");
@@ -25,17 +25,17 @@ export const editTeamDetails = (data) => (dispatch) => {
 	axios.put(url, projectDetails, header)
 		.then(response => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Team Details');
+				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Project Details');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.err , 'Edit Team Details');
+				toast.openNotificationWithIcon('error', response.data.err , 'Edit Project Details');
 			}
-			 dispatch(action.editTeamDetailAction(response))
-			 console.log(response, "time-log response");
+			 dispatch(action.editProjectDetailAction(response))
+			 console.log(response, "success");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Team is not Updated' , 'Team');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Updated' , 'Projects');
 			dispatch({type: 'error'})
-			console.log(err, "time-log error response");
+			console.log(err, "error");
 		})
 }

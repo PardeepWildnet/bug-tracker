@@ -13,15 +13,14 @@ import Task from './../Tasks';
 
 class Main extends Component {
 	render () {
-       /* if(!(localStorage.getItem('userDetail') != null)){
+        if(!(localStorage.getItem('userDetail') != null)){
             return( <div>{this.props.history.push('/login')}</div>)
         }
-        else{*/
+        else{
             return (
                 <Router>
                     <div>
                         <Links />
-                        <Redirect exact from = '/dashboard' to = '/dashboard/home' />
                         <Route exact path = '/dashboard' component = { Dashboard } />
                         <Route exact path = '/dashboard/user' component = { User } />
                         <Route exact path = '/dashboard/user/:id' component = { UserDetail } />
@@ -34,7 +33,7 @@ class Main extends Component {
                     </div>
                 </Router>
             )
-        // }
+        }
 	}
 }
 

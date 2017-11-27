@@ -19,14 +19,14 @@ export const ShowTaskListApi = () => (dispatch) => {
 			toast.openNotificationWithIcon('success', response.data.msg, 'Show Task List');
 		}
 		else {
-			toast.openNotificationWithIcon('error', response.data.msg , 'Show Task List');
+			toast.openNotificationWithIcon('error', response.data.err , 'Show Task List');
 		}
 		console.log(response.data.object.result, "task list response");
 		dispatch(action.showTask(response.data.object.result));
 		// dispatch(action.showTask(taskList));
 	},
-	error =>{
-		toast.openNotificationWithIcon('error', error.response.data.msg , 'Show Task List');
+	err =>{
+		toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Tasks');
 		console.log("error in fetching task");
 		dispatch({type : 'error'});
 		// dispatch({type: 'error'})

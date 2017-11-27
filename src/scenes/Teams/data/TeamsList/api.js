@@ -17,13 +17,13 @@ export const fetchTeamList = () => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, ' Team List');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , ' Team List');
+				toast.openNotificationWithIcon('error', response.data.err , ' Team List');
 			}
 			dispatch(action.initiateTeams(response.data));
 		},
 		err => {
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Team List');
 			dispatch({type: "error"});
-			toast.openNotificationWithIcon('error', err.response.data.msg , ' Team List');
 			console.log(err, "error");
 		})
 }

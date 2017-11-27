@@ -33,7 +33,7 @@ class ForgotPassword extends Component{
 		} = this.props.form;
 
 		return(
-			<div>
+			<div className = 'forgot-password-container'>
 				<Form onSubmit = { this.handleSubmit } className = "forgot-password">
 					<p className = 'heading-style forgot-password-heading'> Forgot Password </p>
 			        <FormItem>

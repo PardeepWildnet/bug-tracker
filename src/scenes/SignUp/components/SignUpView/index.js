@@ -52,8 +52,8 @@ class SignUpView extends Component {
 		} = this.props.form;
 
 		return(
-			<div>
-				<Form onSubmit = { this.handleSubmit } className = "login">
+			<div className = 'signup-container'>
+				<Form onSubmit = { this.handleSubmit } className = "signup">
 					<p className = 'heading-style sign-up-heading'> Sign Up </p>
 			        <FormItem>
 			          {

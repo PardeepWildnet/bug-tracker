@@ -21,14 +21,14 @@ export const AddTaskApi = (task) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Task');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Task');
+				toast.openNotificationWithIcon('error', response.data.err , 'Add Task');
 			}
 			 dispatch(action.addTask(response))
 			 dispatch(showTask.ShowTaskListApi())
 			 console.log(response, "task response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Task');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Task is not Added' , 'Tasks');
 			dispatch({type: 'error'})
 			console.log(err, "task error response");
 		})

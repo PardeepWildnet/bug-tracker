@@ -23,7 +23,7 @@ export const LoginAPI = (loginData) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Login ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg, 'Login ');
+				toast.openNotificationWithIcon('error', response.data.err, 'Login ');
 			}
             config.loggedInObs.next(true);
 			console.log("loggedInObs", config.loggedInObs );
@@ -32,7 +32,7 @@ export const LoginAPI = (loginData) => (dispatch) => {
 		},
 		err => {
 			dispatch({type: 'error'})
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Login ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Login Failed' , ' Login');
 			console.log(err, "login error response");
 		})
 }

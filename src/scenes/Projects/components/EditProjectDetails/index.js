@@ -73,6 +73,7 @@ class EditProjectDetailView extends Component {
 			visible
 		} = this.props;
 
+		console.log("edit project details , values are", projectName, projectDetails);
 		const { 
 			getFieldDecorator 
 		} = this.props.form;

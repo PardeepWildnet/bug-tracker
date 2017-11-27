@@ -38,69 +38,68 @@ class EditProfile extends Component {
 		} = this.props.form;
 
 		return(
-			
-				<Form onSubmit = { this.handleSubmit } className = "login">
-					<p className = 'heading-style sign-up-heading'> Edit Profile </p>
-			        <FormItem>
-			          {
-			          	getFieldDecorator('firstName', {
-			            	rules: [
-			            		{ required: true, message: 'Please input your First Name!' }
-			            	]
-			          	})
-			          	(
-		            		<Input placeholder="First Name" />
-			          	)
-			          }
-			        </FormItem>
+			<Form onSubmit = { this.handleSubmit } className = "login">
+				<p className = 'heading-style sign-up-heading'> Edit Profile </p>
+		        <FormItem>
+		          {
+		          	getFieldDecorator('firstName', {
+		            	rules: [
+		            		{ required: true, message: 'Please input your First Name!' }
+		            	]
+		          	})
+		          	(
+	            		<Input placeholder="First Name" />
+		          	)
+		          }
+		        </FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('lastName', {
-			            	rules: [
-			            		{ required: true, message: 'Please input your Last Name!' }
-			            	]
-			          	})
-			          	(
-		            		<Input placeholder="Last Name" />
-			          	)
-			          }
-			        </FormItem>
-	
-			        <FormItem>
-			          {
-			          	getFieldDecorator('email', {
-			            	rules: [
-			            		{ required: true, message: 'Please input your email!' }
-			            	]
-			          	})
-			          	(
-		            		<Input placeholder="Email" />
-			          	)
-			          }
-			        </FormItem>
+		        <FormItem>
+		          {
+		          	getFieldDecorator('lastName', {
+		            	rules: [
+		            		{ required: true, message: 'Please input your Last Name!' }
+		            	]
+		          	})
+		          	(
+	            		<Input placeholder="Last Name" />
+		          	)
+		          }
+		        </FormItem>
 
-			        <FormItem>
-			          {
-			          	getFieldDecorator('password', {
-				            rules: [{
-				              required: true, message: 'Please input your password!',
-				            }, {
-				              validator: this.checkConfirm,
-				            }],
-			          })(
-			            	<Input type="password" placeholder = "Password"/>
-			          )}
-			        </FormItem>
+		        <FormItem>
+		          {
+		          	getFieldDecorator('email', {
+		            	rules: [
+		            		{ required: true, message: 'Please input your email!' }
+		            	]
+		          	})
+		          	(
+	            		<Input placeholder="Email" />
+		          	)
+		          }
+		        </FormItem>
 
-			    	 <FormItem>
-			            <Button type="primary" htmlType="submit" className="login-form-button">
-			          		SAVE
-			          	</Button>
-			        </FormItem>
+		        <FormItem>
+		          {
+		          	getFieldDecorator('password', {
+			            rules: [{
+			              required: true, message: 'Please input your password!',
+			            }, {
+			              validator: this.checkConfirm,
+			            }],
+		          })(
+		            	<Input type="password" placeholder = "Password"/>
+		          )}
+		        </FormItem>
 
-			    </Form>
-			)
+		    	 <FormItem>
+		            <Button type="primary" htmlType="submit" className="login-form-button">
+		          		SAVE
+		          	</Button>
+		        </FormItem>
+
+		    </Form>
+		)
 	}
 }
 

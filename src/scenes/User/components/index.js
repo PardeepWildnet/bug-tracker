@@ -5,6 +5,7 @@ import AddUser from './AddUser';
 import UserList from './UserList';
 
 import * as api from './../data/UserList/api';
+import * as userRoleApi from './../data/UserRole/api';
 
 class Users extends Component {
 	constructor() {
@@ -13,6 +14,7 @@ class Users extends Component {
 
 	componentWillMount(){
 		this.props.dispatch(api.fetchUserList('1'));
+		this.props.dispatch(userRoleApi.userRole());
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
@@ -21,14 +23,15 @@ class Users extends Component {
 
 	render() {
 		const { 
-			userLists 
+			userLists,
+			userRole
 		} = this.props;
 
 	debugger
 		return (
 			<div>
 				<p className = 'heading-style project-style'> Users </p>
-				<AddUser />
+				<AddUser role = {userRole} />
 				<UserList users = {userLists}/>
 			</div>
 		)
@@ -37,8 +40,10 @@ class Users extends Component {
 
 export default connect(
 	state => {
+	debugger
 		return ({
 			userLists : state.user.data.userList[0],
+			userRole : state.user.data.userRole[0]
 		})
 	}
 )(Users)

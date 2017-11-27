@@ -16,13 +16,13 @@ export const ForgotPasswordApi = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Forgot Password ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Forgot Password ');
+				toast.openNotificationWithIcon('error', response.data.err , 'Forgot Password ');
 			}
 			dispatch(action.forgotPassword(response))
 			console.log("success", response);
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Forgot Password ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Forgot Password Failed' , ' Forgot Password');
 			dispatch({type: 'error'})
 		})
 }

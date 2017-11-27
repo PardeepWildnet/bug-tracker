@@ -26,12 +26,12 @@ export const addProject = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Project ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Project ');
+				toast.openNotificationWithIcon('error', response.data.err , 'Add Project ');
 			}
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Project ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Added' , 'Projects');
 			dispatch({type: "error"});
 		})
 }

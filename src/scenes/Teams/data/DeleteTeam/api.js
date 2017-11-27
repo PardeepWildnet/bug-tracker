@@ -16,16 +16,16 @@ export const deleteTeam = (data) => (dispatch) => {
     }})
 		.then((response) => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Delete Team');
+				toast.openNotificationWithIcon('success', response.data.msg, ' Team');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Delete Team');
+				toast.openNotificationWithIcon('error', response.data.err , ' Team');
 			}
 			dispatch(action.deleteTeamAction(response))
 
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Delete Team');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Team is not Deleted' , 'Team');
 			dispatch({type: 'error'})
 		})
 }

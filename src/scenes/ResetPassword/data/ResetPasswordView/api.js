@@ -18,7 +18,7 @@ export const ResetPasswordApi = (data, token) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Reset Password ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Reset Password ');
+				toast.openNotificationWithIcon('error', response.data.err , 'Reset Password ');
 			}
 			localStorage.setItem('userDetail',JSON.stringify(response));
 			dispatch(action.resetPassword(response))
@@ -26,7 +26,7 @@ export const ResetPasswordApi = (data, token) => (dispatch) => {
 			// console.log(response, "login response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Reset Password ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Reset Password Failed' , 'Reset Password');
 			dispatch({type: 'error'})
 		})
 }

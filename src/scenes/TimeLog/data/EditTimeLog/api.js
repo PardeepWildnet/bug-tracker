@@ -22,13 +22,13 @@ export const editLogTime = (values) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Log Time');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Edit Log Time');
+				toast.openNotificationWithIcon('error', response.data.err , 'Edit Log Time');
 			}
 			 dispatch(action.editTimeAction(response))
 			 console.log(response, "time-log response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Edit Log Time');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Time Log is not Updated' , 'Time Log');
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

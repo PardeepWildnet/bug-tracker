@@ -5,11 +5,12 @@ import * as config from './../../../../config';
 import * as action from './action';
 
 export const fetchProjectsList = (value) => (dispatch) => {
-	const url = config.base_url + 'users/viewprojects/' + value;
+	const url = config.base_url + 'project/viewprojects/' + value;
 	console.log("value in fetch project list in ", value);
 
 	console.log("token in fetch project list is ", config.token);
 	const token = "jwt " + config.token
+	debugger
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token
@@ -19,12 +20,12 @@ export const fetchProjectsList = (value) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Projects List ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Projects List ');
+				toast.openNotificationWithIcon('error', response.data.err , 'Projects List ');
 			}
-			dispatch(action.initiateItems(response.data));
+			dispatch(action.initiateItems(response));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Projects List ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Projects');
 			dispatch({type: "error"});
 		})
 }

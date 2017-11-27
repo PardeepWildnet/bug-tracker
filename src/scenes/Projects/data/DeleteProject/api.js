@@ -19,12 +19,12 @@ export const deleteProject = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Delete Project ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Delete Project ');
+				toast.openNotificationWithIcon('error', response.data.err , 'Delete Project ');
 			}
 			dispatch(action.deleteProjectAction(response))
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Delete Project ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Deleted' , 'Projects');
 			dispatch({type : 'error'})
 		})
 }

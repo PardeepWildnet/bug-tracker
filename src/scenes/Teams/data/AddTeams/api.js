@@ -21,15 +21,15 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 	axios.post(url, projectDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Add Team');
+				toast.openNotificationWithIcon('success', response.data.msg, ' Team');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Team');
+				toast.openNotificationWithIcon('error', response.data.err , ' Team');
 			}
 			dispatch(action.initiateTeams(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Team');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Team is not Added' , 'Team');
 			dispatch({type: "error"});
 			console.log(err, "error");
 		})

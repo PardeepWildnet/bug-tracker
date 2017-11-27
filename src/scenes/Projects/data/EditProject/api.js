@@ -28,13 +28,13 @@ export const editProjectDetails = (data) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Project Details');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Edit Project Details');
+				toast.openNotificationWithIcon('error', response.data.err , 'Edit Project Details');
 			}
 			 dispatch(action.editProjectDetailAction(response))
 			 console.log(response, "success");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Edit Project Details');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Updated' , 'Projects');
 			dispatch({type: 'error'})
 			console.log(err, "error");
 		})
