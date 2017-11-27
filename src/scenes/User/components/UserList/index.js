@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as api from './../../data/UserList/api';
+import * as userDeleteApi from './../../data/UserDelete/api';
 import user from './../../../../Assets/userList.json';
 // import * as api from './../../data/DeleteProject/api';
 // import EditProject from './../EditProjectDetails';
@@ -15,21 +16,28 @@ class UserListView extends Component {
 	constructor(props) {
 		super(props);
 		this.handlePageNumber = this.handlePageNumber.bind(this);
+		this.deleteUser = this.deleteUser.bind(this);
 	}
 
 	handlePageNumber (value) {
 		this.props.dispatch(api.fetchUserList(value));
 	}
 
+	deleteUser (item) {
+		this.props.dispatch(userDeleteApi.deleteUser(item))
+		console.log("inside delete user", item.id);
+	}
+
 	render(){
 		const { 
-			users 
+			users , 
+			userRole
 		} = this.props;
 
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
-		console.log("user list", user);
+		// console.log("user list", userRole ? userRole.data.result : userRole);
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -53,7 +61,8 @@ class UserListView extends Component {
 										<td>{item.firstName} </td>
 										<td>{item.lastName} </td>
 										<td>{item.email} </td>
-										<td><Link to={'/dashboard/user/' + item.id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link></td>
+										<td><Link to={'/dashboard/user/' + item.id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
+										<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteUser(item) } aria-hidden="true"></i></td>
 									</tr>
 							)) :
 							<tr>
@@ -72,5 +81,5 @@ class UserListView extends Component {
 }
 const UserList = Form.create()(UserListView);
 export default connect(
-
+	
 )(UserList);

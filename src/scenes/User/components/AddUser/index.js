@@ -53,44 +53,27 @@ class AddUserView extends Component {
 		const { 
 			visible, 
 			confirmLoading, 
-			ModalText 
+			ModalText,
 		} = this.state;
+		const {
+			role
+		} = this.props;
 
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
-
-	    const props = {
-	    	onRemove: (file) => {
-		        this.setState(({ fileList }) => {
-		          const index = fileList.indexOf(file);
-		          const newFileList = fileList.slice();
-		          newFileList.splice(index, 1);
-		          return {
-		            fileList: newFileList,
-		          };
-		        });
-		      },
-		    listType: 'picture',
-			beforeUpload: (file) => {
-				this.setState(({ fileList }) => ({
-				  fileList: [...fileList, file],
-				}));
-				return false;
-			},
-	        fileList: this.state.fileList,
-	       
-	    };
-		 const renderDesignation = designation.map((item) => (
+/*
+		 const renderDesignation = role ? role.data.result.map((item) => (
 	    	<Option 
-	    		value={ item.position } 
-	    		key = { item.id }
+	    		value={ item.roleName } 
+	    		key = { item.roleId }
 	    	>
-	    		{ item.position }
-	    	</Option>
-	    ));
+	    		{ item.roleName }
+	    	</Option> : 
+	    	 <Option value="jack">Jack</Option>
+	    ))*/
 
-
+	    // console.log("role is", role ? role.result : role);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button>
@@ -134,17 +117,10 @@ class AddUserView extends Component {
 				            rules: [{ required: true, message: 'Please input designation of user!' }],
 				          })(
 					          <Select placeholder="Select designation">
-					            {renderDesignation}
 					         </Select>
 				          )}
 				        </FormItem>
 	
-						<Upload {...props}>
-							<Button>
-								<Icon type="upload" /> Select File
-							</Button>
-						</Upload>
-						
 				        <FormItem>
 				          <Button type="primary" htmlType="submit" className="login-form-button">
 				            SUBMIT
@@ -153,6 +129,8 @@ class AddUserView extends Component {
 				    </Form>
 
 			        </Modal>
+			}
+			}
 			</div>
 		)
 	}

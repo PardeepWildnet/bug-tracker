@@ -5,10 +5,10 @@ import * as config from './../../../../config';
 import * as action from './action';
 
 export const addProject = (data) => (dispatch) => {
-	const url = config.base_url + 'users/createproject';
+	const url = config.base_url + 'project/createproject';
 	const projectDetails = {
 		projectName : data.name,
-		projectCreatedBy : 'config.userInfo.data.data._id',
+		projectCreatedBy : config.userInfo.data.data._id,
 		projectDetails : data.details,
 		projectStartDate : data.daterange[0],
 		projectEndDate: data.daterange[1]
@@ -31,7 +31,12 @@ export const addProject = (data) => (dispatch) => {
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Project ');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Project');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Project');
+			}
 			dispatch({type: "error"});
 		})
 }

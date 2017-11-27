@@ -10,7 +10,9 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 		"lastName" : signUpData.lastName,
 		"email" : signUpData.email,
 		"password" : signUpData.password,
-		"accountType" : 'admin'
+		"accountType" : 'admin',
+		"gender" : '',
+		
 	}
 	const url = config.base_url + 'api/register';
 	axios.post(url, signUpDetails)
@@ -25,7 +27,12 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 			console.log(response, "signUp response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Sign Up');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Sign Up');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Sign Up');
+			}
 			dispatch({type: 'error'})
 			console.log(err, "signUp error response");
 		})

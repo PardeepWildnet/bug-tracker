@@ -32,7 +32,13 @@ export const LoginAPI = (loginData) => (dispatch) => {
 		},
 		err => {
 			dispatch({type: 'error'})
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Login ');
+			 
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg , 'Login ');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'error' , 'Login ');
+			}
 			console.log(err, "login error response");
 		})
 }

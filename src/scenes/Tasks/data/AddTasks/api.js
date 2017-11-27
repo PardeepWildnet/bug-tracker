@@ -28,7 +28,12 @@ export const AddTaskApi = (task) => (dispatch) => {
 			 console.log(response, "task response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Task');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Task');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Task');
+			}
 			dispatch({type: 'error'})
 			console.log(err, "task error response");
 		})

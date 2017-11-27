@@ -26,7 +26,12 @@ export const EditProfileAPI = (data) => (dispatch) => {
 			console.log(response, "edit profile response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg, 'Edit Profile');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Edit Profile');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Edit Profile');
+			}
 			dispatch({type: 'error'})
 			console.log(err, "edit profile error response");
 		})

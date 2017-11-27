@@ -25,8 +25,13 @@ export const ShowTimeLogApi = () => (dispatch) => {
 		dispatch(action.showTimeLog(response.data.object.result));
 		// dispatch(action.showTask(taskList));
 	},
-	error =>{
-		toast.openNotificationWithIcon('error', error.response.data.msg , 'Time Log');
+	err =>{
+		if(err.response !== undefined){
+			toast.openNotificationWithIcon('error', err.response.data.msg, 'Time Log');
+		}
+		else {
+			toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Time Log');
+		}
 		console.log("error in fetching timelog");
 		dispatch({type: 'error'})
 	})

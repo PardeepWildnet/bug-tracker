@@ -28,7 +28,12 @@ export const editLogTime = (values) => (dispatch) => {
 			 console.log(response, "time-log response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Edit Log Time');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Edit Log Time');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Edit Log Time');
+			}
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

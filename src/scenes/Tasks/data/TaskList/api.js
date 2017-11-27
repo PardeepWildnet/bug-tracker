@@ -25,8 +25,13 @@ export const ShowTaskListApi = () => (dispatch) => {
 		dispatch(action.showTask(response.data.object.result));
 		// dispatch(action.showTask(taskList));
 	},
-	error =>{
-		toast.openNotificationWithIcon('error', error.response.data.msg , 'Show Task List');
+	err =>{
+		if(err.response !== undefined){
+			toast.openNotificationWithIcon('error', err.response.data.msg, 'Show Task List');
+		}
+		else {
+			toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Show Task List');
+		}
 		console.log("error in fetching task");
 		dispatch({type : 'error'});
 		// dispatch({type: 'error'})

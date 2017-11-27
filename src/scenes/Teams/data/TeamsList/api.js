@@ -22,8 +22,13 @@ export const fetchTeamList = () => (dispatch) => {
 			dispatch(action.initiateTeams(response.data));
 		},
 		err => {
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Team List');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Team List');
+			}
 			dispatch({type: "error"});
-			toast.openNotificationWithIcon('error', err.response.data.msg , ' Team List');
 			console.log(err, "error");
 		})
 }

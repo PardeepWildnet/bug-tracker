@@ -34,7 +34,12 @@ export const editTeamDetails = (data) => (dispatch) => {
 			 console.log(response, "time-log response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Edit Team Details');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Edit Team Details');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Edit Team Details');
+			}
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

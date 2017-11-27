@@ -5,14 +5,14 @@ import * as config from './../../../../config';
 import * as action from './action';
 
 export const addUser = (data, fileList) => (dispatch) => {
-	const url = config.base_url + 'users/createproject';
+	const url = config.base_url + 'users/addUser';
 	console.log("add user data", data);
 	const projectDetails = {
-		projectName : data.Fname,
-		projectCreatedBy : data.Lname,
-		projectDetails : data.email,
-		projectStartDate : data.designation,
-		projectEndDate: '16.11.2017'
+		firstName : data.Fname,
+		lastName : data.Lname,
+		gender : data.email,
+		email : data.designation,
+		password: '16.11.2017'
 	}
 
 	const token = "jwt " + config.token
@@ -31,7 +31,12 @@ export const addUser = (data, fileList) => (dispatch) => {
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg, 'Add User ');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add User');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add User');
+			}
 			dispatch({type: "error"});
 		})
 }

@@ -29,7 +29,12 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 			dispatch(action.initiateTeams(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Team');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Team');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Team');
+			}
 			dispatch({type: "error"});
 			console.log(err, "error");
 		})

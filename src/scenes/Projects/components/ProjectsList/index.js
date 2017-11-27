@@ -64,7 +64,8 @@ class ProjectsListView extends Component {
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
-
+		console.log("project list is", projects);
+		// const totalPages = (projects.totalRecords && projects.totalRecords / 10 )|| 2;
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -84,7 +85,7 @@ class ProjectsListView extends Component {
 						<tbody>
 					{
 						projects ? 
-						projects.result.map((project, index) => (
+						projects.data.result.map((project, index) => (
 								<tr key = {index}>
 									<td><Link to={'/tasks/' + project.id }> {index + 1} </Link></td>
 									<td><Link to={'/tasks/' + project.id }> {project.projectName} </Link></td>
@@ -121,12 +122,16 @@ class ProjectsListView extends Component {
 					  )}
 			        </FormItem>
 				</div>
-			<Pagination defaultCurrent={1} total={500} onChange = {this.handlePageNumber}/>
+			<Pagination defaultCurrent={1} total={this.totalPages} onChange = {this.handlePageNumber}/>
 		</div>
 		)
 	}
 }
 const ProjectsList = Form.create()(ProjectsListView);
 export default connect(
-
+	state => {
+		return ({
+			projects : state.projects.data.projectsList[0]
+		})
+	}
 )(ProjectsList);

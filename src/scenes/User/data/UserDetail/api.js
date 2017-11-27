@@ -29,8 +29,12 @@ export const fetchUserDetail = (data) => (dispatch) => {
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'err.response.data.msg', 'User Detail');
-			debugger
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'User Detail');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'User Detail');
+			}
 			dispatch(action.initiateItems(user));
 		})
 }

@@ -32,7 +32,12 @@ export const addLogTime = (values, fileList, date, time) => (dispatch) => {
 			 console.log(response, "time-log response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg , 'Add Log Time');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Log Time');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Log Time');
+			}
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

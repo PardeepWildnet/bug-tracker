@@ -24,7 +24,12 @@ export const fetchUserList = (value) => (dispatch) => {
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', 'error' , 'User List');
+			if(err.response !== undefined){
+				toast.openNotificationWithIcon('error', err.response.data.msg, 'User List');
+			}
+			else {
+				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'User List');
+			}
 			dispatch({type: "error"});
 		})
 }

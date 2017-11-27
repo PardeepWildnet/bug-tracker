@@ -15,6 +15,11 @@
     -o-transform: translate(-50%, -50%);
 }
 
+.login-container {
+	 background-position: center !important;
+  background-image: url("https://www.123creative.com/2493-thickbox/oil-bubbles-background-bubble-light-and-dark-textures-pack.jpg") !important;
+}
+
 .list-group-item-signIn {
 	display : block;
 	border : none;
