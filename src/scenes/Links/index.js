@@ -53,16 +53,17 @@ class Links extends Component {
         );
         return (
             <MuiThemeProvider>
+                        <Affix>
                 <div className = 'appbar-container'>
-                        <AppBar
-                            title="Bug Tracker"
-                            iconElementRight= {<Dropdown overlay={menu} trigger={['click']}>
-                                <img src={require("./../../Assets/userProfile.png")} style = {{height : '60px'}} />
-                            </Dropdown>}
-                            onLeftIconButtonTouchTap = {this.handleToggle}
-                            className = 'appbar-style'
-                            titleStyle = {{ textAlign : 'center'}}
-                        />
+                            <AppBar
+                                title="Bug Tracker"
+                                iconElementRight= {<Dropdown overlay={menu} trigger={['click']}>
+                                    <img src={require("./../../Assets/userProfile.png")} style = {{height : '60px'}} />
+                                </Dropdown>}
+                                onLeftIconButtonTouchTap = {this.handleToggle}
+                                className = 'appbar-style'
+                                titleStyle = {{ textAlign : 'center'}}
+                            />
                     
                     <Drawer
                         docked={false}
@@ -86,6 +87,7 @@ class Links extends Component {
                       </ul>
                     </Drawer>
                 </div>
+                        </Affix>
             </MuiThemeProvider>
         );
     }

@@ -21,7 +21,6 @@ class Main extends Component {
                 <Router>
                     <div>
                         <Links />
-                        <Redirect exact from = '/dashboard' to = '/dashboard/home' />
                         <Route exact path = '/dashboard' component = { Dashboard } />
                         <Route exact path = '/dashboard/user' component = { User } />
                         <Route exact path = '/dashboard/user/:id' component = { UserDetail } />

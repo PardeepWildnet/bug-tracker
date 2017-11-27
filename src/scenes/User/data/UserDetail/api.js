@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import user from './../../../../Assets/userList.json';
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
@@ -28,7 +29,8 @@ export const fetchUserDetail = (data) => (dispatch) => {
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response.data.msg, 'User Detail');
-			dispatch({type: "error"});
+			toast.openNotificationWithIcon('error', 'err.response.data.msg', 'User Detail');
+			debugger
+			dispatch(action.initiateItems(user));
 		})
 }

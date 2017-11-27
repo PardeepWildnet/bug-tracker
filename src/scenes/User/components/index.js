@@ -37,6 +37,7 @@ class Users extends Component {
 
 export default connect(
 	state => {
+	debugger
 		return ({
 			userLists : state.user.data.userList[0],
 		})
