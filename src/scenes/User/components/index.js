@@ -7,6 +7,8 @@ import UserList from './UserList';
 import * as api from './../data/UserList/api';
 import * as userRoleApi from './../data/UserRole/api';
 
+console.clear();
+
 class Users extends Component {
 	constructor() {
 		super();
@@ -26,8 +28,6 @@ class Users extends Component {
 			userLists,
 			userRole
 		} = this.props;
-
-	debugger
 		return (
 			<div>
 				<p className = 'heading-style project-style'> Users </p>
@@ -40,9 +40,9 @@ class Users extends Component {
 
 export default connect(
 	state => {
-	debugger
+		debugger
 		return ({
-			userLists : state.user.data.userList[0],
+			userLists : state.user.data.userList[state.user.data.userList.length -1],
 			userRole : state.user.data.userRole[0]
 		})
 	}

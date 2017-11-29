@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import { NavLink, withRouter } from 'react-router-dom';
 
+import * as config from './../../../../config';
 import * as api from './../../data/EditProfileView/api';
 const FormItem = Form.Item;
+console.clear();
 
 class EditProfile extends Component {
 	constructor(props) {
@@ -36,7 +38,7 @@ class EditProfile extends Component {
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
-
+		console.log("edit profile", config.userInfo)
 		return(
 			<Form onSubmit = { this.handleSubmit } className = "login">
 				<p className = 'heading-style sign-up-heading'> Edit Profile </p>
@@ -45,10 +47,11 @@ class EditProfile extends Component {
 		          	getFieldDecorator('firstName', {
 		            	rules: [
 		            		{ required: true, message: 'Please input your First Name!' }
-		            	]
+		            	],
+		            	initialValue : config.userInfo.data.data.firstName
 		          	})
 		          	(
-	            		<Input placeholder="First Name" />
+	            		<Input />
 		          	)
 		          }
 		        </FormItem>
@@ -58,10 +61,11 @@ class EditProfile extends Component {
 		          	getFieldDecorator('lastName', {
 		            	rules: [
 		            		{ required: true, message: 'Please input your Last Name!' }
-		            	]
+		            	],
+		            	initialValue : config.userInfo.data.data.lastName
 		          	})
 		          	(
-	            		<Input placeholder="Last Name" />
+	            		<Input  />
 		          	)
 		          }
 		        </FormItem>
@@ -71,25 +75,27 @@ class EditProfile extends Component {
 		          	getFieldDecorator('email', {
 		            	rules: [
 		            		{ required: true, message: 'Please input your email!' }
-		            	]
+		            	],
+		            	initialValue : config.userInfo.data.data.email
 		          	})
 		          	(
-	            		<Input placeholder="Email" />
+	            		<Input />
 		          	)
 		          }
 		        </FormItem>
 
 		        <FormItem>
 		          {
-		          	getFieldDecorator('password', {
-			            rules: [{
-			              required: true, message: 'Please input your password!',
-			            }, {
-			              validator: this.checkConfirm,
-			            }],
-		          })(
-		            	<Input type="password" placeholder = "Password"/>
-		          )}
+		          	getFieldDecorator('accountType', {
+		            	rules: [
+		            		{ required: true, message: 'Please input your accountType!' }
+		            	],
+		            	initialValue : config.userInfo.data.data.accountType
+		          	})
+		          	(
+	            		<Input />
+		          	)
+		          }
 		        </FormItem>
 
 		    	 <FormItem>

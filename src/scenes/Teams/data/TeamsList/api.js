@@ -4,10 +4,11 @@ import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
-export const fetchTeamList = () => (dispatch) => {
-	const url = config.base_url + 'users/viewprojects/1';
+export const fetchTeamList = (pageNumber) => (dispatch) => {
+	const url = config.base_url + 'superAdmins/viewTeam/' + pageNumber;
 	
 	const token = "jwt " + config.token
+	debugger
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token

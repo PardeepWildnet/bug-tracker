@@ -1,9 +1,5 @@
 import axios from 'axios';
 import { Observable } from 'rxjs/Rx';
-import * as Rx from 'rxjs/Rx';
-import 'rxjs/add/observable/of';
-import 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
@@ -20,7 +16,7 @@ export const LoginAPI = (loginData) => (dispatch) => {
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Login ');
+				toast.openNotificationWithIcon('success', 'Login Successful', 'Login ');
 			}
 			else {
 				toast.openNotificationWithIcon('error', response.data.err, 'Login ');

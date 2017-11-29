@@ -5,13 +5,12 @@ import * as config from './../../../../config';
 import * as action from './action';
 
 export const fetchUserList = (value) => (dispatch) => {
-	const url = config.base_url + 'users/getAllUsers';
-	console.log("value in fetch project list in ", value);
+	const url = config.base_url + 'users/getAllUsers/' + value;
+	console.log("value in fetch user list in ", value);
 
-	console.log("token in fetch project list is ", config.token);
+	console.log("token in fetch user list is ", config.token);
 	const token = "jwt " + config.token
-	debugger
-	axios.get(url, {headers: {
+	axios.post(url, {}, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token
         }})

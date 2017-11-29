@@ -4,6 +4,8 @@ import { connect }  from 'react-redux';
 import AddTeams from './AddTeams';
 import TeamList from './TeamList';
 
+import * as managerApi from './../data/Manager/api';
+import * as tlApi from './../data/TL/api';
 import * as api from './../data/TeamsList/api';
 
 class Teams extends Component {
@@ -12,7 +14,10 @@ class Teams extends Component {
 	}
 
 	componentWillMount(){
-		this.props.dispatch(api.fetchTeamList());
+		debugger
+		this.props.dispatch(managerApi.manager());
+		this.props.dispatch(tlApi.tlApi());
+		this.props.dispatch(api.fetchTeamList(1));
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
@@ -21,13 +26,15 @@ class Teams extends Component {
 
 	render() {
 		const { 
-			teamLists 
+			teamLists,
+			manager ,
+			tlList
 		} = this.props;
 
 		return (
 			<div>
 				<p className = 'heading-style project-style'> Teams </p>
-				<AddTeams />
+				<AddTeams managerList = { manager } tlList = { tlList }/>
 				<TeamList teams = { teamLists } />
 			</div>
 		)
@@ -36,8 +43,11 @@ class Teams extends Component {
 
 export default connect(
 	state => {
+		debugger
 		return ({
-			teamLists : state.teams.data.teamsList[0]
+			tlList : state.teams.data.tlList[state.teams.data.tlList.length - 1],
+			teamLists : state.teams.data.teamsList[state.teams.data.teamsList.length - 1],
+			manager : state.teams.data.manager[state.teams.data.manager.length - 1]
 		})
 	}
 )(Teams)

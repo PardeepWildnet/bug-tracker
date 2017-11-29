@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import * as loginAPI from './../../data/LoginView/api';
 import './Login.css';
 
+console.clear();
 const FormItem = Form.Item;
 
 class LoginView extends Component{

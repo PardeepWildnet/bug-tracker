@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Dashboard from './../Dashboard';
 import Projects from './../Projects';
@@ -8,6 +8,8 @@ import EditProfile from './../EditProfile';
 import Links from './../Links';
 import User from './../User';
 import UserDetail from './../User/components/UserDetail';
+import ProjectDetail from './../Projects/components/ProjectDetail';
+import TeamDetail from './../Teams/components/TeamDetail';
 import TimeLogs from './../TimeLog';
 import Task from './../Tasks';
 
@@ -27,8 +29,10 @@ class Main extends Component {
                         <Route path = '/dashboard/edit-profile' component = { EditProfile } />
                         <Route path = '/dashboard/time' component = { TimeLogs } />
                         <Route path = '/dashboard/home' component = { Dashboard } />                
-                        <Route path = '/dashboard/projects' component = { Projects } />                
-                        <Route path = '/dashboard/teams' component = { Teams } />                
+                        <Route exact path = '/dashboard/projects' component = { Projects } />                
+                        <Route exact path = '/dashboard/projects/:id' component = { ProjectDetail } />                
+                        <Route exact path = '/dashboard/teams' component = { Teams } />                
+                        <Route exact path = '/dashboard/teams/:id' component = { TeamDetail } />                
                         <Route path = '/dashboard/task' component = { Task }  />
                     </div>
                 </Router>

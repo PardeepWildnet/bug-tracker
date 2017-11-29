@@ -2,13 +2,14 @@ import axios from 'axios';
 
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
+import * as api from './../ProjectsList/api';
 import * as action from './action';
 
 export const addProject = (data) => (dispatch) => {
-	const url = config.base_url + 'users/createproject';
+	const url = config.base_url + 'project/createproject';
 	const projectDetails = {
 		projectName : data.name,
-		projectCreatedBy : 'config.userInfo.data.data._id',
+		projectCreatedBy : config.userInfo.data.data._id,
 		projectDetails : data.details,
 		projectStartDate : data.daterange[0],
 		projectEndDate: data.daterange[1]
@@ -19,7 +20,7 @@ export const addProject = (data) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : token
     }}
-
+    debugger
 	axios.post(url, projectDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {
@@ -28,6 +29,7 @@ export const addProject = (data) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , 'Add Project ');
 			}
+			dispatch(api.fetchProjectsList('1'));
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {

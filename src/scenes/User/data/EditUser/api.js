@@ -1,20 +1,22 @@
 import axios from 'axios';
 
+import * as api from './../UserDetail/api';
 import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
-export const editUserDetails = (data) => (dispatch) => {
+export const editUserDetails = (data, id) => (dispatch) => {
 	// const url = 'http://180.151.103.85:3013/api/admin/upload/image';
-	const url = config.base_url+'users/updateproject';
+	const url = config.base_url+'users/updateUserById/' + id;
 	// const date = values.date.format("MMM Do YY");
-	console.log("inside api of edit time");
-	let projectDetails = {
-		projectName : data.name,
-		projectCreatedBy : 'demo',
-		projectDetails : data.details,
-		projectStartDate : data.daterange[0],
-		projectEndDate: data.daterange[1]
+	console.log("inside api of edit user", url);
+
+	const userDetails = {
+		firstName : data.Fname,
+		lastName : data.Lname,
+		gender : data.gender,
+		email : data.email,
+		accountType : data.designation
 	}
 
 	const token = "jwt " + config.token
@@ -22,7 +24,7 @@ export const editUserDetails = (data) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : token
     }}
-	axios.put(url, projectDetails, header)
+	axios.put(url, userDetails, header)
 		.then(response => {
 			if(response.data.status == 200) {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Project Details');
@@ -30,8 +32,9 @@ export const editUserDetails = (data) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , 'Edit Project Details');
 			}
-			 dispatch(action.editProjectDetailAction(response))
-			 console.log(response, "success");
+			dispatch(api.fetchUserDetail(id));
+			dispatch(action.editUserDetailAction(response))
+			console.log(response, "success");
 		},
 		err => {
 			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Updated' , 'Projects');

@@ -63,16 +63,21 @@ class AddProjectView extends Component {
 			getFieldDecorator, 
 			loginState 
 		} = this.props.form;
-		
-		 const renderTeams = participants.map((team) => (
-	    	<Option 
-	    		value={ team.name } 
-	    		key = { team.id }
-	    	>
-	    		{ team.name }
-	    	</Option>
-	    ));
 
+		const { 
+			teams
+		} = this.props;
+		
+		 const renderTeams = teams ? teams.result.map((team) => (
+	    	<Option 
+	    		value={ team.teamTitle } 
+	    		key = { team._id }
+	    	>
+	    		{ team.teamTitle }
+	    	</Option>
+	    )) : '';
+	    
+	    console.log("team in project  is", teams ? teams.result : teams);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>

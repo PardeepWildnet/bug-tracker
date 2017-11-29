@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as api from './../UserList/api';
 import * as config from './../../../../config';
 import * as toast from './../../../../App.js'
 import * as action from './action.js'
@@ -23,7 +24,8 @@ export const deleteUser = (data) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , ' User ');
 			}
-			dispatch(action.deleteProjectAction(response))
+			dispatch(api.fetchUserList('1'));
+			dispatch(action.deleteUserAction(response))
 		},
 		err => {
 			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'User is not Deleted' , 'User');

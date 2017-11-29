@@ -10,7 +10,7 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 		"lastName" : signUpData.lastName,
 		"email" : signUpData.email,
 		"password" : signUpData.password,
-		"accountType" : 'admin',
+		"accountType" : 'Admin',
 		"gender" : '',
 		
 	}

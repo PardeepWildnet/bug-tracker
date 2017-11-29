@@ -1,21 +1,24 @@
 import axios from 'axios';
 
+import * as fetchDetailApi from './../../data/ProjectDetail/api';
 import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
-export const editProjectDetails = (data) => (dispatch) => {
+export const editProjectDetails = (data, id, createdBy) => (dispatch) => {
 	// const url = 'http://180.151.103.85:3013/api/admin/upload/image';
-	const url = config.base_url+'users/updateproject';
+	const url = config.base_url+'project/updateproject/' + id;
 	// const date = values.date.format("MMM Do YY");
-	console.log("inside api of edit time");
+
 	let projectDetails = {
+		projectCreatedBy : createdBy,
 		projectName : data.name,
-		projectCreatedBy : 'demo',
 		projectDetails : data.details,
-		projectStartDate : data.daterange[0],
-		projectEndDate: data.daterange[1]
+		projectStartDate  : data.daterange[0],
+		projectEndDate : data.daterange[1],
+		projectCreatedByName : 'createdBy'
 	}
+	console.log("inside api of edit project", id);
 
 	const token = "jwt " + config.token
 	let header =  {headers: {
@@ -30,8 +33,9 @@ export const editProjectDetails = (data) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , 'Edit Project Details');
 			}
-			 dispatch(action.editProjectDetailAction(response))
-			 console.log(response, "success");
+			dispatch(fetchDetailApi.fetchProjectDetail(id));
+			dispatch(action.editProjectDetailAction(response))
+			console.log(response, "success");
 		},
 		err => {
 			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Updated' , 'Projects');

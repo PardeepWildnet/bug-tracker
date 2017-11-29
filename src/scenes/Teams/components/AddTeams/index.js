@@ -20,13 +20,10 @@ class TeamView extends Component {
 		this.handleLeads = this.handleLeads.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-		this.handleDateRange = this.handleDateRange.bind(this);
 
 		this.state = {
 			visible: false,
-			confirmLoading: false,
 			teams : [],
-			selectedTeam : ''
 		}
 	}
 
@@ -41,10 +38,6 @@ class TeamView extends Component {
 		this.setState({
 		  visible: false,
 		});
-	}
-
-	handleDateRange(date, dateString) {
-		console.log(date, dateString);
 	}
 
 	handleSubmit (e) {
@@ -63,11 +56,6 @@ class TeamView extends Component {
 
 	handleTeams(value) {
 	  console.log(`selected ${value}`);
-	  this.setState({
-	  	selectedTeam : value
-	  }, function() {
-	  	console.log("selected team is :- ", this.state.selectedTeam);
-	  })
 	}
 
 	handleLeads(value) {
@@ -82,7 +70,6 @@ class TeamView extends Component {
 	render(){
 		const { 
 			visible, 
-			confirmLoading, 
 			ModalText 
 		} = this.state;
 
@@ -90,21 +77,36 @@ class TeamView extends Component {
 			getFieldDecorator,  
 		} = this.props.form;
 		
-		const renderTeams = teams.map((team) => (
+		const {
+			managerList, 
+			tlList
+		} = this.props;
+
+		const renderManager = managerList ? managerList.result.map((manager) => (
 	    	<Option 
-	    		value={ team.teamName } 
-	    		key = { team.teamId }
+	    		value={ manager._id } 
+	    		key = { manager._id }
 	    	>
-	    		{ team.teamId }
+	    		{ manager.firstName } { manager.lastName}
 	    	</Option>
-	    ));
-		
+	    )) : '';
+
+	    const renderTl = tlList ? tlList.result.map((tl) => (
+	    	<Option 
+	    		value={ tl._id } 
+	    		key = { tl._id }
+	    	>
+	    		{ tl.firstName }
+	    	</Option>
+	    )) : '';
+
+		debugger
+		console.log("inside render method of add team ", tlList);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Teams </Button>
 		        <Modal title="Add Teams"
 		          visible={visible}
-		          confirmLoading={confirmLoading}
 		          onCancel={this.handleCancel}
 		          footer={[]}
 		        >
@@ -128,35 +130,25 @@ class TeamView extends Component {
 			        </FormItem>
 			        
 			        <FormItem>
-			          {getFieldDecorator('teams', {
-			            rules: [{ required: true, message: 'Please input team name!' }],
+			          {getFieldDecorator('manager', {
+			            rules: [{ required: true, message: 'Please input manager name!' }],
 			          })(
-				          <Select placeholder="Select teams" onChange={this.handleTeams}>
-				            {renderTeams}
+				          <Select placeholder="Select manager" onChange={this.handleTeams}>
+				            {renderManager}
+				         </Select>
+			          )}
+			        </FormItem>  
+
+			        <FormItem>
+			          {getFieldDecorator('tl', {
+			            rules: [{ required: true, message: 'Please input manager name!' }],
+			          })(
+				          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
+				            {renderTl}
 				         </Select>
 			          )}
 			        </FormItem>
-			        
-			        { 
-			        	teams.map((team, index) => ( 
-			        		<div key = {index}>
-			        			{ team.teamId == this.state.selectedTeam ?
-			        				  <Select mode="multiple" placeholder="Select Leads" onChange={this.handleLeads}>
-							            { team.teamLeads.map((team) => (
-									    	<Option 
-									    		value={ team.teamLeadId } 
-									    		key = { team.teamLeadId }
-									    	>
-									    		{ team.teamLeadName }
-									    	</Option>
-									    ))}
-							         </Select> : ''
-
-			        			}
-			        		</div>
-			        	))
-			        }
-
+			       
 			        <FormItem>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			          	Add Team

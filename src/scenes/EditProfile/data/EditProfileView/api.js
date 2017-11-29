@@ -10,10 +10,10 @@ export const EditProfileAPI = (data) => (dispatch) => {
 		"firstName" : data.firstName,
 		"lastName" : data.lastName,
 		"email" : data.email,
-		"password" : data.password,
+		"accountType" : data.accountType,
 	}
-
-	const url = config.base_url + 'api/register';
+	console.log("ghfhgjk", config.userInfo.data.data._id);
+	const url = config.base_url + 'users/updateUserById/' + config.userInfo.data.data._id;
 	axios.post(url, editProfileDetails)
 		.then(response => {
 			dispatch(action.editActions(response))

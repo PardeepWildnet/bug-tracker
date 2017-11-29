@@ -23,7 +23,8 @@ class EditProjectDetailView extends Component {
 			projectDetails : value.projectDetails || '',
 			projectCraetedBy : value.projectCraetedBy || '',
 			projectStartDate : value.projectStartDate || '',
-			projectEndDate : value.projectEndDate| '',
+			projectEndDate : value.projectEndDate|| '',
+			projectId : value.projectId || '',
 			confirmLoading: false
 		}
 	}
@@ -53,7 +54,7 @@ class EditProjectDetailView extends Component {
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
-		    this.props.dispatch(api.editProjectDetails(values))
+		    this.props.dispatch(api.editProjectDetails(values, this.state.projectId, this.state.projectCreatedBy))
 		    this.props.form.resetFields();
 		  }
 		  this.setState({
@@ -70,10 +71,11 @@ class EditProjectDetailView extends Component {
 			projectDetails,
 			projectStartDate,
 			projectEndDate,
+			projectId,
 			visible
 		} = this.props;
 
-		console.log("edit project details , values are", projectName, projectDetails);
+		console.log("edit project details , values are", this.state.projectId, this.state.projectEndDate);
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
@@ -111,7 +113,7 @@ class EditProjectDetailView extends Component {
 				          {
 				          	getFieldDecorator('daterange', {
 				            rules: [{ required: false, message: 'Please input time duration!' }],
-				            initialValue : [moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]
+				            initialValue : [moment(this.state.projectStartDate, dateFormat), moment(this.state.projectEndDate, dateFormat)]
 				          })(
 							<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
 				          )}

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
-import * as toast from './../../../../App.js'
 import * as signUpApi from './../../data/SignUpView/api';
 import './SignUp.css'
 const FormItem = Form.Item;
@@ -61,11 +60,9 @@ class SignUpView extends Component {
 			            	rules: [
 			            		{ required: true, message: 'Please input your First Name!' }
 			            	]
-			          	})
-			          	(
+			          	})(
 		            		<Input placeholder="First Name" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 
 			        <FormItem>
@@ -74,11 +71,9 @@ class SignUpView extends Component {
 			            	rules: [
 			            		{ required: true, message: 'Please input your Last Name!' }
 			            	]
-			          	})
-			          	(
+			          	})(
 		            		<Input placeholder="Last Name" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 	
 			        <FormItem>
@@ -87,11 +82,9 @@ class SignUpView extends Component {
 			            	rules: [
 			            		{ required: true, message: 'Please input your email!' }
 			            	]
-			          	})
-			          	(
+			          	})(
 		            		<Input placeholder="Email" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 
 			        <FormItem

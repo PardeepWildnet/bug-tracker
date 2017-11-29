@@ -1,16 +1,17 @@
 import axios from 'axios';
 
+import * as api from './../TeamsList/api';
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
 export const deleteTeam = (data) => (dispatch) => {
-	const url = config.base_url + 'users/deleteproject';
+	const url = config.base_url + 'superAdmins/deleteTeam/' + data._id;
 	const teamDetails = {
 		uid : data.id
 	}
 	const token = "jwt " + config.token
-	axios.delete(url, teamDetails, {headers: {
+	axios.delete(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token
     }})
@@ -21,6 +22,7 @@ export const deleteTeam = (data) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , ' Team');
 			}
+			dispatch(api.fetchTeamList('1'));
 			dispatch(action.deleteTeamAction(response))
 
 		},

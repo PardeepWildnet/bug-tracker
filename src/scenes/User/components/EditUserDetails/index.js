@@ -4,6 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 
+import * as userDetailApi from './../../data/UserDetail/api';
 import * as api from './../../data/EditUser/api';
 const dateFormat = 'YYYY-MM-DD';
 const Option = Select.Option;
@@ -16,15 +17,23 @@ class EditUserDetailView extends Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-		console.log("values are", value);
+		console.log("values are ddg", this.props.id);
 		this.state = {
 			visible : this.props.visible,
+			id : this.props.id || '',
 			projectName : value.projectName || '',
 			projectDetails : value.projectDetails || '',
 			projectCraetedBy : value.projectCraetedBy || '',
 			projectStartDate : value.projectStartDate || '',
 			projectEndDate : value.projectEndDate| '',
 			confirmLoading: false
+		}
+	}
+
+	componentDidMount (){
+		console.log("id is ", this.props.id);
+		if(this.props.id) {
+			this.props.dispatch(userDetailApi.fetchUserDetail(this.props.id));
 		}
 	}
 
@@ -72,13 +81,16 @@ class EditUserDetailView extends Component {
 			projectStartDate,
 			projectEndDate,
 			visible, 
-			userRole
+			userRole,
+			userDetail,
+			id
 		} = this.props;
 
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
 
+		console.log("id in detail view", id);
 		const renderDesignation =  userRole ? userRole.result.map((item) => (
 	    	<Option 
 	    		value={ item.roleName } 
@@ -87,33 +99,34 @@ class EditUserDetailView extends Component {
 	    		{ item.roleName }
 	    	</Option>
 	    )) : '';
-		console.log("edit project details , values are", projectName, projectDetails);
-
+	    debugger
 		return (
 		       <Modal title="Add User"
 			          visible={visible}
 			          onCancel={this.handleCancel}
 			          footer={[]}
 			        >
+			          { userDetail ?
 			          <Form onSubmit = { this.handleSubmit }>
-
+			          
 
 				        <FormItem>
 				          {
 				          	getFieldDecorator('Fname', {
 				             rules: [{ required: true, message: 'Please input First name!' }],
-				             initialValue : this.state.firstName
+				             initialValue : userDetail.result.firstName
 				          })(
-			            		<Input placeholder="First Name" />
+			            		<Input  />
 				          )}
 				        </FormItem>
+
 	   					<FormItem>
 				          {
 				          	getFieldDecorator('Lname', {
 				             rules: [{ required: true, message: 'Please input Last name!' }],
-				             initialValue : this.state.lastName
+				             initialValue : userDetail.result.lastName
 				          })(
-			            		<Input placeholder="Last Name" />
+			            		<Input />
 				          )}
 				        </FormItem>
 	
@@ -121,18 +134,18 @@ class EditUserDetailView extends Component {
 				          {
 				          	getFieldDecorator('email', {
 				             rules: [{ required: true, message: 'Please input email!' }],
-				             initialValue : this.state.email
+				             initialValue : userDetail.result.email
 				          })(
-			            		<Input placeholder="Email" />
+			            		<Input />
 				          )}
 				        </FormItem>
 	
 				        <FormItem>
 				          {getFieldDecorator('designation', {
 				            rules: [{ required: true, message: 'Please input designation of user!' }],
-				            initialValue : this.state.designation
+				            initialValue : userDetail.result.designation
 				          })(
-					          <Select placeholder="Select designation">
+					          <Select >
 					          	{renderDesignation}
 					         </Select>
 				          )}
@@ -141,9 +154,9 @@ class EditUserDetailView extends Component {
 				        <FormItem>
 				          {getFieldDecorator('gender', {
 				            rules: [{ required: true, message: 'Please input designation of user!' }],
-				            initialValue : this.state.gender
+				            initialValue : userDetail.result.lastName
 				          })(
-					          <Select placeholder="Select Gender">
+					          <Select >
 					          		<Option value="Male">Male</Option>
     								<Option value="Female">Female</Option>
 					         </Select>
@@ -154,8 +167,11 @@ class EditUserDetailView extends Component {
 				          <Button type="primary" htmlType="submit" className="login-form-button">
 				            SAVE
 				          </Button>
-				        </FormItem>
-				    </Form>
+				        </FormItem> 
+				    </Form>: 
+			  			''
+				      }
+				    hjkhhk************
 				    {projectName}
 			        </Modal>
 		)
@@ -165,7 +181,8 @@ const EditUser = Form.create()(EditUserDetailView);
 export default connect(
 state => {
 		return ({
-			userRole : state.user.data.userRole[0]
+			userRole : state.user.data.userRole[0],
+			userDetail : state.user.data.userDetail[0]
 		})
 	}
 )(EditUser)

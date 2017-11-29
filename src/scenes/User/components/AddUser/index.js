@@ -74,7 +74,6 @@ class AddUserView extends Component {
 	    )) : '';
 
 	    console.log("role is", role ? role.result : role);
-
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button>

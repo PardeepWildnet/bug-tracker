@@ -8,21 +8,13 @@ export const userRole = () => (dispatch) => {
 	const url = config.base_url + 'users/getUserRoles';
 	const token = "jwt " + config.token
 	console.log("token is :-" , token);
-	debugger
-	axios.get(url, {headers: {
-            'Content-Type': 'application/json',
-            'authorization' : token
-        }})
 	
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token
     }})
 		.then((response) => {
-			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'User Role ');
-			}
-			else {
+			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , 'User Role ');
 			}
 			dispatch(action.initiateItems(response.data));

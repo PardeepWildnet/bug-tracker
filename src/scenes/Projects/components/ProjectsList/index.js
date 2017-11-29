@@ -17,15 +17,22 @@ class ProjectsListView extends Component {
 		this.handlePageNumber = this.handlePageNumber.bind(this);
 		this.state = {
 			visible : false,
+			pageNumber : 1,
 			projectName : 'nmnm',
 			projectCreatedBy : 'jhjhj',
 			projectDetails : 'kjk',
 			projectStartDate : '',
 			projectEndDate : '',
+			projectId : ''
 		}
 	}
 
 	handlePageNumber (value) {
+		this.setState({
+			pageNumber : value
+		}, function() {
+			console.log("current page number is", this.state.pageNumber);
+		})
 		this.props.dispatch(projectListApi.fetchProjectsList(value));
 	}
 
@@ -36,9 +43,10 @@ class ProjectsListView extends Component {
 				visible : !this.state.visible,
 				projectName : project.projectName ,
 				projectCreatedBy : project.projectCreatedBy , 
-				projectDetails : project.Details ,
+				projectDetails : project.projectDetails ,
 				projectStartDate : project.projectStartDate ,
-				projectEndDate : project.projectEndDate
+				projectEndDate : project.projectEndDate,
+				projectId : project._id
 			})
 		}
 		else {
@@ -47,7 +55,6 @@ class ProjectsListView extends Component {
 			})
 		}
 		this.forceUpdate();
-    	console.log(this.state.visible, project);
 	}
 
 	deleteProject (project) {
@@ -64,7 +71,7 @@ class ProjectsListView extends Component {
 			getFieldDecorator 
 		} = this.props.form;
 		console.log("project list is", projects);
-
+		debugger
 		// const data = (projects.totalRecords && projects.totalRecords / 10 )|| 2;
 		return(
 			<div>
@@ -87,14 +94,17 @@ class ProjectsListView extends Component {
 						projects ? 
 						projects.data.result.map((project, index) => (
 								<tr key = {index}>
-									<td><Link to={'/tasks/' + project.id }> {index + 1} </Link></td>
-									<td><Link to={'/tasks/' + project.id }> {project.projectName} </Link></td>
-									<td><Link to={'/tasks/' + project.id }> {project.projectCreatedBy} </Link></td>
-									<td><Link to={'/tasks/' + project.id }> {project.projectDetails} </Link></td>
-									<td><Link to={'/tasks/' + project.id }> {project.projectStartDate} </Link></td>
-									<td><Link to={'/tasks/' + project.id }> {project.projectEndDate} </Link></td>
-									<td><i className="fa fa-pencil icon-style" onClick = {() => this.editProject(project) } aria-hidden="true"></i>
-									<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i></td>
+									<td><Link to={'/tasks/' + project._id }> {index + ((this.state.pageNumber - 1) * 10) + 1} </Link></td>
+									<td><Link to={'/tasks/' + project._id }> {project.projectName  ? project.projectName : '-'} </Link></td>
+									<td><Link to={'/tasks/' + project._id }> {project.projectCreatedByName  ?  project.projectCreatedByName :'-'} </Link></td>
+									<td><Link to={'/tasks/' + project._id }> {project.projectDetails ? project.projectDetails : '-'} </Link></td>
+									<td><Link to={'/tasks/' + project._id }> {project.projectStartDate} </Link></td>
+									<td><Link to={'/tasks/' + project._id }> {project.projectEndDate} </Link></td>
+									<td>
+										<Link to={'/dashboard/projects/' + project._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
+										<i className="fa fa-pencil icon-style" onClick = {() => this.editProject(project) } aria-hidden="true"></i>
+										<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i>
+									</td>
 								</tr>
 						)) :
 						<tr>
@@ -112,7 +122,8 @@ class ProjectsListView extends Component {
 			            	projectCreatedBy : this.state.projectCreatedBy,
 			            	projectDetails : this.state.projectDetails, 
 			            	projectStartDate : this.state.projectStartDate,
-			            	projectEndDate : this.state.projectEndDate
+			            	projectEndDate : this.state.projectEndDate,
+			            	projectId : this.state.projectId
 			            },
 			          })(
 				          <EditProject
@@ -122,16 +133,12 @@ class ProjectsListView extends Component {
 					  )}
 			        </FormItem>
 				</div>
-			<Pagination defaultCurrent={2}  total={projects ? projects.totalRecords : 10} onChange = {this.handlePageNumber}/>
+			<Pagination defaultCurrent={1}  total={projects ? projects.data.totalRecords : 10} onChange = {this.handlePageNumber}/>
 		</div>
 		)
 	}
 }
 const ProjectsList = Form.create()(ProjectsListView);
 export default connect(
-	state => {
-		return ({
-			projects : state.projects.data.projectsList[0]
-		})
-	}
+	
 )(ProjectsList);
