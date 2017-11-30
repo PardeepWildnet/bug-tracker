@@ -4,14 +4,12 @@ import { connect }  from 'react-redux';
 import AddTasks from './AddTasks';
 import TaskList from './TaskList';
 
+import * as userApi from './../../User/data/UserList/api';
 import * as api from './../data/TaskList/api';
 
 class Tasks extends Component {
-	constructor() {
-		super(); 
-	}
-
 	componentWillMount (){
+		this.props.dispatch(userApi.fetchUserList('1'));
 		this.props.dispatch(api.ShowTaskListApi());
 	}
 
@@ -36,7 +34,7 @@ class Tasks extends Component {
 export default connect(
 	state => {
 		return ({
-			taskLists : state.tasks.data.showTasks[0]
+			taskLists : state.tasks.data.showTasks[state.tasks.data.showTasks.length - 1]
 		})
 	}
 )(Tasks)

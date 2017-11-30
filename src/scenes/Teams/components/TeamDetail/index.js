@@ -16,7 +16,12 @@ const Option = Select.Option;
 class TeamDetailView extends Component {
 	constructor(props){
 		super(props);
+
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleLeads = this.handleLeads.bind(this);
+		this.showModal = this.showModal.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
+		
 		this.state = {
 			teams : [],
 			visible: false,
@@ -24,16 +29,9 @@ class TeamDetailView extends Component {
 	}
 
 	componentWillMount (){
-		console.log("id is ", this.props.match.params.id);
-		// this.props.dispatch(userRoleApi.userRole());
 		this.props.dispatch(tlApi.tlApi());
 		this.props.dispatch(managerApi.manager());
 		this.props.dispatch(api.fetchTeamDetail(this.props.match.params.id));
-	}
-
-	handleTeams(value) {
-	  console.log(`selected ${value}`);
-	  
 	}
 
 	handleLeads(value) {
@@ -45,7 +43,7 @@ class TeamDetailView extends Component {
 	  })
 	}
 
-	showModal = () => {
+	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		}, function () {
@@ -53,7 +51,7 @@ class TeamDetailView extends Component {
 		});
 	}
 
-	handleCancel = () => {
+	handleCancel() {
 		this.setState({
 		  visible: false,
 		}, function() {
@@ -78,9 +76,7 @@ class TeamDetailView extends Component {
 	}
 
 	render () {
-		const { 
-			visible, 
-		} = this.state;
+		const { visible } = this.state;
 
 		const {
 			teamDetail,
@@ -106,9 +102,7 @@ class TeamDetailView extends Component {
 	    	</Option>
 	    )) : '';
 
-	    const { 
-			getFieldDecorator 
-		} = this.props.form;
+	    const { getFieldDecorator } = this.props.form;
 
 		console.log("team detail is", teamDetail);
 		return (
@@ -140,10 +134,10 @@ class TeamDetailView extends Component {
 
 				  			<tr>
 				  				<td>Leads :</td>
-				  				<td>{teamDetail.result.teamLeadsId}
+				  				<td>
 					  				{
 					  					teamDetail.result.teamLeadsId ? teamDetail.result.teamLeadsId.map((tl, index) => (
-											<p key = {index}>{teamDetail.result.teamLeadsId}</p>
+											<p key = {index}>{tl} </p>
 										))  : '-'
 									}
 								</td>
@@ -188,11 +182,11 @@ class TeamDetailView extends Component {
 				        </FormItem>
 				        
 				        <FormItem>
-				          {getFieldDecorator('teams', {
+				          {getFieldDecorator('manager', {
 				            rules: [{ required: true, message: 'Please input team name!' }],
 				            initialValue : teamDetail.result.teamManagerId
 				          })(
-					          <Select placeholder="Select manager" onChange={this.handleTeams}>
+					          <Select placeholder="Select manager">
 					            {renderManager}
 					         </Select>
 				          )}

@@ -10,9 +10,11 @@ const FormItem = Form.Item;
 class SignUpView extends Component {
 	constructor(props){
 		super(props);
-		localStorage.setItem('isNavBar','hide');
+		
 		this.handleSubmit = this.handleSubmit.bind(this);
-		console.log(this.props, "this props")
+		this.checkPassword = this.checkPassword.bind(this);
+		this.checkConfirm = this.checkConfirm.bind(this);
+		
 		this.state = {
 		    confirmDirty: false,
 	    };
@@ -29,26 +31,25 @@ class SignUpView extends Component {
 		});
 	}
 
-	checkPassword = (rule, value, callback) => {
+	checkPassword(rule, value, callback) {
 	    const form = this.props.form;
 	    if (value && value !== form.getFieldValue('password')) {
 	      callback('Two passwords that you enter is inconsistent!');
 	    } else {
 	      callback();
 	    }
-	  }
-	  checkConfirm = (rule, value, callback) => {
+	}
+
+	checkConfirm(rule, value, callback) {
 	    const form = this.props.form;
 	    if (value && this.state.confirmDirty) {
 	      form.validateFields(['confirm'], { force: true });
 	    }
 	    callback();
-	  }
+	}
 
 	render(){
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return(
 			<div className = 'signup-container'>
@@ -87,9 +88,7 @@ class SignUpView extends Component {
 			          	)}
 			        </FormItem>
 
-			        <FormItem
-			          hasFeedback
-			        >
+			        <FormItem hasFeedback>
 			          {getFieldDecorator('password', {
 			            rules: [{
 			              required: true, message: 'Please input your password!',
@@ -100,9 +99,8 @@ class SignUpView extends Component {
 			            <Input type="password" placeholder = "Enter Password"/>
 			          )}
 			        </FormItem>
-			        <FormItem
-			          hasFeedback
-			        >
+
+			        <FormItem hasFeedback >
 			          {getFieldDecorator('confirm', {
 			            rules: [{
 			              required: true, message: 'Please confirm your password!',
@@ -115,17 +113,13 @@ class SignUpView extends Component {
 			        </FormItem>
 
 			        <FormItem>
-			          
-				             <Button type="primary" htmlType="submit" className="login-form-button">
+				        <Button type="primary" htmlType="submit" className="login-form-button">
 			          		Sign Up
 			          	</Button>
         			  	<NavLink to="/login" className = 'list-group-item-signIn'>
         			  		Login
         			  	</NavLink>
-
-			        
 			        </FormItem>
-
 
 			    </Form>
 			</div>

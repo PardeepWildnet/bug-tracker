@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, DatePicker, LocaleProvider, TimePicker, Modal, Button  } from 'antd';
+import { Form, Input, DatePicker, TimePicker, Modal, Button  } from 'antd';
 import { connect } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 
@@ -10,10 +10,12 @@ const FormItem = Form.Item;
 class EditLogTimeView extends Component {
 	constructor (props) {
 		super(props);
+
 		this.submitTime = this.submitTime.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
 		const value = this.props.value || {};
 		console.log("props value in edit log time is :- ", value);
+		
 		this.state = {
 			visible : this.props.visible,
 			title : value.title || 'title',
@@ -63,69 +65,63 @@ class EditLogTimeView extends Component {
 			visible
 		} = this.props;
 
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return (
-			<LocaleProvider locale={enUS}>
-				<Modal
-		          title="Basic Modal"
-		          visible={visible}
-		          onCancel={this.handleCancel}
-		           footer={[
-		            <Button key="back" size="large" className = 'edit-ant-btn-lg ' onClick={this.handleCancel}>Return</Button>,
-		          ]}
-		        >
-				 <Form onSubmit={this.submitTime} className="edit-time-log-form">
-			        <FormItem className = "edit-ant-form-input">
-					 {getFieldDecorator('task', {
-			            rules: [{ required: true, message: 'Please input your title!' }],
-			            initialValue : this.state.title
-			          })(
-			            <Input />
-			          )}
-			        </FormItem>	
+			<Modal
+	          title="Basic Modal"
+	          visible={visible}
+	          onCancel={this.handleCancel}
+	           footer={[
+	            <Button key="back" size="large" className = 'edit-ant-btn-lg ' onClick={this.handleCancel}>Return</Button>,
+	          ]}
+	        >
+			 <Form onSubmit={this.submitTime} className="edit-time-log-form">
+		        <FormItem className = "edit-ant-form-input">
+				 {getFieldDecorator('task', {
+		            rules: [{ required: true, message: 'Please input your title!' }],
+		            initialValue : this.state.title
+		          })(
+		            <Input />
+		          )}
+		        </FormItem>	
 
-			        <FormItem className = "edit-ant-form-input">
-					 {getFieldDecorator('category', {
-			            rules: [{ required: true, message: 'Please input your category!' }],
-			            initialValue : this.state.category
-			          })(
-			            <Input />
-			          )}
-			        </FormItem>
-			        
-			        <FormItem>
-					 {getFieldDecorator('date', {
-			            rules: [{ required: true, message: 'Please input your date!' }],
-			            initialValue : this.state.selectedDate
-			          })(
-						<DatePicker />
- 					  )}
-			        </FormItem>
+		        <FormItem className = "edit-ant-form-input">
+				 {getFieldDecorator('category', {
+		            rules: [{ required: true, message: 'Please input your category!' }],
+		            initialValue : this.state.category
+		          })(
+		            <Input />
+		          )}
+		        </FormItem>
+		        
+		        <FormItem>
+				 {getFieldDecorator('date', {
+		            rules: [{ required: true, message: 'Please input your date!' }],
+		            initialValue : this.state.selectedDate
+		          })(
+					<DatePicker />
+					  )}
+		        </FormItem>
 
-			        <FormItem>
-					 {getFieldDecorator('time', {
-			            rules: [{ required: true, message: 'Please input your time!' }],
-			          })(
-		        		<TimePicker use12Hours format="h:mm a" />
- 					  )}
-			        </FormItem>
+		        <FormItem>
+				 {getFieldDecorator('time', {
+		            rules: [{ required: true, message: 'Please input your time!' }],
+		          })(
+	        		<TimePicker use12Hours format="h:mm a" />
+					  )}
+		        </FormItem>
 
-		        	<Button type="primary" 
-					  htmlType="submit" 
-					  className="login-form-button edit-form-button"
-					>
-						Save
-					</Button>
-			   	  </Form>
-		       </Modal>
-			</LocaleProvider>
+	        	<Button type="primary" 
+				  htmlType="submit" 
+				  className="login-form-button edit-form-button"
+				>
+					Save
+				</Button>
+		   	  </Form>
+	       </Modal>
 		)
 	}
 }
 const EditLogTime = Form.create()(EditLogTimeView);
-export default connect(
-
-)(EditLogTime)
+export default connect()(EditLogTime)

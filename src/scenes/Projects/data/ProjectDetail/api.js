@@ -11,7 +11,6 @@ export const fetchProjectDetail = (data) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' :"jwt " + config.token
     }}
-    debugger
 	axios.post(url, {} , header)
 		.then((response) => {
 			if(response.data.status == 200) {

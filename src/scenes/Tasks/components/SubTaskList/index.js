@@ -9,9 +9,7 @@ export class SubTaskList extends Component {
 	}
 
 	render () {
-		const {
-			subTasks 
-		} = this.props;
+		const { subTasks } = this.props;
 
 		return (
 			<div className = 'sub-task-container'>

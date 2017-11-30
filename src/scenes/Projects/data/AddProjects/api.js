@@ -20,7 +20,6 @@ export const addProject = (data) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : token
     }}
-    debugger
 	axios.post(url, projectDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {

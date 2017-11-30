@@ -5,10 +5,8 @@ import * as config from './../../../../config';
 import * as api from './../UserList/api';
 import * as action from './action';
 
-export const addUser = (data, fileList) => (dispatch) => {
+export const addUser = (data) => (dispatch) => {
 	const url = config.base_url + 'users/addUser';
-	console.log("data in add user is ", data);
-	console.log("add user data", data);
 	const userDetails = {
 		firstName : data.Fname,
 		lastName : data.Lname,
@@ -17,11 +15,11 @@ export const addUser = (data, fileList) => (dispatch) => {
 		accountType : data.designation
 	}
 
-	const token = "jwt " + config.token
 	let header =  {headers: {
             'Content-Type': 'application/json',
-            'authorization' : token
+            'authorization' : "jwt " + config.token
     }}
+    
 	axios.post(url, userDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {

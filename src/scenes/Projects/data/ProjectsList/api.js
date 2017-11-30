@@ -10,7 +10,6 @@ export const fetchProjectsList = (value) => (dispatch) => {
 
 	console.log("token in fetch project list is ", config.token);
 	const token = "jwt " + config.token
-	debugger
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token

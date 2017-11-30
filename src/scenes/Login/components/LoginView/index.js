@@ -14,20 +14,9 @@ class LoginView extends Component{
 	
 	constructor(props){
 		super(props);
+		
 		this.handleSubmit = this.handleSubmit.bind(this);
 		console.log(this.props, "this props")
-	}
-
-	handleSubmit (e) {
-		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
-		  if (!err) {
-		    console.log('Received values of form: ', values, this.props.history);
-		    this.props.dispatch(loginAPI.LoginAPI(values))
-		    this.props.form.resetFields();
-
-		  }
-		});
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
@@ -37,6 +26,17 @@ class LoginView extends Component{
 			console.log("After Login in componentWillReceiveProps ");
 			this.forceUpdate();
 		}
+	}
+	
+	handleSubmit (e) {
+		e.preventDefault();
+		this.props.form.validateFields((err, values) => {
+		  if (!err) {
+		    console.log('Received values of form: ', values, this.props.history);
+		    this.props.dispatch(loginAPI.LoginAPI(values))
+		    this.props.form.resetFields();
+		  }
+		});
 	}
 
 	render(){
@@ -52,9 +52,9 @@ class LoginView extends Component{
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
-			            	rules: [{ required: true, message: 'Please input your username!' }]
+			            	rules: [{ required: true, message: 'Please input your Email!' }]
 			          	})(
-		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
 			          	)}
 			        </FormItem>
 

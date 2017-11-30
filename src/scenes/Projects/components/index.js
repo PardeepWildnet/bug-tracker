@@ -24,7 +24,7 @@ class Projects extends Component {
 			productLists ,
 			teams
 		} = this.props;
-		debugger
+
 		return (
 			<div>
 				<p className = 'heading-style project-style'> Projects </p>
@@ -37,8 +37,6 @@ class Projects extends Component {
 
 export default connect(
 	state => {
-		debugger
-		console.log("size of project list is", state.projects.data.projectsList.length);
 		return ({
 			productLists : state.projects.data.projectsList[state.projects.data.projectsList.length - 1],
 			teams : state.projects.data.teams[state.projects.data.teams.length-1],

@@ -8,8 +8,6 @@ export const teams = () => (dispatch) => {
 	const url = config.base_url + 'superAdmins/viewAllTeam';
 	const token = "jwt " + config.token
 	console.log("token is :-" , token);
-	debugger
-	
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token

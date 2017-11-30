@@ -11,12 +11,10 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
 class TeamView extends Component {
-
 	constructor(props){
 		super(props);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleTeams = this.handleTeams.bind(this);
 		this.handleLeads = this.handleLeads.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
@@ -53,11 +51,7 @@ class TeamView extends Component {
 		  }
 		});
 	}
-
-	handleTeams(value) {
-	  console.log(`selected ${value}`);
-	}
-
+	
 	handleLeads(value) {
 	  console.log(`selected ${value}`);
 	  this.setState({
@@ -73,9 +67,7 @@ class TeamView extends Component {
 			ModalText 
 		} = this.state;
 
-		const { 
-			getFieldDecorator,  
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 		
 		const {
 			managerList, 
@@ -100,8 +92,6 @@ class TeamView extends Component {
 	    	</Option>
 	    )) : '';
 
-		debugger
-		console.log("inside render method of add team ", tlList);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Teams </Button>
@@ -133,7 +123,7 @@ class TeamView extends Component {
 			          {getFieldDecorator('manager', {
 			            rules: [{ required: true, message: 'Please input manager name!' }],
 			          })(
-				          <Select placeholder="Select manager" onChange={this.handleTeams}>
+				          <Select placeholder="Select manager" >
 				            {renderManager}
 				         </Select>
 			          )}
@@ -162,6 +152,4 @@ class TeamView extends Component {
 }
 
 const AddTeams = Form.create()(TeamView);
-export default connect(
-
-)(AddTeams);
+export default connect()(AddTeams);

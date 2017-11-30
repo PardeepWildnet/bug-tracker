@@ -40,7 +40,6 @@ class Users extends Component {
 
 export default connect(
 	state => {
-		debugger
 		return ({
 			userLists : state.user.data.userList[state.user.data.userList.length -1],
 			userRole : state.user.data.userRole[0]

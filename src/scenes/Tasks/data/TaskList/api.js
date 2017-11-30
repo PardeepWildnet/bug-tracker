@@ -6,14 +6,14 @@ import * as action from './action.js';
 import taskList from './../../../../Assets/taskList.json';
 
 export const ShowTaskListApi = () => (dispatch) => {
-	const url = config.base_url + 'admin/skills/list';
+	const url = config.base_url + 'tasks/viewTasks/1';
+
+	let header =  {headers: {
+            'Content-Type': 'application/json',
+            'authorization' : "jwt " + config.token
+    }}
 	
-	var parameters = {
-		page_number : '1',
-		token : config.token
-	}
-	
-	axios.post(url, parameters)
+	axios.post(url, header)
 	.then(response =>{
 		if(response.data.status == 200) {
 			toast.openNotificationWithIcon('success', response.data.msg, 'Show Task List');
@@ -21,8 +21,8 @@ export const ShowTaskListApi = () => (dispatch) => {
 		else {
 			toast.openNotificationWithIcon('error', response.data.err , 'Show Task List');
 		}
-		console.log(response.data.object.result, "task list response");
-		dispatch(action.showTask(response.data.object.result));
+		console.log(response.data, "task list response");
+		dispatch(action.showTask(response.data));
 		// dispatch(action.showTask(taskList));
 	},
 	err =>{

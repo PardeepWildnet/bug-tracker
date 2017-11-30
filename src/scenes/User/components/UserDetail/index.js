@@ -13,20 +13,23 @@ const Option = Select.Option;
 class UserDetailView extends Component {
 	constructor(props){
 		super(props);
+
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showModal = this.showModal.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
+		
 		this.state = {
 			visible: false,
 		}
 	}
 
-	componentWillMount (){
-		console.log("id is ", this.props.match.params.id);
+	componentWillMount() {
 		this.props.dispatch(userRoleApi.userRole());
 		this.props.dispatch(api.fetchUserDetail(this.props.match.params.id));
 	}
 
 
-	showModal = () => {
+	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		}, function () {
@@ -34,7 +37,17 @@ class UserDetailView extends Component {
 		});
 	}
 
-	handleCancel = () => {
+	componentWillReceiveProps(nextProps, nextState){
+		console.log("After Login ", nextProps.userDetail)
+		if(nextProps.userDetail && nextProps.userDetail.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+			this.forceUpdate();
+		}
+	}
+
+	handleCancel() {
 		this.setState({
 		  visible: false,
 		}, function() {
@@ -50,27 +63,11 @@ class UserDetailView extends Component {
 		    this.props.dispatch(editUserApi.editUserDetails(values, this.props.match.params.id))
 		    this.props.form.resetFields();
 		  }
-		
 		});
 	}
 
-	/*componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps.loginState)
-		debugger
-		if(nextProps.userDetail.length && nextProps.userDetail[userDetail.length].data.status === 200){
-			this.setState({
-		    	visible: false,
-		      }, function () {
-		      	console.log("inside handle submit of edit user detail, value of visible is", this.state.visible);
-		      });
-			this.forceUpdate();
-		}
-	}*/
-
 	render () {
-		const { 
-			visible, 
-		} = this.state;
+		const { visible } = this.state;
 
 		const {
 			userDetail,

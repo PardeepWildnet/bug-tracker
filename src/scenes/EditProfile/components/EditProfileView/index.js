@@ -11,6 +11,7 @@ console.clear();
 class EditProfile extends Component {
 	constructor(props) {
 		super(props);
+		
 		this.handleSubmit = this.handleSubmit.bind(this);
 	} 
 
@@ -21,24 +22,13 @@ class EditProfile extends Component {
 		    console.log('Received values of form: ', values, this.props.history);
 		    this.props.dispatch(api.EditProfileAPI(values))
 		    this.props.form.resetFields();
-			this.props.history.push('/dashboard');
 		  }
 		});
 	}
 
-	componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps.loginState);
-		/*if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
-			console.log("After Login in componentWillReceiveProps ");
-			this.forceUpdate();
-		}*/
-	}
-
 	render(){
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
-		console.log("edit profile", config.userInfo)
+		const { getFieldDecorator } = this.props.form;
+
 		return(
 			<Form onSubmit = { this.handleSubmit } className = "login">
 				<p className = 'heading-style sign-up-heading'> Edit Profile </p>

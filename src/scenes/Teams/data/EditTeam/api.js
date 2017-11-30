@@ -16,7 +16,6 @@ export const editTeamDetails = (data, teamLeads, id) => (dispatch) => {
 		teamDetails  : data.details,
 		teamLeadsId : teamLeads
 	}
-	debugger
 	const token = "jwt " + config.token
 	let header =  {headers: {
             'Content-Type': 'application/json',

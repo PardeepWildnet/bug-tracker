@@ -14,8 +14,10 @@ const RadioGroup = Radio.Group;
 class AddTasksView extends Component {
 	constructor(props){
 		super(props);
+
 		this.onChange = this.onChange.bind(this);
 		this.addTask = this.addTask.bind(this);
+		
 		this.state = {
 			value : 1
 		}
@@ -32,8 +34,7 @@ class AddTasksView extends Component {
 		});
 	}
 
-	
-	onChange = (e) => {
+	onChange(e) {
 		console.log('radio checked', e.target.value);
 		this.setState({
 		  value: e.target.value,
@@ -41,23 +42,24 @@ class AddTasksView extends Component {
 	}
 
 	render() {
-	    const { 
-	    	getFieldDecorator 
-	    } = this.props.form;
+	    const { getFieldDecorator } = this.props.form;
 
-	    const renderParticipants = participants.map((pariticipant) => (
+	    const { userLists } = this.props;
+
+	    const renderParticipants = userLists ? userLists.result.map((user) => (
 	    	<Option 
-	    		value={ pariticipant.name } 
-	    		key = { pariticipant.id }
+	    		value={ user._id } 
+	    		key = { user._id }
 	    	>
-	    		{ pariticipant.name }
+	    		{ user.firstName } { user.lastName }
 	    	</Option>
-	    ));
+	    )):'';
 
+	    console.log("userlist is", userLists);
 		return(
 			<Form onSubmit={this.addTask} className = 'login-form-add' >
 		        <FormItem>
-		          {getFieldDecorator('category', {
+		          {getFieldDecorator('title', {
 		            rules: [{ required: true, message: 'Please input title of task!' }],
 		          })(
 		            <Input placeholder="Give the list a title" />
@@ -65,7 +67,7 @@ class AddTasksView extends Component {
 		        </FormItem>
 				
 				<FormItem>
-		          {getFieldDecorator('participants', {
+		          {getFieldDecorator('assignee', {
 		            rules: [{ required: true, message: 'Please input participant name!' }],
 		          })(
 			          <Select placeholder="Select default Assignee">
@@ -75,7 +77,7 @@ class AddTasksView extends Component {
 		        </FormItem>
 
 		        <FormItem>
-		          {getFieldDecorator('desc', {
+		          {getFieldDecorator('detail', {
 		            rules: [{ required: true, message: 'Please input your task option!' }],
 		          })(
 		            <Input placeholder="Describe this List (optional)" />
@@ -88,9 +90,9 @@ class AddTasksView extends Component {
 		          {getFieldDecorator('scope', {
 		            rules: [{ required: true, message: 'Please input your task option!' }],
 		          })(
-			        <RadioGroup setFieldsValue={this.state.value}>
-				        <Radio value={1}> Everyone </Radio>
-				        <Radio value={2}> Private </Radio>
+			        <RadioGroup >
+				        <Radio value='Everyone'> Everyone </Radio>
+				        <Radio value='Private'> Private </Radio>
 				    </RadioGroup>
 		          )}
 		        </FormItem>
@@ -117,5 +119,10 @@ class AddTasksView extends Component {
 }
 const AddTasks = Form.create()(AddTasksView);
 export default connect(
-
+	state => {
+		debugger
+		return ({
+			userLists : state.user.data.userList[state.user.data.userList.length -1],
+		})
+	}
 )(AddTasks);

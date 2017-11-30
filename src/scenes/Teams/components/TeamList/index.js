@@ -14,8 +14,10 @@ const FormItem = Form.Item;
 class TeamsListView extends Component {
 	constructor() {
 		super();
+
 		this.handlePageNumber = this.handlePageNumber.bind(this);
 		this.deleteTeam = this.deleteTeam.bind(this);
+		
 		this.state = {
 			visible : false,
 			pageNumber : 1
@@ -37,13 +39,9 @@ class TeamsListView extends Component {
 	}
 
 	render(){
-		const { 
-			teams 
-		} = this.props;
+		const { teams } = this.props;
 
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return(
 			<div className = 'project-list-container'>
@@ -71,7 +69,7 @@ class TeamsListView extends Component {
 									<td>
 										<Link to={'/tasks/' + team.id }> 
 											{team.teamLeadsId ? team.teamLeadsId.map((tl, index) => (
-												<p key = {index}>{team.teamLeadsId}<br /></p>))  : '-'
+												<p key = {index}>{tl ? tl : '-'}</p>))  : '-'
 											} 
 										</Link>
 									</td>
@@ -83,7 +81,7 @@ class TeamsListView extends Component {
 							)) :
 							<tr>
 								<td colSpan = '6'>
-									<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
+									<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
 								</td>
 							</tr>
 						}
@@ -96,6 +94,4 @@ class TeamsListView extends Component {
 	}
 }
 const TeamsList = Form.create()(TeamsListView);
-export default connect(
-
-)(TeamsList);
+export default connect()(TeamsList);

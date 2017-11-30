@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Observable } from 'rxjs/Rx';
+// import { Observable } from 'rxjs/Rx';
 
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
@@ -12,6 +12,7 @@ export const LoginAPI = (loginData) => (dispatch) => {
 		email : loginData.email,
 		password : loginData.password
 	}
+	
 	axios.post(url, loginDetails)
 		.then(response => {
 			localStorage.setItem('userDetail',JSON.stringify(response));
@@ -21,9 +22,6 @@ export const LoginAPI = (loginData) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err, 'Login ');
 			}
-            config.loggedInObs.next(true);
-			console.log("loggedInObs", config.loggedInObs );
-			// console.log(response, "login response");
 			dispatch(loginActions.login(response))
 		},
 		err => {
@@ -32,3 +30,5 @@ export const LoginAPI = (loginData) => (dispatch) => {
 			console.log(err, "login error response");
 		})
 }
+            // config.loggedInObs.next(true);
+			// console.log("loggedInObs", config.loggedInObs );

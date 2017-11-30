@@ -16,7 +16,11 @@ const FormItem = Form.Item;
 class ProjectDetailView extends Component {
 	constructor(props){
 		super(props);
+
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showModal = this.showModal.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
+		
 		this.state = {
 			visible: false,
 		}
@@ -28,8 +32,17 @@ class ProjectDetailView extends Component {
 		this.props.dispatch(fetchDetailApi.fetchProjectDetail(this.props.match.params.id));
 	}
 
+	componentWillReceiveProps(nextProps, nextState){
+		console.log("After Login ", nextProps.editProjects)
+		if(nextProps.editProjects && nextProps.editProjects.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+			this.forceUpdate();
+		}
+	}
 
-	showModal = () => {
+	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		}, function () {
@@ -37,7 +50,7 @@ class ProjectDetailView extends Component {
 		});
 	}
 
-	handleCancel = () => {
+	handleCancel() {
 		this.setState({
 		  visible: false,
 		}, function() {
@@ -50,57 +63,23 @@ class ProjectDetailView extends Component {
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
-		    // this.props.dispatch(editUserApi.editUserDetails(values, this.props.match.params.id))
+		    this.props.dispatch(api.editProjectDetails(values, this.props.match.params.id))
 		    this.props.form.resetFields();
 		  }
-		  this.setState({
-	    	visible: false,
-	      }, function () {
-	      	console.log("inside handle submit of edit user detail, value of visible is", this.state.visible);
-	      });
+		 
 		});
-	}
-
-	handleSubmit(e) {
-		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
-		  if (!err) {
-		    console.log('Received values of form: ', values);
-		    this.props.dispatch(api.editProjectDetails(values, this.props.match.params.id, this.state.projectCreatedBy))
-		    this.props.form.resetFields();
-		  }
-		  this.setState({
-	    	visible: false,
-	      });
-		});
-	}
-
-
-	handleDateRange = (date, dateString) => {
-		console.log(date, dateString);
-	}
-
-   	handleCancel = (e) => {
-	    console.log(e);
-	    this.setState({
-	    	visible: false,
-	    });
-    	this.props.onCancel();
 	}
 
 	render () {
-		const { 
-			visible, 
-		} = this.state;
+		const { visible } = this.state;
 
 		const {
 			projectDetail,
-			role
+			role,
+			editProjects
 		} = this.props;
 
-	    const { 
-			getFieldDecorator 
-		} = this.props.form;
+	    const { getFieldDecorator } = this.props.form;
 
 		console.log("project detail", projectDetail);
 		return (
@@ -181,7 +160,7 @@ class ProjectDetailView extends Component {
 				            rules: [{ required: false, message: 'Please input time duration!' }],
 				            initialValue : [moment(projectDetail.result.projectStartDate, dateFormat), moment(projectDetail.result.projectEndDate, dateFormat)]
 				          })(
-							<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
+							<RangePicker className = 'range-picker'/>
 				          )}
 				        </FormItem>
 
@@ -203,6 +182,7 @@ export default connect(
 	state => {
 		return ({
 			projectDetail : state.projects.data.projectDetail[state.projects.data.projectDetail.length - 1],
+			editProjects : state.projects.data.editProjects[state.projects.data.editProjects.length - 1],
 		})
 	}
 )(ProjectDetail);

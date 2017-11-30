@@ -5,25 +5,19 @@ import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
-export const editProjectDetails = (data, id, createdBy) => (dispatch) => {
-	// const url = 'http://180.151.103.85:3013/api/admin/upload/image';
+export const editProjectDetails = (data, id) => (dispatch) => {
 	const url = config.base_url+'project/updateproject/' + id;
-	// const date = values.date.format("MMM Do YY");
 
 	let projectDetails = {
-		projectCreatedBy : createdBy,
 		projectName : data.name,
 		projectDetails : data.details,
 		projectStartDate  : data.daterange[0],
 		projectEndDate : data.daterange[1],
-		projectCreatedByName : 'createdBy'
 	}
-	console.log("inside api of edit project", id);
 
-	const token = "jwt " + config.token
 	let header =  {headers: {
             'Content-Type': 'application/json',
-            'authorization' : token
+            'authorization' : "jwt " + config.token
     }}
 	axios.put(url, projectDetails, header)
 		.then(response => {

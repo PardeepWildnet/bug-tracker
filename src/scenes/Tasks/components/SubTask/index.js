@@ -9,9 +9,11 @@ const FormItem = Form.Item;
 class AddSubTask extends Component {
 	constructor(props){
 		super(props);
+
 		this.cancelTask = this.cancelTask.bind(this);
 		this.addSubTask = this.addSubTask.bind(this);
 		this.addNewTask = this.addNewTask.bind(this);
+		
 		this.state = {
 			selectedAddTaskIndex : 0
 		}
@@ -52,13 +54,9 @@ class AddSubTask extends Component {
   	}
 
 	render (){
-		const  {
-			getFieldDecorator
-		} = this.props.form;
+		const  { getFieldDecorator } = this.props.form;
 
-		const {
-			id
-		} = this.props;
+		const { id } = this.props;
 
 		return(
 			<div>
@@ -106,6 +104,4 @@ class AddSubTask extends Component {
 	}
 }
 AddSubTask = Form.create()(AddSubTask);
-export default connect(
-
-)(AddSubTask);
+export default connect()(AddSubTask);

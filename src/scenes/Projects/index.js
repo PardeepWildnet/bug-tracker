@@ -2,8 +2,6 @@ import React from 'react';
 
 import Projects from './components';
 
-const Project = () => (
-	<Projects />
-)	
+const Project = () =><Projects />
 
 export default Project

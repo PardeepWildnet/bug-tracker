@@ -9,12 +9,7 @@ import * as tlApi from './../data/TL/api';
 import * as api from './../data/TeamsList/api';
 
 class Teams extends Component {
-	constructor() {
-		super();
-	}
-
 	componentWillMount(){
-		debugger
 		this.props.dispatch(managerApi.manager());
 		this.props.dispatch(tlApi.tlApi());
 		this.props.dispatch(api.fetchTeamList(1));

@@ -6,16 +6,23 @@ import * as showTask from './../TaskList/api';
 import * as config from './../../../../config.js';
 
 export const AddTaskApi = (task) => (dispatch) => {
+	console.log("task", task);
 	let taskData = {
-		'category': task.category,
-		'desc':task.desc,
-		'id' : '',
-		'token' : config.token
+		'taskTitle': task.title,
+		'assignBy': {'assigner': config.userInfo.data.data._id},
+		'assignTo' : {'assigneeId':task.assignee},
+		'taskDetails' : task.details,
+		'taskImage' : '',
 	}
 
-	const url = 'http://180.151.103.85:3015/api/admin/skills/add';
+	let header =  {headers: {
+            'Content-Type': 'application/json',
+            'authorization' : "jwt " + config.token
+    }}
+
+	const url = config.base_url + 'tasks/createTasks';
 	
-	axios.post(url, taskData)
+	axios.post(url, taskData, header)
 		.then(response => {
 			if(response.data.status == 200) {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Task');

@@ -7,7 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './Links.css';
 
-
 const DrawerWidth = {
   width: '50%',
   '@media(minWidth: 768px)' : {
@@ -18,12 +17,15 @@ const DrawerWidth = {
 class Links extends Component {
     constructor(props) {
         super(props);
+
         this.handleMenu = this.handleMenu.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
+        
         this.state = {
             open: false
         };
     }
-
 
     handleMenu (e) {
         if(e.key === '2') {
@@ -36,9 +38,17 @@ class Links extends Component {
         }
     }
 
-    handleToggle = () => this.setState({open: !this.state.open});
+    handleToggle() { 
+        this.setState({
+            open: !this.state.open
+        }); 
+    }
 
-    handleClose = () => this.setState({open: false});
+    handleClose(){
+        this.setState({
+            open: false
+        });
+    }
 
     render() {
          const menu = (
@@ -51,10 +61,11 @@ class Links extends Component {
             <MuiThemeProvider>
                     <Affix>
                         <div className = 'appbar-container'>
+
                             <AppBar
                                 title="Bug Tracker"
                                 iconElementRight= {<Dropdown overlay={menu} trigger={['click']}>
-                                    <img src={require("./../../Assets/userProfile.png")} style = {{height : '60px', cursor : 'pointer'}} />
+                                    <img src={require("./../../Assets/userProfile.png")} role="presentation" style = {{height : '60px', cursor : 'pointer'}} />
                                 </Dropdown>}
                                 onLeftIconButtonTouchTap = {this.handleToggle}
                                 className = 'appbar-style'
@@ -73,7 +84,7 @@ class Links extends Component {
                         >
                         <img src={require("./../../Assets/logo.jpg")}  className = 'logo-style'/>
                         
-                        <i className="fa fa-times fa-lg close-icon-style" aria-hidden="true" onClick = { this.handleToggle }></i>
+                        <i className="fa fa-times fa-lg close-icon-style" aria-hidden="true" role="presentation"  onClick = { this.handleToggle }></i>
 
                           <ul className='list-style'>
                                 <p onClick={this.handleClose}>

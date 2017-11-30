@@ -13,22 +13,24 @@ const Option = Select.Option;
 class AddUserView extends Component {
 	constructor(props){
 		super(props);
+
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showModal = this.showModal.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
+
 		this.state = {
 			visible: false,
-			confirmLoading: false,
 			teams : [], 
-			fileList: [],
 		}
 	}
 
-	showModal = () => {
+	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		});
 	}
 
-	handleCancel = () => {
+	handleCancel() {
 		console.log('Clicked cancel button');
 		this.setState({
 		  visible: false,
@@ -40,7 +42,7 @@ class AddUserView extends Component {
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
-		    this.props.dispatch(api.addUser(values, this.state.fileList))
+		    this.props.dispatch(api.addUser(values))
 		    this.props.form.resetFields();
 		    this.setState({
 			  visible: !this.state.visible,
@@ -52,17 +54,12 @@ class AddUserView extends Component {
 	render(){
 		const { 
 			visible, 
-			confirmLoading, 
 			ModalText,
 		} = this.state;
 
-		const {
-			role
-		} = this.props;
+		const { role } = this.props;
 
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		const renderDesignation =  role ? role.result.map((item) => (
 	    	<Option 
@@ -79,7 +76,6 @@ class AddUserView extends Component {
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button>
 			        <Modal title="Add User"
 			          visible={visible}
-			          confirmLoading={confirmLoading}
 			          onCancel={this.handleCancel}
 			          footer={[]}
 			        >
@@ -149,6 +145,4 @@ class AddUserView extends Component {
 }
 
 const AddUser = Form.create()(AddUserView);
-export default connect(
-
-)(AddUser);
+export default connect()(AddUser);

@@ -13,7 +13,11 @@ const {  RangePicker } = DatePicker;
 class AddProjectView extends Component {
 	constructor(props){
 		super(props);
+
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showModal = this.showModal.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
+		
 		this.state = {
 			visible: false,
 			confirmLoading: false,
@@ -21,21 +25,17 @@ class AddProjectView extends Component {
 		}
 	}
 
-	showModal = () => {
+	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		});
 	}
 
-	handleCancel = () => {
+	handleCancel() {
 		console.log('Clicked cancel button');
 		this.setState({
 		  visible: false,
 		});
-	}
-
-	handleDateRange = (date, dateString) => {
-		console.log(date, dateString);
 	}
 
 	handleSubmit (e) {
@@ -52,7 +52,7 @@ class AddProjectView extends Component {
 		});
 	}
 
-	render(){
+	render() {
 		const { 
 			visible, 
 			confirmLoading, 
@@ -64,9 +64,7 @@ class AddProjectView extends Component {
 			loginState 
 		} = this.props.form;
 
-		const { 
-			teams
-		} = this.props;
+		const { teams } = this.props;
 		
 		 const renderTeams = teams ? teams.result.map((team) => (
 	    	<Option 
@@ -121,7 +119,7 @@ class AddProjectView extends Component {
 						  	getFieldDecorator('daterange', {
 						    rules: [{ required: false, message: 'Please input time duration!' }],
 						  })(
-							<RangePicker onChange={ this.handleDateRange } className = 'range-picker'/>
+							<RangePicker className = 'range-picker'/>
 						  )}
 						</FormItem>
 

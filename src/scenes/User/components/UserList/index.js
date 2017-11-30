@@ -7,7 +7,6 @@ import * as api from './../../data/UserList/api';
 import * as userDeleteApi from './../../data/UserDelete/api';
 import user from './../../../../Assets/userList.json';
 
-
 class UserList extends Component {
 	constructor(props) {
 		super(props);
@@ -71,7 +70,7 @@ class UserList extends Component {
 							)) :
 							<tr>
 								<td colSpan = '5'>
-									<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
+									<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
 								</td>
 							</tr>
 						}

@@ -9,9 +9,9 @@ import './ForgotPassword.css';
 const FormItem = Form.Item;
 
 class ForgotPassword extends Component{
-	
 	constructor(props){
 		super(props);
+		
 		this.handleSubmit = this.handleSubmit.bind(this);
 		console.log(this.props, "this props")
 	}
@@ -28,9 +28,7 @@ class ForgotPassword extends Component{
 	}
 
 	render(){
-		const { 
-			getFieldDecorator, 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return(
 			<div className = 'forgot-password-container'>
@@ -39,7 +37,7 @@ class ForgotPassword extends Component{
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
-			            	rules: [{ required: true, message: 'Please input your email!' }]
+			            	rules: [{ required: true, message: 'Please input your Email!' }]
 			          	})(
 		            		<Input placeholder="Enter Email" />
 			          	)}
