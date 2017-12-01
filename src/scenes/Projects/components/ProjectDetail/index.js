@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Time from 'react-time';
 import { Form, Input, LocaleProvider, Modal, Icon, Button, DatePicker  } from 'antd';
 import moment from 'moment';
 
@@ -26,12 +27,12 @@ class ProjectDetailView extends Component {
 		}
 	}
 
+	// This method is called before rendering the component and to get details of project
 	componentWillMount (){
-		console.log("id is ", this.props.match.params.id);
-		// this.props.dispatch(userRoleApi.userRole());
 		this.props.dispatch(fetchDetailApi.fetchProjectDetail(this.props.match.params.id));
 	}
 
+	// This method is called after getting any props
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.editProjects)
 		if(nextProps.editProjects && nextProps.editProjects.status === 200){
@@ -42,6 +43,7 @@ class ProjectDetailView extends Component {
 		}
 	}
 
+	// This method is used to show edit project details modal
 	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
@@ -50,6 +52,7 @@ class ProjectDetailView extends Component {
 		});
 	}
 
+	// This method is used to close the edit project modal
 	handleCancel() {
 		this.setState({
 		  visible: false,
@@ -58,6 +61,7 @@ class ProjectDetailView extends Component {
 		});
 	}
 
+	// This method is used to edit project details
 	handleSubmit(e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -81,7 +85,6 @@ class ProjectDetailView extends Component {
 
 	    const { getFieldDecorator } = this.props.form;
 
-		console.log("project detail", projectDetail);
 		return (
 			<div className = 'user-detail-view'>
 			<p className = 'heading-style user-style'> Project Detail </p>
@@ -100,11 +103,11 @@ class ProjectDetailView extends Component {
 				  			</tr>
 							<tr>
 				  				<td>Start Date :</td>
-				  				<td>{projectDetail.result.projectStartDate}</td>
+				  				<td><Time value={projectDetail.result.projectStartDate} format="DD-MM-YYYY" /></td>
 				  			</tr>
 							<tr>
 				  				<td>End Date :</td>
-				  				<td>{projectDetail.result.projectEndDate}</td>
+				  				<td><Time value={projectDetail.result.projectEndDate} format="DD-MM-YYYY" /></td>
 				  			</tr>
 
 				  			<tr>

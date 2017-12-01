@@ -6,11 +6,10 @@ import * as action from './action';
 
 export const teams = () => (dispatch) => {
 	const url = config.base_url + 'superAdmins/viewAllTeam';
-	const token = "jwt " + config.token
-	console.log("token is :-" , token);
+
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
-            'authorization' : token
+            'authorization' : "jwt " + config.token
     }})
 		.then((response) => {
 			if(response.data.status !== 200) {

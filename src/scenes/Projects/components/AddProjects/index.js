@@ -25,12 +25,14 @@ class AddProjectView extends Component {
 		}
 	}
 
+	// This method is used to show add project modal
 	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		});
 	}
 
+	// This method is called to close the add project modal
 	handleCancel() {
 		console.log('Clicked cancel button');
 		this.setState({
@@ -38,11 +40,11 @@ class AddProjectView extends Component {
 		});
 	}
 
+	// This method id used to add project
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
-		    console.log('Received values of form: ', values.daterange[1]);
 		    this.props.dispatch(api.addProject(values))
 		    this.props.form.resetFields();
 		    this.setState({
@@ -61,12 +63,11 @@ class AddProjectView extends Component {
 
 		const { 
 			getFieldDecorator, 
-			loginState 
 		} = this.props.form;
 
 		const { teams } = this.props;
 		
-		 const renderTeams = teams ? teams.result.map((team) => (
+		const renderTeams = teams ? teams.result.map((team) => (
 	    	<Option 
 	    		value={ team.teamTitle } 
 	    		key = { team._id }
@@ -75,7 +76,6 @@ class AddProjectView extends Component {
 	    	</Option>
 	    )) : '';
 	    
-	    console.log("team in project  is", teams ? teams.result : teams);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>
@@ -136,6 +136,4 @@ class AddProjectView extends Component {
 }
 
 const AddProjects = Form.create()(AddProjectView);
-export default connect(
-
-)(AddProjects);
+export default connect()(AddProjects);

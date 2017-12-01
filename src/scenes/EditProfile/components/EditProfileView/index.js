@@ -5,7 +5,9 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 import * as config from './../../../../config';
 import * as api from './../../data/EditProfileView/api';
+
 const FormItem = Form.Item;
+
 console.clear();
 
 class EditProfile extends Component {
@@ -15,6 +17,7 @@ class EditProfile extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	} 
 
+	// This method id used to edit profile of admin
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -93,7 +96,6 @@ class EditProfile extends Component {
 		          		SAVE
 		          	</Button>
 		        </FormItem>
-
 		    </Form>
 		)
 	}
@@ -101,6 +103,4 @@ class EditProfile extends Component {
 
 const EditProfileView = Form.create()(EditProfile);
 
-export default connect(
-
-)(withRouter(EditProfileView));
+export default connect()(withRouter(EditProfileView));

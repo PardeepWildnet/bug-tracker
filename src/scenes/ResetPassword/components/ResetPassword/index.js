@@ -23,6 +23,7 @@ class ResetPassword extends Component{
 	    };
 	}
 
+	// This method is used to reset the password
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -35,6 +36,7 @@ class ResetPassword extends Component{
 		});
 	}
 
+	// This method is used to check whether the confirm password is same to password
 	checkPassword(rule, value, callback)  {
 		const form = this.props.form;
 		if (value && value !== form.getFieldValue('password')) {
@@ -44,6 +46,7 @@ class ResetPassword extends Component{
 		}
 	}
 
+	// This method is used to heck whether the password is same to comfirm password field
 	checkConfirm (rule, value, callback) {
 		const form = this.props.form;
 		if (value && this.state.confirmDirty) {

@@ -25,12 +25,14 @@ class TeamView extends Component {
 		}
 	}
 
+	// This method is used to show the add team modal
 	showModal () {
 		this.setState({
 		  visible: !this.state.visible,
 		});
 	}
 
+	// This method is used to close the add team modal
 	handleCancel () {
 		console.log('Clicked cancel button');
 		this.setState({
@@ -38,6 +40,7 @@ class TeamView extends Component {
 		});
 	}
 
+	// This method is used to add team
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -52,6 +55,7 @@ class TeamView extends Component {
 		});
 	}
 	
+	// This method is used to get the leads
 	handleLeads(value) {
 	  console.log(`selected ${value}`);
 	  this.setState({

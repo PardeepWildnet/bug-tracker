@@ -6,13 +6,10 @@ import * as action from './action';
 
 export const fetchProjectsList = (value) => (dispatch) => {
 	const url = config.base_url + 'project/viewprojects/' + value;
-	console.log("value in fetch project list in ", value);
 
-	console.log("token in fetch project list is ", config.token);
-	const token = "jwt " + config.token
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
-            'authorization' : token
+            'authorization' : "jwt " + config.token
         }})
 		.then((response) => {
 			if(response.data.status == 200) {

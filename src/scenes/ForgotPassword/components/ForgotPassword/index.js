@@ -16,6 +16,7 @@ class ForgotPassword extends Component{
 		console.log(this.props, "this props")
 	}
 
+	// This method is used to handle forgot password api
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -37,18 +38,20 @@ class ForgotPassword extends Component{
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
-			            	rules: [{ required: true, message: 'Please input your Email!' }]
-			          	})(
+			              rules: [{ required: true, message: 'Please input your Email!' }]
+			          	}, {
+			              type: 'email', message: 'The input is not valid E-mail!',
+			            })(
 		            		<Input placeholder="Enter Email" />
 			          	)}
 			        </FormItem>
 
 			        <FormItem>
 				        <Button type="primary" htmlType="submit" className="login-form-button">
-				            Forgot Password
+				          Forgot Password
 				        </Button>
 		        		<NavLink to="/" className = 'list-group-item-signIn'>
-			        	   Back
+			        	  Back
 			        	</NavLink>
 			        </FormItem>
 			    </Form>

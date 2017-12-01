@@ -8,7 +8,6 @@ import './AddUser.css';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-// const {  RangePicker } = DatePicker;
 
 class AddUserView extends Component {
 	constructor(props){
@@ -24,12 +23,14 @@ class AddUserView extends Component {
 		}
 	}
 
+	// This method is used to add user model
 	showModal() {
 		this.setState({
 		  visible: !this.state.visible,
 		});
 	}
 
+	// This method is used to cancel the modal
 	handleCancel() {
 		console.log('Clicked cancel button');
 		this.setState({
@@ -37,6 +38,7 @@ class AddUserView extends Component {
 		});
 	}
 
+	// This method is used to add user
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -70,75 +72,73 @@ class AddUserView extends Component {
 	    	</Option>
 	    )) : '';
 
-	    console.log("role is", role ? role.result : role);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button>
-			        <Modal title="Add User"
-			          visible={visible}
-			          onCancel={this.handleCancel}
-			          footer={[]}
-			        >
-						  <Form onSubmit = { this.handleSubmit }>
+		        <Modal title="Add User"
+		          visible={visible}
+		          onCancel={this.handleCancel}
+		          footer={[]}
+		        >
+					<Form onSubmit = { this.handleSubmit }>
 
+					    <FormItem>
+					      {
+					      	getFieldDecorator('Fname', {
+					         rules: [{ required: true, message: 'Please input First name!' }]
+					      })(
+					    		<Input placeholder="First Name" />
+					      )}
+					    </FormItem>
 
-						    <FormItem>
-						      {
-						      	getFieldDecorator('Fname', {
-						         rules: [{ required: true, message: 'Please input First name!' }]
-						      })(
-						    		<Input placeholder="First Name" />
-						      )}
-						    </FormItem>
+							<FormItem>
+					      {
+					      	getFieldDecorator('Lname', {
+					         rules: [{ required: true, message: 'Please input Last name!' }]
+					      })(
+					    		<Input placeholder="Last Name" />
+					      )}
+					    </FormItem>
 
-								<FormItem>
-						      {
-						      	getFieldDecorator('Lname', {
-						         rules: [{ required: true, message: 'Please input Last name!' }]
-						      })(
-						    		<Input placeholder="Last Name" />
-						      )}
-						    </FormItem>
+							<FormItem>
+					      {
+					      	getFieldDecorator('email', {
+					         rules: [{ required: true, message: 'Please input email!' }]
+					      })(
+					    		<Input placeholder="Email" />
+					      )}
+					    </FormItem>
 
-								<FormItem>
-						      {
-						      	getFieldDecorator('email', {
-						         rules: [{ required: true, message: 'Please input email!' }]
-						      })(
-						    		<Input placeholder="Email" />
-						      )}
-						    </FormItem>
+					    <FormItem>
+					      {getFieldDecorator('designation', {
+					        rules: [{ required: true, message: 'Please input designation of user!' }],
+					      })(
+					          <Select placeholder="Select designation">
+					          	{renderDesignation}
+					         </Select>
+					      )}
+					    </FormItem>
 
-						    <FormItem>
-						      {getFieldDecorator('designation', {
-						        rules: [{ required: true, message: 'Please input designation of user!' }],
-						      })(
-						          <Select placeholder="Select designation">
-						          	{renderDesignation}
-						         </Select>
-						      )}
-						    </FormItem>
+					    <FormItem>
+					      {getFieldDecorator('gender', {
+					        rules: [{ required: true, message: 'Please input designation of user!' }],
+					      })(
+					          <Select placeholder="Select Gender">
+					          		<Option value="Male">Male</Option>
+									<Option value="Female">Female</Option>
+					         </Select>
+					      )}
+					    </FormItem>
 
-						    <FormItem>
-						      {getFieldDecorator('gender', {
-						        rules: [{ required: true, message: 'Please input designation of user!' }],
-						      })(
-						          <Select placeholder="Select Gender">
-						          		<Option value="Male">Male</Option>
-										<Option value="Female">Female</Option>
-						         </Select>
-						      )}
-						    </FormItem>
-
-						    <FormItem>
-						      <Button type="primary" htmlType="submit" className="login-form-button">
-						        SUBMIT
-						      </Button>
-						    </FormItem>
+					    <FormItem>
+					      <Button type="primary" htmlType="submit" className="login-form-button">
+					        SUBMIT
+					      </Button>
+					    </FormItem>
 						    
-						</Form>
+					</Form>
 
-			        </Modal>
+			    </Modal>
 			</div>
 		)
 	}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect }  from 'react-redux';
 
 import AddTeams from './AddTeams';
@@ -36,9 +37,14 @@ class Teams extends Component {
 	}
 }
 
+Teams.propTypes = {
+  tlList: PropTypes.object,
+  teamLists: PropTypes.object,
+  manager: PropTypes.object
+};
+
 export default connect(
 	state => {
-		debugger
 		return ({
 			tlList : state.teams.data.tlList[state.teams.data.tlList.length - 1],
 			teamLists : state.teams.data.teamsList[state.teams.data.teamsList.length - 1],

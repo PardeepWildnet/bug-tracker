@@ -15,14 +15,10 @@ class AddTasksView extends Component {
 	constructor(props){
 		super(props);
 
-		this.onChange = this.onChange.bind(this);
 		this.addTask = this.addTask.bind(this);
-		
-		this.state = {
-			value : 1
-		}
 	}
 
+	// This method is used to add task
 	addTask(e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -33,14 +29,7 @@ class AddTasksView extends Component {
 			}
 		});
 	}
-
-	onChange(e) {
-		console.log('radio checked', e.target.value);
-		this.setState({
-		  value: e.target.value,
-		});
-	}
-
+	
 	render() {
 	    const { getFieldDecorator } = this.props.form;
 
@@ -55,7 +44,6 @@ class AddTasksView extends Component {
 	    	</Option>
 	    )):'';
 
-	    console.log("userlist is", userLists);
 		return(
 			<Form onSubmit={this.addTask} className = 'login-form-add' >
 		        <FormItem>
@@ -120,7 +108,6 @@ class AddTasksView extends Component {
 const AddTasks = Form.create()(AddTasksView);
 export default connect(
 	state => {
-		debugger
 		return ({
 			userLists : state.user.data.userList[state.user.data.userList.length -1],
 		})

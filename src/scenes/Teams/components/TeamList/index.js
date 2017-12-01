@@ -3,6 +3,7 @@ import { Card, Form } from 'antd';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as teamListApi from './../../data/TeamsList/api';
 import * as api from './../../data/DeleteTeam/api';
@@ -93,5 +94,10 @@ class TeamsListView extends Component {
 		)
 	}
 }
+
+TeamsListView.propTypes = {
+  teams: PropTypes.object
+};
+
 const TeamsList = Form.create()(TeamsListView);
 export default connect()(TeamsList);

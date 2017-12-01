@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Radio, Icon, Modal, Form, Input, Select, Upload } from 'antd';
 
-// import * as userRoleApi from './../../data/UserRole/api';
-// import * as editUserApi from './../../data/EditUser/api';
 import * as managerApi from './../../data/Manager/api';
 import * as tlApi from './../../data/TL/api';
 import * as editTeamApi from './../../data/EditTeam/api';
@@ -228,78 +226,4 @@ export default connect(
 		})
 	}
 )(TeamDetail);
-			// role : state.user.data.userRole[0]
-				/*<p className = 'heading-style user-style'> User Detail </p>
-   				
-		        <Modal title="Edit User Details"
-		          visible={visible}
-		          onCancel={this.handleCancel}
-		          footer={[]}
-		        >
-		        { userDetail ?
-					  <Form onSubmit = { this.handleSubmit }>
-					    <FormItem>
-					      {
-					      	getFieldDecorator('Fname', {
-					         rules: [{ required: true, message: 'Please input First name!' }],
-					         initialValue : userDetail.result.firstName
-
-					      })(
-					    		<Input />
-					      )}
-					    </FormItem>
-
-						<FormItem>
-					      {
-					      	getFieldDecorator('Lname', {
-					         rules: [{ required: true, message: 'Please input Last name!' }],
-					         initialValue : userDetail.result.lastName
-
-					      })(
-					    		<Input/>
-					      )}
-					    </FormItem>
-
-						<FormItem>
-					      {
-					      	getFieldDecorator('email', {
-					         rules: [{ required: true, message: 'Please input email!' }],
-					         initialValue : userDetail.result.email
-
-					      })(
-					    		<Input  />
-					      )}
-					    </FormItem>
-
-					    <FormItem>
-					      {getFieldDecorator('designation', {
-					        rules: [{ required: true, message: 'Please input designation of user!' }],
-					         initialValue : userDetail.result.accountType
-					      })(
-					          <Select >
-					          	{renderDesignation}
-					         </Select>
-					      )}
-					    </FormItem>
-
-					    <FormItem>
-					      {getFieldDecorator('gender', {
-					        rules: [{ required: true, message: 'Please input designation of user!' }],
-					         initialValue : userDetail.result.gender
-					      })(
-					          <Select >
-					          		<Option value="Male">Male</Option>
-									<Option value="Female">Female</Option>
-					         </Select>
-					      )}
-					    </FormItem>
-
-					    <FormItem>
-					      <Button type="primary" htmlType="submit" className="login-form-button">
-					        SAVE
-					      </Button>
-					    </FormItem>
-					</Form> : ''
-				}
-
-		        </Modal>*/
+			

@@ -27,6 +27,7 @@ class Links extends Component {
         };
     }
 
+    // This method id used to render menu items
     handleMenu (e) {
         if(e.key === '2') {
             localStorage.clear();
@@ -38,12 +39,14 @@ class Links extends Component {
         }
     }
 
+    // This method id used to handle the toggleness of drawer
     handleToggle() { 
         this.setState({
             open: !this.state.open
         }); 
     }
 
+    // This method id used to close the drawer
     handleClose(){
         this.setState({
             open: false

@@ -13,7 +13,7 @@ export const ShowTaskListApi = () => (dispatch) => {
             'authorization' : "jwt " + config.token
     }}
 	
-	axios.post(url, header)
+	axios.get(url, header)
 	.then(response =>{
 		if(response.data.status == 200) {
 			toast.openNotificationWithIcon('success', response.data.msg, 'Show Task List');

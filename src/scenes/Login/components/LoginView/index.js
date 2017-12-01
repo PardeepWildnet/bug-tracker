@@ -11,12 +11,9 @@ console.clear();
 const FormItem = Form.Item;
 
 class LoginView extends Component{
-	
 	constructor(props){
 		super(props);
-		
 		this.handleSubmit = this.handleSubmit.bind(this);
-		console.log(this.props, "this props")
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
@@ -28,6 +25,7 @@ class LoginView extends Component{
 		}
 	}
 	
+	// This method id used to login the user	
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -53,7 +51,9 @@ class LoginView extends Component{
 			          {
 			          	getFieldDecorator('email', {
 			            	rules: [{ required: true, message: 'Please input your Email!' }]
-			          	})(
+			          	}, {
+			              type: 'email', message: 'The input is not valid E-mail!',
+			            })(
 		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
 			          	)}
 			        </FormItem>
@@ -78,7 +78,6 @@ class LoginView extends Component{
         			  	Register Now
         			  </NavLink>
 			        </FormItem>
-
 			    </Form>
 			</div>
 		)

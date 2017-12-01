@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Time from 'react-time';
 
 import * as projectListApi from './../../data/ProjectsList/api';
 import * as api from './../../data/DeleteProject/api';
@@ -21,6 +22,7 @@ class ProjectsList extends Component {
 		}
 	}
 
+	// This method is used to render list of projects with page number
 	handlePageNumber (value) {
 		this.setState({
 			pageNumber : value
@@ -30,6 +32,7 @@ class ProjectsList extends Component {
 		this.props.dispatch(projectListApi.fetchProjectsList(value));
 	}
 	
+	// This method is used to delete the project
 	deleteProject (project) {
 		this.props.dispatch(api.deleteProject(project))
 		console.log("inside delete project", project);
@@ -37,9 +40,6 @@ class ProjectsList extends Component {
 
 	render(){
 		const { projects } = this.props;
-
-		console.log("project list is", projects ? 
-						new Date(projects.data.result[0].projectStartDate).getDate() : projects);
 
 		return(
 			<div>
@@ -58,31 +58,30 @@ class ProjectsList extends Component {
 						</tbody>
 						
 						<tbody>
-					{
-						projects ? 
-						projects.data.result.map((project, index) => (
-								<tr key = {index}>
-									<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
-									<td> {project.projectName  ? project.projectName : '-'} </td>
-									<td> {project.projectCreatedByName  ?  project.projectCreatedByName :'-'} </td>
-									<td> {project.projectDetails ? project.projectDetails : '-'} </td>
-									<td> {project.projectStartDate} </td>
-									<td> {project.projectEndDate} </td>
-									<td>
-										<Link to={'/dashboard/projects/' + project._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
-										<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i>
+								{
+								projects ? 
+								projects.data.result.map((project, index) => (
+										<tr key = {index}>
+											<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
+											<td> {project.projectName  ? project.projectName : '-'} </td>
+											<td> {project.projectCreatedByName  ?  project.projectCreatedByName :'-'} </td>
+											<td> {project.projectDetails ? project.projectDetails : '-'} </td>
+											<td> <Time value={project.projectStartDate} format="DD-MM-YYYY" /> </td>
+											<td> <Time value={project.projectEndDate} format="DD-MM-YYYY" /> </td>
+											<td>
+												<Link to={'/dashboard/projects/' + project._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
+												<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i>
+											</td>
+										</tr>
+								)) :
+								<tr>
+									<td colSpan = '7'>
+										<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
 									</td>
 								</tr>
-						)) :
-						<tr>
-							<td colSpan = '7'>
-								<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
-							</td>
-						</tr>
-					}
-					</tbody>
+								}
+						</tbody>
 					</table>
-					
 				</div>
 			<Pagination defaultCurrent={1}  total={projects ? projects.data.totalRecords : 10} onChange = {this.handlePageNumber}/>
 		</div>

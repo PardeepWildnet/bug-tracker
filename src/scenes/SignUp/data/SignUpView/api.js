@@ -11,7 +11,6 @@ export const SignUpAPI = (signUpData) => (dispatch) => {
 		"email" : signUpData.email,
 		"password" : signUpData.password,
 		"accountType" : 'Admin',
-		"gender" : '',
 		
 	}
 	const url = config.base_url + 'api/register';
