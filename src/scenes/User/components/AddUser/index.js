@@ -23,6 +23,18 @@ class AddUserView extends Component {
 		}
 	}
 
+
+	// This method is called after getting any props
+	componentWillReceiveProps(nextProps, nextState){
+		if(nextProps.addUser && nextProps.addUser.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
+			this.forceUpdate();
+		}
+	}
+
 	// This method is used to add user model
 	showModal() {
 		this.setState({
@@ -45,10 +57,6 @@ class AddUserView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(api.addUser(values))
-		    this.props.form.resetFields();
-		    this.setState({
-			  visible: !this.state.visible,
-			});
 		  }
 		});
 	}
@@ -59,9 +67,11 @@ class AddUserView extends Component {
 			ModalText,
 		} = this.state;
 
-		const { role } = this.props;
-
-		const { getFieldDecorator } = this.props.form;
+		const { 
+			role,
+			addUser,
+			form : { getFieldDecorator }
+		} = this.props;
 
 		const renderDesignation =  role ? role.result.map((item) => (
 	    	<Option 
@@ -145,4 +155,10 @@ class AddUserView extends Component {
 }
 
 const AddUser = Form.create()(AddUserView);
-export default connect()(AddUser);
+export default connect(
+	state => {
+		return ({
+			addUser : state.user.data.addUser[state.user.data.addUser.length - 1],
+		})
+	}
+)(AddUser);

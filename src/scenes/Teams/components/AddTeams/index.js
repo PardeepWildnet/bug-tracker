@@ -25,6 +25,17 @@ class TeamView extends Component {
 		}
 	}
 
+	// This method is called after getting any props
+	componentWillReceiveProps(nextProps, nextState){
+		if(nextProps.addTeam && nextProps.addTeam.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
+			this.forceUpdate();
+		}
+	}
+
 	// This method is used to show the add team modal
 	showModal () {
 		this.setState({
@@ -47,10 +58,6 @@ class TeamView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(api.addTeam(values, this.state.teams))
-		    this.props.form.resetFields();
-		    this.setState({
-			  visible: !this.state.visible,
-			});
 		  }
 		});
 	}
@@ -71,11 +78,11 @@ class TeamView extends Component {
 			ModalText 
 		} = this.state;
 
-		const { getFieldDecorator } = this.props.form;
-		
 		const {
 			managerList, 
-			tlList
+			tlList,
+			addTeam,
+			form : { getFieldDecorator }
 		} = this.props;
 
 		const renderManager = managerList ? managerList.result.map((manager) => (
@@ -135,7 +142,7 @@ class TeamView extends Component {
 
 			        <FormItem>
 			          {getFieldDecorator('tl', {
-			            rules: [{ required: true, message: 'Please input manager name!' }],
+			            rules: [{ required: true, message: 'Please input TL name!' }],
 			          })(
 				          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
 				            {renderTl}
@@ -156,4 +163,10 @@ class TeamView extends Component {
 }
 
 const AddTeams = Form.create()(TeamView);
-export default connect()(AddTeams);
+export default connect(
+	state => {
+		return ({
+			addTeam : state.teams.data.addTeam[state.teams.data.addTeam.length - 1],
+		})
+	}
+)(AddTeams);

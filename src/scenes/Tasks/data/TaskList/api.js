@@ -5,8 +5,8 @@ import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import taskList from './../../../../Assets/taskList.json';
 
-export const ShowTaskListApi = () => (dispatch) => {
-	const url = config.base_url + 'tasks/viewTasks/1';
+export const ShowTaskListApi = (value) => (dispatch) => {
+	const url = config.base_url + 'tasks/viewTasks/' + value;
 
 	let header =  {headers: {
             'Content-Type': 'application/json',

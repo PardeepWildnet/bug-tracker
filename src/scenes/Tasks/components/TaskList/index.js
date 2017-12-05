@@ -34,7 +34,7 @@ class TaskList extends Component {
 		}, function() {
 			console.log("current page number is", this.state.pageNumber);
 		})
-		this.props.dispatch(api.ShowTaskListApi());
+		this.props.dispatch(api.ShowTaskListApi(value));
 	}
 	
 	render () {
@@ -65,11 +65,19 @@ class TaskList extends Component {
 										<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
 										<td> {item.taskTitle ? item.taskTitle : '-'} </td>
 										<td> {item.taskDetails ? item.taskDetails : '-'} </td>
-										<td> {item.assignTo.assigneeId ? item.assignTo.assigneeId : '-'} </td>
-										<td> {item.assignBy.assigner ? item.assignBy.assigner : '-'} </td>
+										<td>{item.assignTo ? item.assignTo.map((tl, index) => (
+												<p key = {index}>{tl ? tl : '-'}</p>))  : '-'
+											} 
+										</td>
+										<td> {item.assignBy ? item.assignBy : '-'} </td>
 										<td>
 											<Link to={'/dashboard/task/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
 											<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteTask(item) } aria-hidden="true"></i>
+											<Link to = {'/dashboard/task/subtask/' + item._id }>
+												<Button type="primary" htmlType="submit" className="login-form-add-button">
+										        	Add Sub Task
+										     	</Button>
+										    </Link>
 										</td>
 									</tr>
 							)) :
@@ -102,3 +110,5 @@ export default connect()(TaskList);
 						</div>
 					))
 				}*/
+										/*<td> {item.assignTo.assigneeId ? item.assignTo.assigneeId : '-'} </td>
+										<td> {item.assignBy.assigner ? item.assignBy.assigner : '-'} </td>*/

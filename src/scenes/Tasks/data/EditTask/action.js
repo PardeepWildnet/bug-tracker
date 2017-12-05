@@ -1,9 +1,9 @@
-export const EDIT_PROJECT_DETAILS = "scenes/editProjectDetails/data/editProjectDetailsAction";
+export const EDIT_TASK_DETAILS = "scenes/editTaskDetails/data/editTaskDetailsAction";
 
-export const editProjectDetailAction = (payload) => {
+export const editTaskDetailAction = (payload) => {
 	
 	return {
-		type : EDIT_PROJECT_DETAILS,
+		type : EDIT_TASK_DETAILS,
 		payload		
 	}
 }

@@ -4,11 +4,9 @@ import Time from 'react-time';
 import { Form, Input, LocaleProvider, Modal, Icon, Button, DatePicker  } from 'antd';
 import moment from 'moment';
 
-// import * as userRoleApi from './../../data/UserRole/api';
-// import * as editUserApi from './../../data/EditUser/api';
 import * as api from './../../data/EditProject/api';
 import * as fetchDetailApi from './../../data/ProjectDetail/api';
-// import './UserDetail.css';
+import './ProjectDetail.css';
 
 const {  RangePicker } = DatePicker;
 const dateFormat = 'YYYY-MM-DD';
@@ -80,14 +78,13 @@ class ProjectDetailView extends Component {
 		const {
 			projectDetail,
 			role,
-			editProjects
+			editProjects,
+			form : { getFieldDecorator }
 		} = this.props;
 
-	    const { getFieldDecorator } = this.props.form;
-
 		return (
-			<div className = 'user-detail-view'>
-			<p className = 'heading-style user-style'> Project Detail </p>
+			<div className = 'project-detail-view'>
+			<p className = 'heading-style project-style'> Project Detail </p>
 				<table className='table table-striped table-responsive table-view'>
 					<tbody>
 						<tr>

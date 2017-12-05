@@ -20,6 +20,11 @@
     /* bottom: 0; */
     height: 100vh;
     position: relative;
+
+    position:initial;
+    top: initial;
+    left: initial;
+    transform: initial;
 }
 
 .login-btn {

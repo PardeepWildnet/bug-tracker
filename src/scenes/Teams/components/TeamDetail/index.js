@@ -6,7 +6,7 @@ import * as managerApi from './../../data/Manager/api';
 import * as tlApi from './../../data/TL/api';
 import * as editTeamApi from './../../data/EditTeam/api';
 import * as api from './../../data/TeamDetail/api';
-import './UserDetail.css';
+import './TeamDetail.css';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -32,6 +32,17 @@ class TeamDetailView extends Component {
 		this.props.dispatch(api.fetchTeamDetail(this.props.match.params.id));
 	}
 
+	// This method is called after getting any props
+	componentWillReceiveProps(nextProps, nextState){
+		if(nextProps.editTeams && nextProps.editTeams.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
+			this.forceUpdate();
+		}
+	}
+	
 	handleLeads(value) {
 	  console.log(`selected ${value}`);
 	  this.setState({
@@ -63,13 +74,7 @@ class TeamDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editTeamApi.editTeamDetails(values, this.state.teams, this.props.match.params.id))
-		    this.props.form.resetFields();
 		  }
-		  this.setState({
-	    	visible: false,
-	      }, function () {
-	      	console.log("inside handle submit of edit team detail, value of visible is", this.state.visible);
-	      });
 		});
 	}
 
@@ -79,7 +84,9 @@ class TeamDetailView extends Component {
 		const {
 			teamDetail,
 			tlList,
-			manager
+			manager,
+			editTeams, 
+			form : { getFieldDecorator }
 		} = this.props;
 
 		const renderManager = manager ? manager.result.map((manager) => (
@@ -100,12 +107,9 @@ class TeamDetailView extends Component {
 	    	</Option>
 	    )) : '';
 
-	    const { getFieldDecorator } = this.props.form;
-
-		console.log("team detail is", teamDetail);
 		return (
-			<div className = 'user-detail-view'>
-				<p className = 'heading-style user-style'> Team Detail </p>
+			<div className = 'team-detail-view'>
+				<p className = 'heading-style team-style'> Team Detail </p>
 				<table className='table table-striped table-responsive table-view'>
 					<tbody>
 						<tr>
@@ -152,7 +156,7 @@ class TeamDetailView extends Component {
    				</table>
 
 
-		        <Modal title="Edit User Details"
+		        <Modal title="Edit Team Details"
 		          visible={visible}
 		          onCancel={this.handleCancel}
 		          footer={[]}
@@ -209,7 +213,6 @@ class TeamDetailView extends Component {
 			    	</Form>
 					 : ''
 				}
-
 		        </Modal>
 			</div>
 		)
@@ -220,6 +223,7 @@ const TeamDetail = Form.create()(TeamDetailView);
 export default connect(
 	state => {
 		return ({
+			editTeams : state.teams.data.editTeams[state.teams.data.editTeams.length - 1],
 			teamDetail : state.teams.data.teamDetail[state.teams.data.teamDetail.length - 1],
 			tlList : state.teams.data.tlList[state.teams.data.tlList.length - 1],
 			manager : state.teams.data.manager[state.teams.data.manager.length - 1]

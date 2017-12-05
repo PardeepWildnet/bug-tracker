@@ -5,14 +5,15 @@ import * as action from './action';
 import * as showTask from './../TaskList/api';
 import * as config from './../../../../config.js';
 
-export const AddTaskApi = (task) => (dispatch) => {
+export const AddTaskApi = (task, participants) => (dispatch) => {
 	console.log("task", task);
 	let taskData = {
 		'taskTitle': task.title,
-		'assignBy': {'assigner': config.userInfo.data.data._id},
-		'assignTo' : {'assigneeId':task.assignee},
-		'taskDetails' : task.details,
-		'taskImage' : '',
+		'assignBy': config.userInfo.data.data._id,
+		'assignTo' : participants,
+		'taskDetails' : task.detail,
+		'visibilityTo' : task.scope,
+		'assignedHours' : task.hours
 	}
 
 	let header =  {headers: {
@@ -31,7 +32,7 @@ export const AddTaskApi = (task) => (dispatch) => {
 				toast.openNotificationWithIcon('error', response.data.err , 'Add Task');
 			}
 			 dispatch(action.addTask(response))
-			 dispatch(showTask.ShowTaskListApi())
+			 dispatch(showTask.ShowTaskListApi(1))
 			 console.log(response, "task response");
 		},
 		err => {

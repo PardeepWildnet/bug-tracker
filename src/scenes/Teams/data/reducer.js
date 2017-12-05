@@ -4,6 +4,7 @@ import { reducer as TeamsListReducer } from './TeamsList/reducer';
 import { reducer as DeleteTeamsReducer } from './DeleteTeam/reducer';
 import { reducer as ManagerListReducer } from './Manager/reducer';
 import { reducer as TlListReducer } from './TL/reducer';
+import { reducer as MemberListReducer } from './GetMember/reducer';
 import { reducer as TeamDetailReducer } from './TeamDetail/reducer';
 import { reducer as AddTeamsReducer } from './AddTeams/reducer';
 import { reducer as EditTeamsReducer } from './EditTeam/reducer';
@@ -13,6 +14,7 @@ export const reducer = combineReducers({
 	editTeams : EditTeamsReducer,
 	addTeam : AddTeamsReducer,
 	teamDetail : TeamDetailReducer,
+	memberList : MemberListReducer,
 	tlList : TlListReducer,
 	manager : ManagerListReducer,
 	deleteTeam : DeleteTeamsReducer

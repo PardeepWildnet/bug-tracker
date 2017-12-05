@@ -21,9 +21,10 @@ class Tasks extends Component {
 
 		return (
 			<div>
+				<p className = 'heading-style'> Tasks </p>
 				<AddTasks />
 				<br />
-				<h1> Task List </h1>
+				<p className = 'heading-style'> Task List </p>
 				<br />
 				<TaskList tasks = { this.props.taskLists } />
 			</div>

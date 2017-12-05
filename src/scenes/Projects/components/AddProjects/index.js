@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Radio, Icon, Modal, Form, Input, DatePicker, Select } from 'antd';
+import { Button, Radio, Modal, Form, Input, DatePicker, Select } from 'antd';
 import { connect } from 'react-redux';
 
 import * as api from './../../data/AddProjects/api';
@@ -8,7 +8,7 @@ import './AddProjects.css';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const {  RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 class AddProjectView extends Component {
 	constructor(props){
@@ -20,11 +20,20 @@ class AddProjectView extends Component {
 		
 		this.state = {
 			visible: false,
-			confirmLoading: false,
 			teams : []
 		}
 	}
 
+	// This method is called after getting any props
+	componentWillReceiveProps(nextProps, nextState){
+		if(nextProps.addProjects && nextProps.addProjects.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+			this.forceUpdate();
+		}
+	}
+	
 	// This method is used to show add project modal
 	showModal() {
 		this.setState({
@@ -47,9 +56,6 @@ class AddProjectView extends Component {
 		  if (!err) {
 		    this.props.dispatch(api.addProject(values))
 		    this.props.form.resetFields();
-		    this.setState({
-			  visible: !this.state.visible,
-			});
 		  }
 		});
 	}
@@ -57,15 +63,13 @@ class AddProjectView extends Component {
 	render() {
 		const { 
 			visible, 
-			confirmLoading, 
-			ModalText 
 		} = this.state;
 
 		const { 
-			getFieldDecorator, 
-		} = this.props.form;
-
-		const { teams } = this.props;
+			teams, 
+			addProjects,
+			form : { getFieldDecorator }
+		} = this.props;
 		
 		const renderTeams = teams ? teams.result.map((team) => (
 	    	<Option 
@@ -81,7 +85,6 @@ class AddProjectView extends Component {
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button>
 		        <Modal title="Add Projects"
 		          visible={visible}
-		          confirmLoading={confirmLoading}
 		          onCancel={this.handleCancel}
 		          footer={[]}
 		        >
@@ -136,4 +139,10 @@ class AddProjectView extends Component {
 }
 
 const AddProjects = Form.create()(AddProjectView);
-export default connect()(AddProjects);
+export default connect(
+	state => {
+		return ({
+			addProjects : state.projects.data.addProjects[state.projects.data.addProjects.length - 1],
+		})
+	}
+)(AddProjects);

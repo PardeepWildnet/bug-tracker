@@ -10,6 +10,7 @@ import User from './../User';
 import UserDetail from './../User/components/UserDetail';
 import ProjectDetail from './../Projects/components/ProjectDetail';
 import TaskDetail from './../Tasks/components/TaskDetail';
+import SubTask from './../Tasks/components/SubTask';
 import TeamDetail from './../Teams/components/TeamDetail';
 import TimeLogs from './../TimeLog';
 import Task from './../Tasks';
@@ -36,6 +37,7 @@ class Main extends Component {
                         <Route exact path = '/dashboard/teams/:id' component = { TeamDetail } />                
                         <Route exact path = '/dashboard/task' component = { Task }  />
                         <Route exact path = '/dashboard/task/:id' component = { TaskDetail }  />
+                        <Route exact path = '/dashboard/task/subtask/:id' component = { SubTask }  />
                     </div>
                 </Router>
             )

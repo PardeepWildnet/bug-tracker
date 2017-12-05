@@ -15,7 +15,12 @@ class AddTasksView extends Component {
 	constructor(props){
 		super(props);
 
+		this.handleParticipants = this.handleParticipants.bind(this);
 		this.addTask = this.addTask.bind(this);
+
+		this.state = {
+			participants : [],
+		}
 	}
 
 	// This method is used to add task
@@ -24,16 +29,27 @@ class AddTasksView extends Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				console.log('Received values of form in add task: ', values);
-			    this.props.dispatch(addTaskApi.AddTaskApi(values))
+			    this.props.dispatch(addTaskApi.AddTaskApi(values, this.state.participants))
 			    this.props.form.resetFields();
 			}
 		});
 	}
-	
-	render() {
-	    const { getFieldDecorator } = this.props.form;
 
-	    const { userLists } = this.props;
+	// This method is used to get the participants to whom the task is assigned
+	handleParticipants(value) {
+	  console.log(`selected ${value}`);
+	  this.setState({
+	  	participants : value
+	  }, function() {
+	  	console.log("selected participants are :- ", this.state.participants);
+	  })
+	}
+
+	render() {
+	    const { 
+	    	userLists,
+	    	form : { getFieldDecorator } 
+	    } = this.props;
 
 	    const renderParticipants = userLists ? userLists.result.map((user) => (
 	    	<Option 
@@ -56,18 +72,16 @@ class AddTasksView extends Component {
 				
 				<FormItem>
 		          {getFieldDecorator('assignee', {
-		            rules: [{ required: true, message: 'Please input participant name!' }],
+		            rules: [{ required: true, message: 'Please input assignee!' }],
 		          })(
-			          <Select placeholder="Select default Assignee">
+			          <Select mode = 'multiple' placeholder="Select default Assignee" onChange={this.handleParticipants}>
 			            {renderParticipants}
 			         </Select>
 		          )}
 		        </FormItem>
 
 		        <FormItem>
-		          {getFieldDecorator('detail', {
-		            rules: [{ required: true, message: 'Please input your task option!' }],
-		          })(
+		          {getFieldDecorator('detail')(
 		            <Input placeholder="Describe this List (optional)" />
 		          )}
 		        </FormItem>
@@ -76,7 +90,6 @@ class AddTasksView extends Component {
 		        
 		        <FormItem>
 		          {getFieldDecorator('scope', {
-		            rules: [{ required: true, message: 'Please input your task option!' }],
 		          })(
 			        <RadioGroup >
 				        <Radio value='Everyone'> Everyone </Radio>
@@ -88,11 +101,10 @@ class AddTasksView extends Component {
 			    <div>
 			    	<span> Select number of days </span> 
 			    	<FormItem>
-			          {getFieldDecorator('days', {
-			            rules: [{ required: true, message: 'Please input your task option!' }],
+			          {getFieldDecorator('hours', {
 			            initialValue : '3'
 			          })(
-			    		<InputNumber min={1} max={10} />
+			    		<InputNumber min={1} max={30} />
 			          )}
 			        </FormItem>
 			    </div>

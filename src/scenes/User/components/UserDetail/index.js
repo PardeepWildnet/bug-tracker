@@ -28,6 +28,16 @@ class UserDetailView extends Component {
 		this.props.dispatch(api.fetchUserDetail(this.props.match.params.id));
 	}
 
+	componentWillReceiveProps(nextProps, nextState){
+		console.log("After Login ", nextProps.editUser)
+		if(nextProps.editUser && nextProps.editUser.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
+			this.forceUpdate();
+		}
+	}
 
 	showModal() {
 		this.setState({
@@ -35,16 +45,6 @@ class UserDetailView extends Component {
 		}, function () {
 			console.log("show modal button ", this.state.visible);
 		});
-	}
-
-	componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps.userDetail)
-		if(nextProps.userDetail && nextProps.userDetail.status === 200){
-			this.setState({
-		    	visible: false,
-		    });
-			this.forceUpdate();
-		}
 	}
 
 	handleCancel() {
@@ -61,7 +61,6 @@ class UserDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editUserApi.editUserDetails(values, this.props.match.params.id))
-		    this.props.form.resetFields();
 		  }
 		});
 	}
@@ -71,7 +70,9 @@ class UserDetailView extends Component {
 
 		const {
 			userDetail,
-			role
+			role,
+			editUser,
+			form : { getFieldDecorator }
 		} = this.props;
 
 		const renderDesignation =  role ? role.result.map((item) => (
@@ -83,10 +84,6 @@ class UserDetailView extends Component {
 	    	</Option>
 	    )) : '';
 	    
-	    const { 
-			getFieldDecorator 
-		} = this.props.form;
-
 		return (
 			<div className = 'user-detail-view'>
 				<p className = 'heading-style user-style'> User Detail </p>
@@ -208,6 +205,7 @@ const UserDetail = Form.create()(UserDetailView);
 export default connect(
 	state => {
 		return ({
+			editUser : state.user.data.editUser[state.user.data.editUser.length - 1],
 			userDetail : state.user.data.userDetail[state.user.data.userDetail.length - 1],
 			role : state.user.data.userRole[0]
 		})

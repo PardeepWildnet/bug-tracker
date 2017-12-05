@@ -15,10 +15,9 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 		teamLeadsId : teamLeads
 	}
 
-	const token = "jwt " + config.token
 	let header =  {headers: {
             'Content-Type': 'application/json',
-            'authorization' : token
+            'authorization' : "jwt " + config.token
     }}
 
 	axios.post(url, teamDetails, header)

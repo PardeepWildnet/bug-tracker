@@ -1,4 +1,4 @@
-export const FETCH_API = 'scenes/MAnagerList/data/FETCH_API';
+export const FETCH_API = 'scenes/AddTeamMember/data/FETCH_API';
 
 export const initiateItems = (payload) => {
 	return {

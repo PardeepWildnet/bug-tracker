@@ -128,7 +128,7 @@
 
 @media(min-width: 992px) {
     .list-style {
-        max-height: 60vh;
+        max-height: 75vh;
         margin: 0;
     }
 

@@ -48,12 +48,13 @@ class LoginView extends Component{
 				<Form onSubmit = { this.handleSubmit } className = "login">
 					<p className = 'heading-style login-heading'> Login</p>
 			        <FormItem>
-			          {
-			          	getFieldDecorator('email', {
-			            	rules: [{ required: true, message: 'Please input your Email!' }]
-			          	}, {
+			          {getFieldDecorator('email', {
+			            rules: [{
 			              type: 'email', message: 'The input is not valid E-mail!',
-			            })(
+			            }, {
+			              required: true, message: 'Please input your E-mail!',
+			            }],
+			          })(
 		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
 			          	)}
 			        </FormItem>

@@ -1,38 +1,40 @@
 import axios from 'axios';
 
-import * as fetchDetailApi from './../../data/ProjectDetail/api';
+import * as fetchDetailApi from './../../data/TaskDetail/api';
 import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
-export const editProjectDetails = (data, id) => (dispatch) => {
-	const url = config.base_url+'project/updateproject/' + id;
+export const editTaskDetails = (task, id, participants) => (dispatch) => {
+	const url = config.base_url+'tasks/updateTask/' + id;
 
-	let projectDetails = {
-		projectName : data.name,
-		projectDetails : data.details,
-		projectStartDate  : data.daterange[0],
-		projectEndDate : data.daterange[1],
+	let taskData = {
+		'taskTitle': task.title,
+		'assignBy': config.userInfo.data.data._id,
+		'assignTo' : participants,
+		'taskDetails' : task.detail,
+		'visibilityTo' : task.scope,
+		'assignedHours' : task.hours
 	}
 
 	let header =  {headers: {
             'Content-Type': 'application/json',
             'authorization' : "jwt " + config.token
     }}
-	axios.put(url, projectDetails, header)
+	axios.put(url, taskData, header)
 		.then(response => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Project Details');
+				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Task Details');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.err , 'Edit Project Details');
+				toast.openNotificationWithIcon('error', response.data.err , 'Edit Task Details');
 			}
-			dispatch(fetchDetailApi.fetchProjectDetail(id));
-			dispatch(action.editProjectDetailAction(response))
+			dispatch(fetchDetailApi.fetchTaskDetail(id));
+			dispatch(action.editTaskDetailAction(response))
 			console.log(response, "success");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Updated' , 'Projects');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Task is not Updated' , 'Tasks');
 			dispatch({type: 'error'})
 			console.log(err, "error");
 		})
