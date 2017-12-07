@@ -66,10 +66,10 @@ class TaskList extends Component {
 										<td> {item.taskTitle ? item.taskTitle : '-'} </td>
 										<td> {item.taskDetails ? item.taskDetails : '-'} </td>
 										<td>{item.assignTo ? item.assignTo.map((tl, index) => (
-												<p key = {index}>{tl ? tl : '-'}</p>))  : '-'
+												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
 											} 
 										</td>
-										<td> {item.assignBy ? item.assignBy : '-'} </td>
+										<td> {item.assignBy ? item.assignBy.firstName + " " + item.assignBy.lastName : '-'} </td>
 										<td>
 											<Link to={'/dashboard/task/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
 											<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteTask(item) } aria-hidden="true"></i>

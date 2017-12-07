@@ -36,9 +36,28 @@ class UserList extends Component {
 	render(){
 		const { 
 			users , 
-			userRole
+			userRole,
+			filterKeyword 
 		} = this.props;
 
+		console.log("filter keyword is ", filterKeyword);
+		let filteredList = users ? users.result : '';
+		console.log("filtered list is", filteredList);
+		debugger
+		filteredList = filterKeyword && filteredList.filter((item, index) => {
+			const itemEmail = item.email.toLowerCase()
+			return itemEmail.indexOf(filterKeyword) > -1 ? item : null
+		}) || filteredList
+
+		console.log("after filtering", filteredList);
+/*
+		let filteredList = users && [...users.results];
+
+		filteredList = filterKeyword &&  filteredList.filter((obj,i) => {
+			const objEmail = obj.email.toLowerCase()
+			return objEmail.indexOf(filterKeyword) > -1 ? obj : null
+		}) || filteredList
+*/
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -46,22 +65,33 @@ class UserList extends Component {
 						<tbody>
 							<tr>
 								<th>S No.</th>
-								<th>First Name</th>
-								<th>Last Name</th>
+								<th> Name</th>
 								<th>Email</th>
+								<th>Role</th>
 								<th>Action</th>
 							</tr>
 						</tbody>
-					
+						{/*
+					filteredList ? filteredList.map((item, i) => (
+						<div key={i} >
+							<span>
+								{item.email ? item.email : item.name.first } 
+							</span>
+						</div>
+					)):
+					<span>
+						Loading...
+					</span>
+				*/}
 						<tbody>
 						{
-							users ? 
-							users.result.map((item, index) => (
+							filteredList ? 
+							filteredList.map((item, index) => (
 									<tr key = {index}>
 										<td>{index + ((this.state.pageNumber - 1) * 10) + 1}</td>
-										<td>{item.firstName} </td>
-										<td>{item.lastName} </td>
+										<td>{item.firstName} {item.lastName} </td>
 										<td>{item.email} </td>
+										<td>{item.accountType} </td>
 										<td>
 											<Link to={'/dashboard/user/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
 											<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteUser(item) } aria-hidden="true"></i>

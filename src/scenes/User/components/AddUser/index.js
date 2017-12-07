@@ -3,6 +3,8 @@ import { Button, Radio, Icon, Modal, Form, Input, Select, Upload } from 'antd';
 import { connect } from 'react-redux';
 
 import * as api from './../../data/AddUser/api';
+import * as searchAllApi from './../../data/UserList/api';
+import * as serachApi from './../../data/SearchByRole/api';
 import designation from './../../../../Assets/designationList.json';
 import './AddUser.css';
 
@@ -13,6 +15,7 @@ class AddUserView extends Component {
 	constructor(props){
 		super(props);
 
+		this.search = this.search.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
@@ -40,6 +43,17 @@ class AddUserView extends Component {
 		this.setState({
 		  visible: !this.state.visible,
 		});
+	}
+
+	search(value) {
+		console.log(`selected ${value}`);
+		debugger
+		if(value == "All") {
+			this.props.dispatch(searchAllApi.fetchUserList(1))
+		}
+		else {
+			this.props.dispatch(serachApi.serachByRoles(value))
+		}
 	}
 
 	// This method is used to cancel the modal
@@ -84,7 +98,18 @@ class AddUserView extends Component {
 
 		return(
 			<div className = 'add-project-container'>
-				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button>
+				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button> <br />
+				<p className = 'search-heading-style'> Search By Role </p>
+				<Select placeholder="Search By Roles" className = 'search-by-role' onChange = {this.search}>
+					<Option 
+			    		value= 'All' 
+			    		key = ''
+			    	>
+			    		All
+	    			</Option>
+		          	{renderDesignation}
+		        </Select><br />
+
 		        <Modal title="Add User"
 		          visible={visible}
 		          onCancel={this.handleCancel}
@@ -136,6 +161,7 @@ class AddUserView extends Component {
 					          <Select placeholder="Select Gender">
 					          		<Option value="Male">Male</Option>
 									<Option value="Female">Female</Option>
+									<Option value="Female">Others</Option>
 					         </Select>
 					      )}
 					    </FormItem>

@@ -127,11 +127,11 @@ class TeamsListView extends Component {
 									<td><Link to={'/tasks/' + team.id }> {index + ((this.state.pageNumber - 1) * 10) + 1}</Link></td>
 									<td><Link to={'/tasks/' + team.id }> {team.teamTitle ? team.teamTitle : '-'} </Link></td>
 									<td><Link to={'/tasks/' + team.id }> {team.teamDetails ? team.teamDetails : '-'} </Link></td>
-									<td><Link to={'/tasks/' + team.id }> {team.teamManagerId ? team.teamManagerId : '-'} </Link></td>
+									<td><Link to={'/tasks/' + team.id }> {team.teamManagerId ? team.teamManagerId.firstName + " " + team.teamManagerId.lastName : '-'} </Link></td>
 									<td>
 										<Link to={'/tasks/' + team.id }> 
 											{team.teamLeadsId ? team.teamLeadsId.map((tl, index) => (
-												<p key = {index}>{tl ? tl : '-'}</p>))  : '-'
+												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
 											} 
 										</Link>
 									</td>

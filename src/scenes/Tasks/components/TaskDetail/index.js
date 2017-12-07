@@ -136,19 +136,19 @@ class TaskDetailView extends Component {
 				  			<tr>
 				  				<td>Assign To :</td>
 				  				<td>{taskDetail.result.assignTo ? taskDetail.result.assignTo.map((tl, index) => (
-												<p key = {index}>{tl ? tl : '-'}</p>))  : '-'
+												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
 											} 
 								</td>
 				  			</tr>
 
 				  			<tr>
 				  				<td>Assign By :</td>
-				  				<td>{taskDetail.result.assignBy ? taskDetail.result.assignBy : '-'}</td>
+				  				<td>{taskDetail.result.assignBy ? taskDetail.result.assignBy.firstName + " " + taskDetail.result.assignBy.lastName : '-'}</td>
 				  			</tr>
 							
 				  			<tr>
 				  				<td colspan = '2'>
-				  					 <Progress percent={taskDetail.result.taskstatus ? taskDetail.result.taskstatus : 50} size="small" />
+				  					 <Progress percent={taskDetail.result.taskStatus ? taskDetail.result.taskStatus : 50} size="small" />
 				  				</td>
 				  			</tr>
 
@@ -161,7 +161,7 @@ class TaskDetailView extends Component {
 				  		</tbody> : 
 			  			<tbody>
 			  				<tr>
-								<td colSpan = '7'>
+								<td colspan = '7'>
 									<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
 								</td>
 							</tr>

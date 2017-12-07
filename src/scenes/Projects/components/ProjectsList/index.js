@@ -64,7 +64,7 @@ class ProjectsList extends Component {
 										<tr key = {index}>
 											<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
 											<td> {project.projectName  ? project.projectName : '-'} </td>
-											<td> {project.projectCreatedByName  ?  project.projectCreatedByName :'-'} </td>
+											<td> {project.projectCreatedBy  ?  project.projectCreatedBy.firstName + " " +project.projectCreatedBy.lastName :'-'} </td>
 											<td> {project.projectDetails ? project.projectDetails : '-'} </td>
 											<td> <Time value={project.projectStartDate} format="DD-MM-YYYY" /> </td>
 											<td> <Time value={project.projectEndDate} format="DD-MM-YYYY" /> </td>

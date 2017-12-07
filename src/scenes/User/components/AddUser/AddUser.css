@@ -1,3 +1,14 @@
 .ant-upload.ant-upload-select.ant-upload-select-picture {
 	margin: 20px 0;
 }
+
+.search-by-role {
+	width: 28%;
+}
+
+.search-heading-style {
+	width: auto;
+    float: right;
+    margin: 12px;
+    font-size: 14px;
+}

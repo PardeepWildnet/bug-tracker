@@ -3,6 +3,7 @@ import { connect }  from 'react-redux';
 
 import AddTasks from './AddTasks';
 import TaskList from './TaskList';
+import StatusFilter from './StatusFilter';
 
 import * as userApi from './../../User/data/UserList/api';
 import * as api from './../data/TaskList/api';
@@ -24,6 +25,7 @@ class Tasks extends Component {
 				<p className = 'heading-style'> Tasks </p>
 				<AddTasks />
 				<br />
+				<StatusFilter />
 				<p className = 'heading-style'> Task List </p>
 				<br />
 				<TaskList tasks = { this.props.taskLists } />

@@ -3,6 +3,7 @@ import { connect }  from 'react-redux';
 
 import AddUser from './AddUser';
 import UserList from './UserList';
+import UserSearch from './UserSearch';
 
 import * as api from './../data/UserList/api';
 import * as userRoleApi from './../data/UserRole/api';
@@ -10,8 +11,10 @@ import * as userRoleApi from './../data/UserRole/api';
 console.clear();
 
 class Users extends Component {
-	constructor() {
-		super();
+	filterKeyword = '';
+	constructor(props){
+		super(props);
+		this.onSearch = this.onSearch.bind(this);
 	}
 
 	componentWillMount(){
@@ -23,6 +26,11 @@ class Users extends Component {
 		console.log("Inside Add Projects", nextProps);
 	}
 
+	onSearch(keyword){
+		this.filterKeyword = keyword;
+		this.forceUpdate();
+	}
+
 	render() {
 		const { 
 			userLists,
@@ -32,7 +40,8 @@ class Users extends Component {
 			<div>
 				<p className = 'heading-style project-style'> Users </p>
 				<AddUser role = {userRole} />
-				<UserList users = {userLists}/>
+				<UserSearch onSearch={this.onSearch} /><br />
+				<UserList users = {userLists} filterKeyword = {this.filterKeyword} />
 			</div>
 		)
 	}
