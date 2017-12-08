@@ -3,11 +3,13 @@ import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import * as serachApi from './../../data/SearchByRole/api';
 import * as api from './../../data/UserList/api';
 import * as userDeleteApi from './../../data/UserDelete/api';
 import user from './../../../../Assets/userList.json';
 
 class UserList extends Component {
+	serachByRole = '';
 	constructor(props) {
 		super(props);
 
@@ -26,7 +28,12 @@ class UserList extends Component {
 		}, function() {
 			console.log("current page number is", this.state.pageNumber);
 		})
-		this.props.dispatch(api.fetchUserList(value));
+		if(this.serachByRole){
+			this.props.dispatch(serachApi.serachByRoles(this.serachByRole, value))
+		}
+		else {
+			this.props.dispatch(api.fetchUserList(value));
+		}
 	}
 
 	deleteUser (item) {
@@ -37,27 +44,18 @@ class UserList extends Component {
 		const { 
 			users , 
 			userRole,
-			filterKeyword 
+			filterKeyword,
+			searchedRole
 		} = this.props;
 
-		console.log("filter keyword is ", filterKeyword);
-		let filteredList = users ? users.result : '';
-		console.log("filtered list is", filteredList);
-		debugger
-		filteredList = filterKeyword && filteredList.filter((item, index) => {
+		this.serachByRole = searchedRole;
+
+		let filteredList = users ? users : '';
+		filteredList = filterKeyword && filteredList.result.filter((item, index) => {
 			const itemEmail = item.email.toLowerCase()
 			return itemEmail.indexOf(filterKeyword) > -1 ? item : null
 		}) || filteredList
 
-		console.log("after filtering", filteredList);
-/*
-		let filteredList = users && [...users.results];
-
-		filteredList = filterKeyword &&  filteredList.filter((obj,i) => {
-			const objEmail = obj.email.toLowerCase()
-			return objEmail.indexOf(filterKeyword) > -1 ? obj : null
-		}) || filteredList
-*/
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -71,22 +69,11 @@ class UserList extends Component {
 								<th>Action</th>
 							</tr>
 						</tbody>
-						{/*
-					filteredList ? filteredList.map((item, i) => (
-						<div key={i} >
-							<span>
-								{item.email ? item.email : item.name.first } 
-							</span>
-						</div>
-					)):
-					<span>
-						Loading...
-					</span>
-				*/}
+						
 						<tbody>
 						{
 							filteredList ? 
-							filteredList.map((item, index) => (
+							filteredList.result.map((item, index) => (
 									<tr key = {index}>
 										<td>{index + ((this.state.pageNumber - 1) * 10) + 1}</td>
 										<td>{item.firstName} {item.lastName} </td>
@@ -108,7 +95,7 @@ class UserList extends Component {
 					</table>
 				</div>
 
-				<Pagination defaultCurrent={1} total={users ? users.totalRecords : 10} onChange = {this.handlePageNumber}/>
+				<Pagination defaultCurrent={1} total={filteredList ? filteredList.totalRecords : 10} onChange = {this.handlePageNumber}/>
 			</div>
 		)
 	}

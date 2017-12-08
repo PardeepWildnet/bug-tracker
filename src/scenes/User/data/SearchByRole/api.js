@@ -4,8 +4,8 @@ import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
-export const serachByRoles = (value) => (dispatch) => {
-	const url = config.base_url + 'users/getUsersByAccountType/' + value + '/1';
+export const serachByRoles = (value, number) => (dispatch) => {
+	const url = config.base_url + 'users/getUsersByAccountType/' + value + '/' + number;
 	
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',

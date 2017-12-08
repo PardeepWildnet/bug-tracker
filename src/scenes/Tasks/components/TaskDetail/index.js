@@ -36,9 +36,7 @@ class TaskDetailView extends Component {
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("In Task Detail ", nextProps.editTask)
 		if(nextProps.editTask && nextProps.editTask.data.status === 200){
-			this.setState({
-		    	visible: false,
-		    });
+			
 			this.forceUpdate();
 		}
 	}
@@ -78,6 +76,9 @@ class TaskDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editTaskApi.editTaskDetails(values, this.props.match.params.id, this.state.participants))
+		    this.setState({
+		    	visible: false,
+		    });
 		  }
 		});
 	}
@@ -135,9 +136,11 @@ class TaskDetailView extends Component {
 
 				  			<tr>
 				  				<td>Assign To :</td>
-				  				<td>{taskDetail.result.assignTo ? taskDetail.result.assignTo.map((tl, index) => (
-												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
-											} 
+				  				<td>
+				  					{
+				  						taskDetail.result.assignTo ? taskDetail.result.assignTo.map((tl, index) => (
+											<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
+									} 
 								</td>
 				  			</tr>
 
@@ -147,8 +150,8 @@ class TaskDetailView extends Component {
 				  			</tr>
 							
 				  			<tr>
-				  				<td colspan = '2'>
-				  					 <Progress percent={taskDetail.result.taskStatus ? taskDetail.result.taskStatus : 50} size="small" />
+				  				<td colSpan = '2'>
+				  					 <Progress number={taskDetail.result.taskStatus ? taskDetail.result.taskStatus : 50} size="small" />
 				  				</td>
 				  			</tr>
 
@@ -188,7 +191,7 @@ class TaskDetailView extends Component {
 						<FormItem>
 				          {getFieldDecorator('assignee', {
 				            rules: [{ required: true, message: 'Please input participant name!' }],
-				            initialValue : taskDetail.result.assignTo
+				            initialValue : taskDetail.result.assignTo._id
 				          })(
 					         <Select mode = 'multiple' placeholder="Select default Assignee" onChange={this.handleParticipants}>
 					            {renderParticipants}

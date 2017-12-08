@@ -6,15 +6,20 @@ import * as action from './action';
 import * as config from './../../../../config';
 
 export const EditProfileAPI = (data) => (dispatch) => {
-	let editProfileDetails = {
+	console.log("data in edit profile api is :- ", data);
+
+/*	let editProfileDetails = {
 		"firstName" : data.firstName,
 		"lastName" : data.lastName,
 		"email" : data.email,
 		"accountType" : data.accountType,
-	}
+	}*/
+	let formData = new FormData();
+	formData.append('userPhoto', data.upload);
+
 	console.log("ghfhgjk", config.userInfo.data.data._id);
-	const url = config.base_url + 'users/updateUserById/' + config.userInfo.data.data._id;
-	axios.post(url, editProfileDetails)
+	const url = config.base_url + 'api/imageUpload';
+	axios.post(url, formData)
 		.then(response => {
 			dispatch(action.editActions(response))
 			if(response.data.status == 200) {

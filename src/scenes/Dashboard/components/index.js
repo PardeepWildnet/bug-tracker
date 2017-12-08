@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
 // import Chart from 'chart.js'
-// import { Line as LineChart } from 'react-chartjs'
-// var LineChart = require("react-chartjs").Line;
-// import {AreaChart} from 'react-easy-chart';
-// import {Area, CirclePie, BarMetric} from 'react-simple-charts'
 
 class DashboardView extends Component {
     constructor() {
@@ -11,7 +7,7 @@ class DashboardView extends Component {
     }
 
     componentDidMount() {
-    	 /*var ctx = document.getElementById("myChart");
+    	/*var ctx = document.getElementById("myChart");
 		var myChart = new Chart(ctx, {
 		    type: 'bar',
 		    data: {
@@ -49,16 +45,16 @@ class DashboardView extends Component {
 		    }
 		});
 */
-
     }
     render() {
 		
         return (
             <div className="">
+            	jjkj
             </div>
         );
     }
 }
 export default DashboardView;
-            	// <canvas id="myChart" width="400" height="400"></canvas>
                 // <LineChart data={chartData} options={chartOptions} width="600" height="250"/>
+            	 // <canvas id="myChart" width="400" height="400"></canvas>

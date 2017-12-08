@@ -4,10 +4,14 @@ import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
 
-export const ManagerAndLeadApi = (id) => (dispatch) => {
-	const url = config.base_url + 'superAdmins/GetManagersAndLeadsListByTeamId/' + id;
+export const ManagerAndLeadApi = (value) => (dispatch) => {
+	const url = config.base_url + 'superAdmins/GetManagersAndLeadsListByTeamId';
 
-	axios.get(url, {headers: {
+	let data = {
+		teamsId : value
+	}
+
+	axios.post(url, data, {headers: {
             'Content-Type': 'application/json',
             'authorization' : "jwt " + config.token
     }})

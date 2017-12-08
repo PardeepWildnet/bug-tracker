@@ -9,9 +9,21 @@ import * as userApi from './../../User/data/UserList/api';
 import * as api from './../data/TaskList/api';
 
 class Tasks extends Component {
+	filterKeyword = '';
+
+	constructor(props){
+		super(props);
+		this.statusFilter = this.statusFilter.bind(this);
+	}
+
 	componentWillMount (){
 		this.props.dispatch(userApi.fetchUserList('1'));
 		this.props.dispatch(api.ShowTaskListApi());
+	}
+
+	statusFilter(keyword){
+		this.filterKeyword = keyword;
+		this.forceUpdate();
 	}
 
 	render () {
@@ -25,10 +37,10 @@ class Tasks extends Component {
 				<p className = 'heading-style'> Tasks </p>
 				<AddTasks />
 				<br />
-				<StatusFilter />
+				<StatusFilter statusFilter = {this.statusFilter}/>
 				<p className = 'heading-style'> Task List </p>
 				<br />
-				<TaskList tasks = { this.props.taskLists } />
+				<TaskList tasks = { this.props.taskLists } filterKeyword = {this.filterKeyword}/>
 			</div>
 		)
 	}

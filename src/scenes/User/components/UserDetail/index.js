@@ -31,10 +31,7 @@ class UserDetailView extends Component {
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.editUser)
 		if(nextProps.editUser && nextProps.editUser.status === 200){
-			this.setState({
-		    	visible: false,
-		    });
-		    this.props.form.resetFields();
+			
 			this.forceUpdate();
 		}
 	}
@@ -61,6 +58,10 @@ class UserDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editUserApi.editUserDetails(values, this.props.match.params.id))
+		    this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
 		  }
 		});
 	}

@@ -12,10 +12,11 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class AddUserView extends Component {
+	searchedRole = '';
 	constructor(props){
 		super(props);
 
-		this.search = this.search.bind(this);
+		this.SearchByRole = this.SearchByRole.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
@@ -26,14 +27,11 @@ class AddUserView extends Component {
 		}
 	}
 
-
 	// This method is called after getting any props
 	componentWillReceiveProps(nextProps, nextState){
+		debugger
 		if(nextProps.addUser && nextProps.addUser.status === 200){
-			this.setState({
-		    	visible: false,
-		    });
-		    this.props.form.resetFields();
+			
 			this.forceUpdate();
 		}
 	}
@@ -45,15 +43,17 @@ class AddUserView extends Component {
 		});
 	}
 
-	search(value) {
+	SearchByRole(value) {
 		console.log(`selected ${value}`);
 		debugger
+		this.searchedRole = value;
 		if(value == "All") {
 			this.props.dispatch(searchAllApi.fetchUserList(1))
 		}
 		else {
-			this.props.dispatch(serachApi.serachByRoles(value))
+			this.props.dispatch(serachApi.serachByRoles(value, 1))
 		}
+		this.props.SearchByRole(value);
 	}
 
 	// This method is used to cancel the modal
@@ -71,6 +71,10 @@ class AddUserView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(api.addUser(values))
+		    this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
 		  }
 		});
 	}
@@ -100,7 +104,8 @@ class AddUserView extends Component {
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button> <br />
 				<p className = 'search-heading-style'> Search By Role </p>
-				<Select placeholder="Search By Roles" className = 'search-by-role' onChange = {this.search}>
+				
+				<Select placeholder="Search By Roles" className = 'search-by-role' onChange = {this.SearchByRole}>
 					<Option 
 			    		value= 'All' 
 			    		key = ''
@@ -126,7 +131,7 @@ class AddUserView extends Component {
 					      )}
 					    </FormItem>
 
-							<FormItem>
+						<FormItem>
 					      {
 					      	getFieldDecorator('Lname', {
 					         rules: [{ required: true, message: 'Please input Last name!' }]
@@ -135,7 +140,7 @@ class AddUserView extends Component {
 					      )}
 					    </FormItem>
 
-							<FormItem>
+						<FormItem>
 					      {
 					      	getFieldDecorator('email', {
 					         rules: [{ required: true, message: 'Please input email!' }]
@@ -161,7 +166,7 @@ class AddUserView extends Component {
 					          <Select placeholder="Select Gender">
 					          		<Option value="Male">Male</Option>
 									<Option value="Female">Female</Option>
-									<Option value="Female">Others</Option>
+									<Option value="Others">Others</Option>
 					         </Select>
 					      )}
 					    </FormItem>

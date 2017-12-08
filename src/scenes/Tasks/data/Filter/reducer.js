@@ -4,7 +4,7 @@ const initialState = [];
 
 export const reducer = (state = initialState, action) => {
 	switch(action.type){
-		case actions.TASK_STATUS_LIST:
+		case actions.SHOW_TASK:
 			return [...state, action.payload]
 		default: 
 			return state;

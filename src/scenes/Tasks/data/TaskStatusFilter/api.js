@@ -5,8 +5,8 @@ import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import taskList from './../../../../Assets/taskList.json';
 
-export const ShowTaskListApi = (value) => (dispatch) => {
-	const url = config.base_url + 'tasks/viewTasks/' + value;
+export const TaskStatusFilterApi = () => (dispatch) => {
+	const url = config.base_url + 'tasks/getAllTaskStatus';
 
 	let header =  {headers: {
             'Content-Type': 'application/json',
@@ -16,19 +16,15 @@ export const ShowTaskListApi = (value) => (dispatch) => {
 	axios.get(url, header)
 	.then(response =>{
 		if(response.data.status == 200) {
-			toast.openNotificationWithIcon('success', response.data.msg, 'Show Task List');
+			toast.openNotificationWithIcon('success', response.data.msg, 'Task Status');
 		}
 		else {
-			toast.openNotificationWithIcon('error', response.data.err , 'Show Task List');
+			toast.openNotificationWithIcon('error', response.data.err , 'Task Status');
 		}
-		console.log(response.data, "task list response");
-		dispatch(action.showTask(response.data));
-		// dispatch(action.showTask(taskList));
+		dispatch(action.showTask(response));
 	},
 	err =>{
-		toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Tasks');
-		console.log("error in fetching task");
+		toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Task Status');
 		dispatch({type : 'error'});
-		// dispatch({type: 'error'})
 	})
 }

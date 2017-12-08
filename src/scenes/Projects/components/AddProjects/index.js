@@ -13,10 +13,12 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
 class AddProjectView extends Component {
+	managerAndLeadArray = [];
 	constructor(props){
 		super(props);
 
 		this.searchByDate = this.searchByDate.bind(this);
+		this.onDeselect = this.onDeselect.bind(this);
 		this.handleTeam = this.handleTeam.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showModal = this.showModal.bind(this);
@@ -27,14 +29,6 @@ class AddProjectView extends Component {
 		}
 	}
 
-	// This method is called after getting any props
-	componentWillReceiveProps(nextProps, nextState){
-		if(nextProps.addProjects && nextProps.addProjects.status === 200){
-			
-			this.forceUpdate();
-		}
-	}
-	
 	// This method is used to show add project modal
 	showModal() {
 		this.setState({
@@ -45,7 +39,7 @@ class AddProjectView extends Component {
 	// This method is used to get the team name 
 	handleTeam(value) {
 		console.log(`selected ${value}`);
-		this.props.dispatch(managerAndLeadApi.ManagerAndLeadApi(value[value.length - 1]))
+		this.props.dispatch(managerAndLeadApi.ManagerAndLeadApi(value))
 	}
 
 	// This method is used to search the projects according to date
@@ -76,6 +70,10 @@ class AddProjectView extends Component {
 		});
 	}
 
+	onDeselect (value) {
+		console.log("value in onDeselect is", value);
+	}
+
 	render() {
 		const { 
 			visible, 
@@ -88,6 +86,7 @@ class AddProjectView extends Component {
 			managerAndLeads
 		} = this.props;
 		
+		this.managerAndLeadArray  = managerAndLeads;		
 		const renderTeams = teams ? teams.result.map((team) => (
 	    	<Option 
 	    		value={ team._id } 
@@ -97,8 +96,8 @@ class AddProjectView extends Component {
 	    	</Option>
 	    )) : '';
 	    
-		const renderManagerAndLeads = managerAndLeads ? managerAndLeads.map((item, index) => (
-	    	item.result[0].teamLeadsId.map((leads, index) => (
+		const renderManagerAndLeads = this.managerAndLeads ? this.managerAndLeads.result.map((item, index) => (
+	    	item.teamLeadsId.map((leads, index) => (
 	    		<Option 
 		    		value={ leads._id } 
 		    		key = { leads._id }
@@ -134,7 +133,7 @@ class AddProjectView extends Component {
 						  {getFieldDecorator('teams', {
 						    rules: [{ required: true, message: 'Please input participant name!' }],
 						  })(
-						      <Select mode="multiple" placeholder="Select teams" onChange={this.handleTeam}>
+						      <Select mode="multiple" onDeselect = { this.onDeselect } placeholder="Select teams" onChange={this.handleTeam}>
 						        {renderTeams}
 						     </Select>
 						  )}
@@ -186,7 +185,7 @@ export default connect(
 		debugger
 		return ({
 			addProjects : state.projects.data.addProjects[state.projects.data.addProjects.length - 1],
-			managerAndLeads : state.projects.data.managerAndLeads
+			managerAndLeads : state.projects.data.managerAndLeads[state.projects.data.managerAndLeads.length -1]
 		})
 	}
 )(AddProjects);

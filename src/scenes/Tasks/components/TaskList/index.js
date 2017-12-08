@@ -5,14 +5,17 @@ import { Form, Button, Input, Icon, Pagination } from 'antd';
 
 import * as api from './../../data/TaskList/api';
 import AddSubTask from './../SubTask';
+import * as filterApi from './../../data/Filter/api';
 import * as deleteApi from './../../data/DeleteTask/api';
 import './TaskList.css';
 import { SubTaskList } from './../SubTaskList';
 
 class TaskList extends Component {
+	filterKeyword = '';
 	constructor(props) {
 		super(props);
 
+		this.checkLength = this.checkLength.bind(this);
 		this.deleteTask = this.deleteTask.bind(this);
 		this.handlePageNumber = this.handlePageNumber.bind(this);
 		
@@ -34,14 +37,33 @@ class TaskList extends Component {
 		}, function() {
 			console.log("current page number is", this.state.pageNumber);
 		})
-		this.props.dispatch(api.ShowTaskListApi(value));
+		if(this.filterKeyword)
+		{
+			this.props.dispatch(filterApi.FilterApi(this.filterKeyword, value))
+		}
+		else {
+			this.props.dispatch(api.ShowTaskListApi(value));
+		}
 	}
 	
+	checkLength (item) {
+		console.log("inside check length ", item);
+		if(item.length >50) {
+			return <p className = 'task-detail-style'> {item.taskDetails} </p>
+		}
+		else {
+			return <p>{item}</p>
+		}
+	}
+
 	render () {
 		const { 
-			tasks 
+			tasks,
+			filterKeyword
 		} = this.props;
 		
+		this.filterKeyword = filterKeyword;
+
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -61,25 +83,27 @@ class TaskList extends Component {
 						{
 							tasks ? 
 							tasks.result.map((item, index) => (
-									<tr key = {index}>
-										<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
-										<td> {item.taskTitle ? item.taskTitle : '-'} </td>
-										<td> {item.taskDetails ? item.taskDetails : '-'} </td>
-										<td>{item.assignTo ? item.assignTo.map((tl, index) => (
+								<tr key = {item._id}>
+									<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
+									<td> {item.taskTitle ? this.checkLength(item.taskTitle) : '-'} </td>
+									<td> {item.taskDetails ? this.checkLength(item.taskDetails) : '-'} </td>
+									<td>
+										{
+											item.assignTo ? item.assignTo.map((tl, index) => (
 												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
-											} 
-										</td>
-										<td> {item.assignBy ? item.assignBy.firstName + " " + item.assignBy.lastName : '-'} </td>
-										<td>
-											<Link to={'/dashboard/task/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
-											<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteTask(item) } aria-hidden="true"></i>
-											<Link to = {'/dashboard/task/subtask/' + item._id }>
-												<Button type="primary" htmlType="submit" className="login-form-add-button">
-										        	Add Sub Task
-										     	</Button>
-										    </Link>
-										</td>
-									</tr>
+										} 
+									</td>
+									<td> {item.assignBy ? item.assignBy.firstName + " " + item.assignBy.lastName : '-'} </td>
+									<td>
+										<Link to={'/dashboard/task/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
+										<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteTask(item) } aria-hidden="true"></i>
+										<Link to = {'/dashboard/task/subtask/' + item._id }>
+											<Button type="primary" htmlType="submit" className="login-form-add-button">
+									        	Add Sub Task
+									     	</Button>
+									    </Link>
+									</td>
+								</tr>
 							)) :
 							<tr>
 								<td colSpan = '6'>

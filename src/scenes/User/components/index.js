@@ -12,8 +12,11 @@ console.clear();
 
 class Users extends Component {
 	filterKeyword = '';
+	searchedRole = '';
+
 	constructor(props){
 		super(props);
+		this.SearchByRole = this.SearchByRole.bind(this);
 		this.onSearch = this.onSearch.bind(this);
 	}
 
@@ -31,17 +34,23 @@ class Users extends Component {
 		this.forceUpdate();
 	}
 
+	SearchByRole(role){
+		this.searchedRole = role;
+		this.forceUpdate();
+	}
+
 	render() {
 		const { 
 			userLists,
 			userRole
 		} = this.props;
+		debugger
 		return (
 			<div>
 				<p className = 'heading-style project-style'> Users </p>
-				<AddUser role = {userRole} />
+				<AddUser role = {userRole} SearchByRole = {this.SearchByRole}/>
 				<UserSearch onSearch={this.onSearch} /><br />
-				<UserList users = {userLists} filterKeyword = {this.filterKeyword} />
+				<UserList users = {userLists} filterKeyword = {this.filterKeyword} searchedRole = {this.searchedRole}/>
 			</div>
 		)
 	}

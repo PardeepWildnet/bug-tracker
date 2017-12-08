@@ -1,0 +1,11 @@
+.status-select-style {
+	width: 30%;
+    float: right;
+}
+
+.search-text-style {
+	width: auto;
+    float: right;
+    margin: 1% 5% auto 1%;
+    font-size: 14px;
+}

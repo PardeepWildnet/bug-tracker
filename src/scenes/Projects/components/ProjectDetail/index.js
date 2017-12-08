@@ -34,9 +34,7 @@ class ProjectDetailView extends Component {
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.editProjects)
 		if(nextProps.editProjects && nextProps.editProjects.status === 200){
-			this.setState({
-		    	visible: false,
-		    });
+			
 			this.forceUpdate();
 		}
 	}
@@ -66,6 +64,9 @@ class ProjectDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(api.editProjectDetails(values, this.props.match.params.id))
+		    this.setState({
+		    	visible: false,
+		    });
 		    this.props.form.resetFields();
 		  }
 		 

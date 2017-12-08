@@ -18,3 +18,14 @@
     margin: 12px;
     padding: 12px;
 }
+
+.task-detail-style {
+	max-width: 400px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tr {
+    text-align: center !important;
+}

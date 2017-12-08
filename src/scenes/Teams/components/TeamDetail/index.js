@@ -196,16 +196,20 @@ class TeamDetailView extends Component {
 					         </Select>
 				          )}
 				        </FormItem>
-				        
-				        <FormItem>
-				          {getFieldDecorator('tl', {
-				            rules: [{ required: true, message: 'Please input manager name!' }],
-				          })(
-					          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
-					            {renderTl}
-					         </Select>
-				          )}
-				        </FormItem>
+				        {
+		  					teamDetail.result.teamLeadsId ? teamDetail.result.teamLeadsId.map((tl, index) => (
+					        <FormItem>
+					          {getFieldDecorator('tl', {
+					            rules: [{ required: true, message: 'Please input manager name!' }],
+					            initialValue : tl._id
+					          })(
+						          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
+						            {renderTl}
+						         </Select>
+					          )}
+					        </FormItem>
+							))  : '-'
+						}
 
 				        <FormItem>
 				          <Button type="primary" htmlType="submit" className="login-form-button">
