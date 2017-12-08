@@ -7,26 +7,13 @@ import { NavLink } from 'react-router-dom';
 import * as loginAPI from './../../data/LoginView/api';
 import './Login.css';
 
+console.clear();
 const FormItem = Form.Item;
 
 class LoginView extends Component{
-	
 	constructor(props){
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		console.log(this.props, "this props")
-	}
-
-	handleSubmit (e) {
-		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
-		  if (!err) {
-		    console.log('Received values of form: ', values, this.props.history);
-		    this.props.dispatch(loginAPI.LoginAPI(values))
-		    this.props.form.resetFields();
-
-		  }
-		});
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
@@ -36,6 +23,18 @@ class LoginView extends Component{
 			console.log("After Login in componentWillReceiveProps ");
 			this.forceUpdate();
 		}
+	}
+	
+	// This method id used to login the user	
+	handleSubmit (e) {
+		e.preventDefault();
+		this.props.form.validateFields((err, values) => {
+		  if (!err) {
+		    console.log('Received values of form: ', values, this.props.history);
+		    this.props.dispatch(loginAPI.LoginAPI(values))
+		    this.props.form.resetFields();
+		  }
+		});
 	}
 
 	render(){
@@ -49,11 +48,14 @@ class LoginView extends Component{
 				<Form onSubmit = { this.handleSubmit } className = "login">
 					<p className = 'heading-style login-heading'> Login</p>
 			        <FormItem>
-			          {
-			          	getFieldDecorator('email', {
-			            	rules: [{ required: true, message: 'Please input your username!' }]
-			          	})(
-		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+			          {getFieldDecorator('email', {
+			            rules: [{
+			              type: 'email', message: 'The input is not valid E-mail!',
+			            }, {
+			              required: true, message: 'Please input your E-mail!',
+			            }],
+			          })(
+		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
 			          	)}
 			        </FormItem>
 
@@ -77,7 +79,6 @@ class LoginView extends Component{
         			  	Register Now
         			  </NavLink>
 			        </FormItem>
-
 			    </Form>
 			</div>
 		)

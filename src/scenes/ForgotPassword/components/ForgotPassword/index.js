@@ -9,13 +9,14 @@ import './ForgotPassword.css';
 const FormItem = Form.Item;
 
 class ForgotPassword extends Component{
-	
 	constructor(props){
 		super(props);
+		
 		this.handleSubmit = this.handleSubmit.bind(this);
 		console.log(this.props, "this props")
 	}
 
+	// This method is used to handle forgot password api
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -28,29 +29,29 @@ class ForgotPassword extends Component{
 	}
 
 	render(){
-		const { 
-			getFieldDecorator, 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return(
-			<div>
+			<div className = 'forgot-password-container'>
 				<Form onSubmit = { this.handleSubmit } className = "forgot-password">
 					<p className = 'heading-style forgot-password-heading'> Forgot Password </p>
 			        <FormItem>
 			          {
 			          	getFieldDecorator('email', {
-			            	rules: [{ required: true, message: 'Please input your email!' }]
-			          	})(
+			              rules: [{ required: true, message: 'Please input your Email!' }]
+			          	}, {
+			              type: 'email', message: 'The input is not valid E-mail!',
+			            })(
 		            		<Input placeholder="Enter Email" />
 			          	)}
 			        </FormItem>
 
 			        <FormItem>
 				        <Button type="primary" htmlType="submit" className="login-form-button">
-				            Forgot Password
+				          Forgot Password
 				        </Button>
 		        		<NavLink to="/" className = 'list-group-item-signIn'>
-			        	   Back
+			        	  Back
 			        	</NavLink>
 			        </FormItem>
 			    </Form>

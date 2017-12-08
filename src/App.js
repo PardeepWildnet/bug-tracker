@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import { Provider } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { notification } from 'antd';
 
 import store from './store';

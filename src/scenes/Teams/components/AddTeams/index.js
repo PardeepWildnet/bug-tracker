@@ -11,31 +11,39 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
 class TeamView extends Component {
-
 	constructor(props){
 		super(props);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleTeams = this.handleTeams.bind(this);
 		this.handleLeads = this.handleLeads.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-		this.handleDateRange = this.handleDateRange.bind(this);
 
 		this.state = {
 			visible: false,
-			confirmLoading: false,
 			teams : [],
-			selectedTeam : ''
 		}
 	}
 
+	// This method is called after getting any props
+	componentWillReceiveProps(nextProps, nextState){
+		if(nextProps.addTeam && nextProps.addTeam.status === 200){
+			this.setState({
+		    	visible: false,
+		    });
+		    this.props.form.resetFields();
+			this.forceUpdate();
+		}
+	}
+
+	// This method is used to show the add team modal
 	showModal () {
 		this.setState({
 		  visible: !this.state.visible,
 		});
 	}
 
+	// This method is used to close the add team modal
 	handleCancel () {
 		console.log('Clicked cancel button');
 		this.setState({
@@ -43,33 +51,18 @@ class TeamView extends Component {
 		});
 	}
 
-	handleDateRange(date, dateString) {
-		console.log(date, dateString);
-	}
-
+	// This method is used to add team
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(api.addTeam(values, this.state.teams))
-		    this.props.form.resetFields();
-		    this.setState({
-			  visible: !this.state.visible,
-			});
 		  }
 		});
 	}
-
-	handleTeams(value) {
-	  console.log(`selected ${value}`);
-	  this.setState({
-	  	selectedTeam : value
-	  }, function() {
-	  	console.log("selected team is :- ", this.state.selectedTeam);
-	  })
-	}
-
+	
+	// This method is used to get the leads
 	handleLeads(value) {
 	  console.log(`selected ${value}`);
 	  this.setState({
@@ -82,29 +75,39 @@ class TeamView extends Component {
 	render(){
 		const { 
 			visible, 
-			confirmLoading, 
 			ModalText 
 		} = this.state;
 
-		const { 
-			getFieldDecorator,  
-		} = this.props.form;
-		
-		const renderTeams = teams.map((team) => (
+		const {
+			managerList, 
+			tlList,
+			addTeam,
+			form : { getFieldDecorator }
+		} = this.props;
+
+		const renderManager = managerList ? managerList.result.map((manager) => (
 	    	<Option 
-	    		value={ team.teamName } 
-	    		key = { team.teamId }
+	    		value={ manager._id } 
+	    		key = { manager._id }
 	    	>
-	    		{ team.teamId }
+	    		{ manager.firstName } { manager.lastName}
 	    	</Option>
-	    ));
-		
+	    )) : '';
+
+	    const renderTl = tlList ? tlList.result.map((tl) => (
+	    	<Option 
+	    		value={ tl._id } 
+	    		key = { tl._id }
+	    	>
+	    		{ tl.firstName }
+	    	</Option>
+	    )) : '';
+
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Teams </Button>
 		        <Modal title="Add Teams"
 		          visible={visible}
-		          confirmLoading={confirmLoading}
 		          onCancel={this.handleCancel}
 		          footer={[]}
 		        >
@@ -128,35 +131,25 @@ class TeamView extends Component {
 			        </FormItem>
 			        
 			        <FormItem>
-			          {getFieldDecorator('teams', {
-			            rules: [{ required: true, message: 'Please input team name!' }],
+			          {getFieldDecorator('manager', {
+			            rules: [{ required: true, message: 'Please input manager name!' }],
 			          })(
-				          <Select placeholder="Select teams" onChange={this.handleTeams}>
-				            {renderTeams}
+				          <Select placeholder="Select manager" >
+				            {renderManager}
+				         </Select>
+			          )}
+			        </FormItem>  
+
+			        <FormItem>
+			          {getFieldDecorator('tl', {
+			            rules: [{ required: true, message: 'Please input TL name!' }],
+			          })(
+				          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
+				            {renderTl}
 				         </Select>
 			          )}
 			        </FormItem>
-			        
-			        { 
-			        	teams.map((team, index) => ( 
-			        		<div key = {index}>
-			        			{ team.teamId == this.state.selectedTeam ?
-			        				  <Select mode="multiple" placeholder="Select Leads" onChange={this.handleLeads}>
-							            { team.teamLeads.map((team) => (
-									    	<Option 
-									    		value={ team.teamLeadId } 
-									    		key = { team.teamLeadId }
-									    	>
-									    		{ team.teamLeadName }
-									    	</Option>
-									    ))}
-							         </Select> : ''
-
-			        			}
-			        		</div>
-			        	))
-			        }
-
+			       
 			        <FormItem>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			          	Add Team
@@ -171,5 +164,9 @@ class TeamView extends Component {
 
 const AddTeams = Form.create()(TeamView);
 export default connect(
-
+	state => {
+		return ({
+			addTeam : state.teams.data.addTeam[state.teams.data.addTeam.length - 1],
+		})
+	}
 )(AddTeams);

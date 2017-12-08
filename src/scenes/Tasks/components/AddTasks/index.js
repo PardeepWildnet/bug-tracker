@@ -14,50 +14,56 @@ const RadioGroup = Radio.Group;
 class AddTasksView extends Component {
 	constructor(props){
 		super(props);
-		this.onChange = this.onChange.bind(this);
+
+		this.handleParticipants = this.handleParticipants.bind(this);
 		this.addTask = this.addTask.bind(this);
+
 		this.state = {
-			value : 1
+			participants : [],
 		}
 	}
 
+	// This method is used to add task
 	addTask(e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				console.log('Received values of form in add task: ', values);
-			    this.props.dispatch(addTaskApi.AddTaskApi(values))
+			    this.props.dispatch(addTaskApi.AddTaskApi(values, this.state.participants))
 			    this.props.form.resetFields();
 			}
 		});
 	}
 
-	
-	onChange = (e) => {
-		console.log('radio checked', e.target.value);
-		this.setState({
-		  value: e.target.value,
-		});
+	// This method is used to get the participants to whom the task is assigned
+	handleParticipants(value) {
+	  console.log(`selected ${value}`);
+	  this.setState({
+	  	participants : value
+	  }, function() {
+	  	console.log("selected participants are :- ", this.state.participants);
+	  })
 	}
 
 	render() {
 	    const { 
-	    	getFieldDecorator 
-	    } = this.props.form;
+	    	userLists,
+	    	form : { getFieldDecorator } 
+	    } = this.props;
 
-	    const renderParticipants = participants.map((pariticipant) => (
+	    const renderParticipants = userLists ? userLists.result.map((user) => (
 	    	<Option 
-	    		value={ pariticipant.name } 
-	    		key = { pariticipant.id }
+	    		value={ user._id } 
+	    		key = { user._id }
 	    	>
-	    		{ pariticipant.name }
+	    		{ user.firstName } { user.lastName }
 	    	</Option>
-	    ));
+	    )):'';
 
 		return(
 			<Form onSubmit={this.addTask} className = 'login-form-add' >
 		        <FormItem>
-		          {getFieldDecorator('category', {
+		          {getFieldDecorator('title', {
 		            rules: [{ required: true, message: 'Please input title of task!' }],
 		          })(
 		            <Input placeholder="Give the list a title" />
@@ -65,19 +71,17 @@ class AddTasksView extends Component {
 		        </FormItem>
 				
 				<FormItem>
-		          {getFieldDecorator('participants', {
-		            rules: [{ required: true, message: 'Please input participant name!' }],
+		          {getFieldDecorator('assignee', {
+		            rules: [{ required: true, message: 'Please input assignee!' }],
 		          })(
-			          <Select placeholder="Select default Assignee">
+			          <Select mode = 'multiple' placeholder="Select default Assignee" onChange={this.handleParticipants}>
 			            {renderParticipants}
 			         </Select>
 		          )}
 		        </FormItem>
 
 		        <FormItem>
-		          {getFieldDecorator('desc', {
-		            rules: [{ required: true, message: 'Please input your task option!' }],
-		          })(
+		          {getFieldDecorator('detail')(
 		            <Input placeholder="Describe this List (optional)" />
 		          )}
 		        </FormItem>
@@ -86,11 +90,10 @@ class AddTasksView extends Component {
 		        
 		        <FormItem>
 		          {getFieldDecorator('scope', {
-		            rules: [{ required: true, message: 'Please input your task option!' }],
 		          })(
-			        <RadioGroup setFieldsValue={this.state.value}>
-				        <Radio value={1}> Everyone </Radio>
-				        <Radio value={2}> Private </Radio>
+			        <RadioGroup >
+				        <Radio value='Everyone'> Everyone </Radio>
+				        <Radio value='Private'> Private </Radio>
 				    </RadioGroup>
 		          )}
 		        </FormItem>
@@ -98,11 +101,10 @@ class AddTasksView extends Component {
 			    <div>
 			    	<span> Select number of days </span> 
 			    	<FormItem>
-			          {getFieldDecorator('days', {
-			            rules: [{ required: true, message: 'Please input your task option!' }],
+			          {getFieldDecorator('hours', {
 			            initialValue : '3'
 			          })(
-			    		<InputNumber min={1} max={10} />
+			    		<InputNumber min={1} max={30} />
 			          )}
 			        </FormItem>
 			    </div>
@@ -117,5 +119,9 @@ class AddTasksView extends Component {
 }
 const AddTasks = Form.create()(AddTasksView);
 export default connect(
-
+	state => {
+		return ({
+			userLists : state.user.data.userList[state.user.data.userList.length -1],
+		})
+	}
 )(AddTasks);

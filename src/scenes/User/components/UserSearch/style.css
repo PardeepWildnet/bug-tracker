@@ -1,0 +1,20 @@
+.search-container {
+	padding: 0 5% !important;
+    width: 100%;
+}
+
+.master-search {
+	width: 30%;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    height: 30px;
+    padding: 8px;
+    float: right;
+}
+
+.search-heading {
+	float: right;
+    /* width: 70%; */
+    padding: 8px;
+    font-size: 14px;
+}

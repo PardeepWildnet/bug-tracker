@@ -27,17 +27,17 @@ export const editUserDetails = (data, id) => (dispatch) => {
 	axios.put(url, userDetails, header)
 		.then(response => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Project Details');
+				toast.openNotificationWithIcon('success', response.data.msg, 'Edit User Details');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.err , 'Edit Project Details');
+				toast.openNotificationWithIcon('error', response.data.err , 'Edit User Details');
 			}
 			dispatch(api.fetchUserDetail(id));
 			dispatch(action.editUserDetailAction(response))
 			console.log(response, "success");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Updated' , 'Projects');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'User is not Updated' , 'Users');
 			dispatch({type: 'error'})
 			console.log(err, "error");
 		})

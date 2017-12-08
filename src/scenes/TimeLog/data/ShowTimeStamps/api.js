@@ -19,19 +19,14 @@ export const ShowTimeLogApi = () => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Time Log');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Time Log');
+				toast.openNotificationWithIcon('error', response.data.err , 'Time Log');
 			}
 		console.log(response.data.object.result, "time list response");
 		dispatch(action.showTimeLog(response.data.object.result));
 		// dispatch(action.showTask(taskList));
 	},
 	err =>{
-		if(err.response !== undefined){
-			toast.openNotificationWithIcon('error', err.response.data.msg, 'Time Log');
-		}
-		else {
-			toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Time Log');
-		}
+		toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Time List');
 		console.log("error in fetching timelog");
 		dispatch({type: 'error'})
 	})

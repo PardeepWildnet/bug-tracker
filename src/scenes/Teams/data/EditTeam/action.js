@@ -1,4 +1,4 @@
-export const EDIT_TEAM_DETAILS = "scenes/editProjectDetails/data/editProjectDetailsAction";
+export const EDIT_TEAM_DETAILS = "scenes/editTeamDetails/data/editProjectDetailsAction";
 
 export const editTeamDetailAction = (payload) => {
 	

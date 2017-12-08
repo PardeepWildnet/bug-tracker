@@ -11,7 +11,9 @@ const dateFormat = 'YYYY-MM-DD';
 class AddLogTimeView extends Component {
 	constructor(props) {
 		super(props);
+
 		this.submitTime = this.submitTime.bind(this);
+		
 		this.state = {
 			fileList: [],
 		}
@@ -39,9 +41,7 @@ class AddLogTimeView extends Component {
 	}
 
 	render () {
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 	    const props = {
 	    	onRemove: (file) => {
@@ -113,7 +113,5 @@ class AddLogTimeView extends Component {
 }
 const AddLogTime = Form.create()(AddLogTimeView);
 
-export default connect(
-
-)(AddLogTime);
+export default connect()(AddLogTime);
 

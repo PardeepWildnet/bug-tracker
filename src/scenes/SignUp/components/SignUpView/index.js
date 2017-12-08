@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
-import * as toast from './../../../../App.js'
 import * as signUpApi from './../../data/SignUpView/api';
 import './SignUp.css'
 const FormItem = Form.Item;
@@ -11,14 +10,17 @@ const FormItem = Form.Item;
 class SignUpView extends Component {
 	constructor(props){
 		super(props);
-		localStorage.setItem('isNavBar','hide');
+		
 		this.handleSubmit = this.handleSubmit.bind(this);
-		console.log(this.props, "this props")
+		this.checkPassword = this.checkPassword.bind(this);
+		this.checkConfirm = this.checkConfirm.bind(this);
+		
 		this.state = {
 		    confirmDirty: false,
 	    };
 	}
 
+	// This method is used to register the admin
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -30,30 +32,31 @@ class SignUpView extends Component {
 		});
 	}
 
-	checkPassword = (rule, value, callback) => {
+	// This method is used to check whether the confirm password is same to password
+	checkPassword(rule, value, callback) {
 	    const form = this.props.form;
 	    if (value && value !== form.getFieldValue('password')) {
 	      callback('Two passwords that you enter is inconsistent!');
 	    } else {
 	      callback();
 	    }
-	  }
-	  checkConfirm = (rule, value, callback) => {
+	}
+
+	// This method is used to heck whether the password is same to comfirm password field
+	checkConfirm(rule, value, callback) {
 	    const form = this.props.form;
 	    if (value && this.state.confirmDirty) {
 	      form.validateFields(['confirm'], { force: true });
 	    }
 	    callback();
-	  }
+	}
 
 	render(){
-		const { 
-			getFieldDecorator 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return(
-			<div>
-				<Form onSubmit = { this.handleSubmit } className = "login">
+			<div className = 'signup-container'>
+				<Form onSubmit = { this.handleSubmit } className = "signup">
 					<p className = 'heading-style sign-up-heading'> Sign Up </p>
 			        <FormItem>
 			          {
@@ -61,11 +64,9 @@ class SignUpView extends Component {
 			            	rules: [
 			            		{ required: true, message: 'Please input your First Name!' }
 			            	]
-			          	})
-			          	(
+			          	})(
 		            		<Input placeholder="First Name" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 
 			        <FormItem>
@@ -74,29 +75,24 @@ class SignUpView extends Component {
 			            	rules: [
 			            		{ required: true, message: 'Please input your Last Name!' }
 			            	]
-			          	})
-			          	(
+			          	})(
 		            		<Input placeholder="Last Name" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 	
 			        <FormItem>
-			          {
-			          	getFieldDecorator('email', {
-			            	rules: [
-			            		{ required: true, message: 'Please input your email!' }
-			            	]
-			          	})
-			          	(
+			          {getFieldDecorator('email', {
+			            rules: [{
+			              type: 'email', message: 'The input is not valid E-mail!',
+			            }, {
+			              required: true, message: 'Please input your E-mail!',
+			            }],
+			          })(
 		            		<Input placeholder="Email" />
-			          	)
-			          }
+			          	)}
 			        </FormItem>
 
-			        <FormItem
-			          hasFeedback
-			        >
+			        <FormItem hasFeedback>
 			          {getFieldDecorator('password', {
 			            rules: [{
 			              required: true, message: 'Please input your password!',
@@ -107,9 +103,8 @@ class SignUpView extends Component {
 			            <Input type="password" placeholder = "Enter Password"/>
 			          )}
 			        </FormItem>
-			        <FormItem
-			          hasFeedback
-			        >
+
+			        <FormItem hasFeedback >
 			          {getFieldDecorator('confirm', {
 			            rules: [{
 			              required: true, message: 'Please confirm your password!',
@@ -122,17 +117,13 @@ class SignUpView extends Component {
 			        </FormItem>
 
 			        <FormItem>
-			          
-				             <Button type="primary" htmlType="submit" className="login-form-button">
+				        <Button type="primary" htmlType="submit" className="login-form-button">
 			          		Sign Up
 			          	</Button>
         			  	<NavLink to="/login" className = 'list-group-item-signIn'>
         			  		Login
         			  	</NavLink>
-
-			        
 			        </FormItem>
-
 
 			    </Form>
 			</div>

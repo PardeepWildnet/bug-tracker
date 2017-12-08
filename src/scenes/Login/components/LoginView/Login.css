@@ -1,5 +1,5 @@
 .login {
-	border : 1px solid rgb(238,238,238);
+	/*border : 1px solid rgb(238,238,238);
 	padding: 16px;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
@@ -12,12 +12,39 @@
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);*/
+
+    border: 1px solid rgb(238,238,238);
+    padding: 16px;
+    border-radius: 10px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+    width: 400px;
+    top: 0;
+    bottom: 0;
+    margin: 0 auto;
+    position: absolute;
+    -ms-transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
+    /* -webkit-transform: translate(-50%, -50%); */
+    -moz-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
+    margin: 0 auto;
+    
+    position:initial;
+    top: initial;
+    left: initial;
+    transform: initial;
 }
 
 .login-container {
-	 background-position: center !important;
-  background-image: url("https://www.123creative.com/2493-thickbox/oil-bubbles-background-bubble-light-and-dark-textures-pack.jpg") !important;
+	background-position: center !important;
+    background-image: url(https://www.123creative.com/2493-thickbox/oil-bubbles-background-bubble-light-and-dark-textures-pack.jpg) !important;
+    /* position: relative; */
+    /* top: 0; */
+    /* bottom: 0; */
+    height: 100vh;
+    position: relative;
 }
 
 .list-group-item-signIn {

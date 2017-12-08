@@ -34,16 +34,16 @@ class TeamDetailView extends Component {
 
 	// This method is called after getting any props
 	componentWillReceiveProps(nextProps, nextState){
+		debugger
 		if(nextProps.editTeams && nextProps.editTeams.status === 200){
-			this.setState({
-		    	visible: false,
-		    });
+			
 		    this.props.form.resetFields();
 			this.forceUpdate();
 		}
 	}
 	
 	handleLeads(value) {
+		debugger
 	  console.log(`selected ${value}`);
 	  this.setState({
 	  	teams : value
@@ -74,6 +74,9 @@ class TeamDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editTeamApi.editTeamDetails(values, this.state.teams, this.props.match.params.id))
+		    this.setState({
+		    	visible: false,
+		    });
 		  }
 		});
 	}
@@ -131,7 +134,7 @@ class TeamDetailView extends Component {
 							
 							<tr>
 				  				<td>Manager :</td>
-				  				<td>{teamDetail.result.teamManagerId}</td>
+				  				<td>{teamDetail.result.teamManagerId.firstName} {teamDetail.result.teamManagerId.lastName}</td>
 				  			</tr>
 
 				  			<tr>
@@ -139,7 +142,7 @@ class TeamDetailView extends Component {
 				  				<td>
 					  				{
 					  					teamDetail.result.teamLeadsId ? teamDetail.result.teamLeadsId.map((tl, index) => (
-											<p key = {index}>{tl} </p>
+											<p key = {index}>{tl.firstName} {tl.lastName} </p>
 										))  : '-'
 									}
 								</td>
@@ -186,7 +189,7 @@ class TeamDetailView extends Component {
 				        <FormItem>
 				          {getFieldDecorator('manager', {
 				            rules: [{ required: true, message: 'Please input team name!' }],
-				            initialValue : teamDetail.result.teamManagerId
+				            initialValue : teamDetail.result.teamManagerId._id
 				          })(
 					          <Select placeholder="Select manager">
 					            {renderManager}
@@ -197,7 +200,6 @@ class TeamDetailView extends Component {
 				        <FormItem>
 				          {getFieldDecorator('tl', {
 				            rules: [{ required: true, message: 'Please input manager name!' }],
-				            initialValue : teamDetail.result.teamLeadsId
 				          })(
 					          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
 					            {renderTl}

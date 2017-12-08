@@ -12,16 +12,18 @@ class ResetPassword extends Component{
 	
 	constructor(props){
 		super(props);
-		this.handleSubmit = this.handleSubmit.bind(this);
+
 		console.log(this.props, "this props");
-		const token = this.props.match.params.token;
-		console.log ("token is :- ", token);
-		localStorage.setItem('isNavBar','hide');
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.checkPassword = this.checkPassword.bind(this);
+		this.checkConfirm = this.checkConfirm.bind(this);
+
 		this.state = {
 		    confirmDirty: false,
 	    };
 	}
 
+	// This method is used to reset the password
 	handleSubmit (e) {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -34,8 +36,8 @@ class ResetPassword extends Component{
 		});
 	}
 
-
-	checkPassword = (rule, value, callback) => {
+	// This method is used to check whether the confirm password is same to password
+	checkPassword(rule, value, callback)  {
 		const form = this.props.form;
 		if (value && value !== form.getFieldValue('password')) {
 		  callback('Two passwords that you enter is inconsistent!');
@@ -44,7 +46,8 @@ class ResetPassword extends Component{
 		}
 	}
 
-	checkConfirm = (rule, value, callback) => {
+	// This method is used to heck whether the password is same to comfirm password field
+	checkConfirm (rule, value, callback) {
 		const form = this.props.form;
 		if (value && this.state.confirmDirty) {
 		  form.validateFields(['confirm'], { force: true });
@@ -53,12 +56,10 @@ class ResetPassword extends Component{
 	}
 
 	render(){
-		const { 
-			getFieldDecorator, 
-		} = this.props.form;
+		const { getFieldDecorator } = this.props.form;
 
 		return(
-			<div>
+			<div className = 'reset-password-container'>
 				<Form onSubmit = { this.handleSubmit } className = "reset-password">
 					<p className = 'heading-style reset-password-heading'> Reset Password </p>
 			        <FormItem>
@@ -103,6 +104,4 @@ class ResetPassword extends Component{
 
 const ResetPasswordForm = Form.create()(ResetPassword);
 
-export default connect(
-	
-)(withRouter(ResetPasswordForm));
+export default connect()(withRouter(ResetPasswordForm));

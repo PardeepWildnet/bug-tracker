@@ -22,19 +22,14 @@ export const ShowSubTaskListApi = () => (dispatch) => {
 			toast.openNotificationWithIcon('success', response.data.msg, 'Sub Task List');
 		}
 		else {
-			toast.openNotificationWithIcon('error', response.data.msg , 'Sub Task List');
+			toast.openNotificationWithIcon('error', response.data.err , 'Sub Task List');
 		}
 		console.log(response.data.object.result, "sub task list response");
 		{/*dispatch(action.showTask(response.data.object.result));*/}
 		dispatch(action.showSubTask(taskList));
 	},
 	err =>{
-		if(err.response !== undefined){
-			toast.openNotificationWithIcon('error', err.response.data.msg, 'Sub Task List');
-		}
-		else {
-			toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Sub Task List');
-		}
+		toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'SubTasks');
 		console.log("error in fetching task");
 		dispatch({type: 'error'})
 	})

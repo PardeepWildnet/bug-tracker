@@ -1,50 +1,64 @@
-import React, { Component } from 'react';
-import { connect } from  'react-redux';
+import React, {Component} from 'react';
+// import Chart from 'chart.js'
+// import { Line as LineChart } from 'react-chartjs'
+// var LineChart = require("react-chartjs").Line;
+// import {AreaChart} from 'react-easy-chart';
+// import {Area, CirclePie, BarMetric} from 'react-simple-charts'
 
-import * as fetchAPI from './../data/dashboard/api';
+class DashboardView extends Component {
+    constructor() {
+        super();
+    }
 
-import ItemList from './ItemList';
-import ItemSearch from './ItemSearch';
+    componentDidMount() {
+    	 /*var ctx = document.getElementById("myChart");
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+		        datasets: [{
+		            label: '# of Votes',
+		            data: [12, 19, 3, 5, 2, 3],
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255,99,132,1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		    }
+		});
+*/
 
-class DashboardView extends Component{
-	filterKeyword = '';
-
-	constructor(props){
-		super(props);
-		this.onSearch = this.onSearch.bind(this);
-	}
-
-	componentWillMount(){
-		this.props.dispatch(fetchAPI.fetchAPI());
-	}
-
-	onSearch(keyword){
-		this.filterKeyword = keyword;
-		this.forceUpdate();
-	}
-
-	render(){
-		const { 
-			receipeList 
-		} = this.props;
-
-		return(
-			<div> 
-			<p className = 'heading-style'> Dashboard </p>
-				{/*<ItemSearch onSearch={this.onSearch} />
-								<ItemList 
-									receipeList = {receipeList} 
-									filterKeyword = {this.filterKeyword} 
-								/>*/}
-			</div>
-		)
-	}
+    }
+    render() {
+		
+        return (
+            <div className="">
+            </div>
+        );
+    }
 }
-
-export default connect(
-	state => {
-		return ({
-			receipeList: state.dashboard.data.dashboard
-		})
-	}
-)(DashboardView);
+export default DashboardView;
+            	// <canvas id="myChart" width="400" height="400"></canvas>
+                // <LineChart data={chartData} options={chartOptions} width="600" height="250"/>

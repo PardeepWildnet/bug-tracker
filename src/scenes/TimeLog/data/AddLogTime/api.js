@@ -26,18 +26,13 @@ export const addLogTime = (values, fileList, date, time) => (dispatch) => {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Log Time');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Log Time');
+				toast.openNotificationWithIcon('error', response.data.err , 'Add Log Time');
 			}
 			 dispatch(action.timeLogAction(response))
 			 console.log(response, "time-log response");
 		},
 		err => {
-			if(err.response !== undefined){
-				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Log Time');
-			}
-			else {
-				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Log Time');
-			}
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Time Log is not Added' , 'Time Log');
 			dispatch({type: 'error'})
 			console.log(err, "time-log error response");
 		})

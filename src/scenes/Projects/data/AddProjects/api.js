@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
+import * as api from './../ProjectsList/api';
 import * as action from './action';
 
 export const addProject = (data) => (dispatch) => {
@@ -19,24 +20,19 @@ export const addProject = (data) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : token
     }}
-
 	axios.post(url, projectDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Project ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Project ');
+				toast.openNotificationWithIcon('error', response.data.err , 'Add Project ');
 			}
+			dispatch(api.fetchProjectsList('1'));
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
-			if(err.response !== undefined){
-				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Project');
-			}
-			else {
-				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Project');
-			}
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Project is not Added' , 'Projects');
 			dispatch({type: "error"});
 		})
 }

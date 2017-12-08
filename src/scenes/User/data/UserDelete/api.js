@@ -1,37 +1,34 @@
 import axios from 'axios';
 
+import * as api from './../UserList/api';
 import * as config from './../../../../config';
 import * as toast from './../../../../App.js'
 import * as action from './action.js'
 
 export const deleteUser = (data) => (dispatch) => {
-	const url = config.base_url + 'users/deleteUserById';
+	console.log("delete user is ", data	);
 	const userDetails = {
 		userId : data.id
 	}
+	const url = config.base_url + 'users/deleteUserById/' + data._id;
 
 	const token = "jwt " + config.token
-	axios.delete(url, userDetails, {headers: {
+	axios.delete(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : token
     }})
 		.then((response) => {
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Delete Project ');
+				toast.openNotificationWithIcon('success', response.data.msg, 'User ');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Delete Project ');
+				toast.openNotificationWithIcon('error', response.data.err , ' User ');
 			}
-			dispatch(action.deleteProjectAction(response))
+			dispatch(api.fetchUserList('1'));
+			dispatch(action.deleteUserAction(response))
 		},
 		err => {
-			if(err.response !== undefined){
-				toast.openNotificationWithIcon('error', err.response.data.msg, 'Delete Project');
-			}
-			else {
-				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Delete Project');
-			}
-			toast.openNotificationWithIcon('error', 'err.response.data.msg' , 'Delete Project ');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'User is not Deleted' , 'User');
 			dispatch({type : 'error'})
 		})
 }

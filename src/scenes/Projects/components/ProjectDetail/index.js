@@ -109,7 +109,7 @@ class ProjectDetailView extends Component {
 
 				  			<tr>
 				  				<td>Created By :</td>
-				  				<td>{projectDetail.result.projectCreatedByName}</td>
+				  				<td>{projectDetail.result.projectCreatedBy?projectDetail.result.projectCreatedBy.firstName + " " + projectDetail.result.projectCreatedBy.lastName : '-'}</td>
 				  			</tr>
 
 				  			<tr>

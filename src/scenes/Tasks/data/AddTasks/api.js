@@ -5,35 +5,38 @@ import * as action from './action';
 import * as showTask from './../TaskList/api';
 import * as config from './../../../../config.js';
 
-export const AddTaskApi = (task) => (dispatch) => {
+export const AddTaskApi = (task, participants) => (dispatch) => {
+	console.log("task", task);
 	let taskData = {
-		'category': task.category,
-		'desc':task.desc,
-		'id' : '',
-		'token' : config.token
+		'taskTitle': task.title,
+		'assignBy': config.userInfo.data.data._id,
+		'assignTo' : participants,
+		'taskDetails' : task.detail,
+		'visibilityTo' : task.scope,
+		'assignedHours' : task.hours
 	}
 
-	const url = 'http://180.151.103.85:3015/api/admin/skills/add';
+	let header =  {headers: {
+            'Content-Type': 'application/json',
+            'authorization' : "jwt " + config.token
+    }}
+
+	const url = config.base_url + 'tasks/createTasks';
 	
-	axios.post(url, taskData)
+	axios.post(url, taskData, header)
 		.then(response => {
 			if(response.data.status == 200) {
 				toast.openNotificationWithIcon('success', response.data.msg, 'Add Task');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.msg , 'Add Task');
+				toast.openNotificationWithIcon('error', response.data.err , 'Add Task');
 			}
 			 dispatch(action.addTask(response))
-			 dispatch(showTask.ShowTaskListApi())
+			 dispatch(showTask.ShowTaskListApi(1))
 			 console.log(response, "task response");
 		},
 		err => {
-			if(err.response !== undefined){
-				toast.openNotificationWithIcon('error', err.response.data.msg, 'Add Task');
-			}
-			else {
-				toast.openNotificationWithIcon('error', 'Something went wrong. Please try again later', 'Add Task');
-			}
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Task is not Added' , 'Tasks');
 			dispatch({type: 'error'})
 			console.log(err, "task error response");
 		})

@@ -49,7 +49,7 @@ class EditProjectDetailView extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		 
+		debugger
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
@@ -77,7 +77,7 @@ class EditProjectDetailView extends Component {
 		const { 
 			getFieldDecorator 
 		} = this.props.form;
-		 
+		debugger
 		return (
 			<LocaleProvider locale={enUS}>
 		       <Modal title="Edit Projects"
