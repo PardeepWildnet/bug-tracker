@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import * as managerApi from './../Manager/api';
+import * as tlApi from './../TL/api';
 import * as api from './../TeamsList/api';
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
@@ -28,6 +30,8 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , ' Team');
 			}
+			dispatch(managerApi.manager());
+			dispatch(tlApi.tlApi());
 			dispatch(api.fetchTeamList('1'));
 			dispatch(action.initiateTeams(response.data));
 		},

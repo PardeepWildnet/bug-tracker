@@ -141,7 +141,7 @@ class AddProjectView extends Component {
 
 						<FormItem>
 						  {getFieldDecorator('teamManager', {
-						    rules: [{ required: true, message: 'Please input participant name!' }],
+						    rules: [{ required: false, message: 'Please input participant name!' }],
 						  })(
 						      <Select mode="multiple" placeholder="Select Leads" >
 						        {renderManagerAndLeads}
@@ -161,7 +161,7 @@ class AddProjectView extends Component {
 						<FormItem>
 						  {
 						  	getFieldDecorator('daterange', {
-						    rules: [{ required: false, message: 'Please input time duration!' }],
+						    rules: [{ required: true, message: 'Please input time duration!' }],
 						  })(
 							<RangePicker className = 'range-picker'/>
 						  )}

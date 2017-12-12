@@ -31,7 +31,6 @@ class UserDetailView extends Component {
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.editUser)
 		if(nextProps.editUser && nextProps.editUser.status === 200){
-			
 			this.forceUpdate();
 		}
 	}
@@ -62,6 +61,7 @@ class UserDetailView extends Component {
 		    	visible: false,
 		    });
 		    this.props.form.resetFields();
+			this.props.history.push('/dashboard/user');
 		  }
 		});
 	}
@@ -91,8 +91,8 @@ class UserDetailView extends Component {
 				<table className='table table-striped table-responsive table-view'>
 					<tbody>
 						<tr>
-								<th>Key</th>
-								<th>Value</th>
+								<th>Title</th>
+								<th>Description</th>
 						</tr>
 					</tbody>
 				    {userDetail ?

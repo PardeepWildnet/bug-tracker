@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, Button, Input, Icon, Pagination } from 'antd';
+import { Form, Button, Input, Icon, Pagination, Tooltip, Popconfirm } from 'antd';
 
 import * as api from './../../data/TaskList/api';
 import AddSubTask from './../SubTask';
@@ -67,6 +67,7 @@ class TaskList extends Component {
 		return(
 			<div>
 				<div className = 'project-list-container'>
+					<p className = 'total-record-style'>Total Tasks : {tasks ? tasks.totalRecords : '0'} </p>
 					<table className = 'table table-striped table-responsive'>
 						<tbody>
 							<tr>
@@ -95,8 +96,14 @@ class TaskList extends Component {
 									</td>
 									<td> {item.assignBy ? item.assignBy.firstName + " " + item.assignBy.lastName : '-'} </td>
 									<td>
-										<Link to={'/dashboard/task/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
-										<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteTask(item) } aria-hidden="true"></i>
+										<Link to={'/dashboard/task/' + item._id }>
+											<Tooltip title="Task Detail Here">
+												<i className="fa fa-eye icon-style" aria-hidden="true"></i>
+											</Tooltip>
+										</Link>
+										<Popconfirm title="Are you sure delete this Task ?" onConfirm= {() => this.deleteTask(item) } okText="Yes" cancelText="No">
+											<i className="fa fa-trash-o icon-style"  aria-hidden="true"></i>
+										</Popconfirm>
 										<Link to = {'/dashboard/task/subtask/' + item._id }>
 											<Button type="primary" htmlType="submit" className="login-form-add-button">
 									        	Add Sub Task
@@ -107,14 +114,16 @@ class TaskList extends Component {
 							)) :
 							<tr>
 								<td colSpan = '6'>
-									<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
+									No Record Found
 								</td>
 							</tr>
 						}
 						</tbody>
 					</table>
 				</div>
-			<Pagination defaultCurrent={1}  total={tasks ? tasks.totalRecords : 10} onChange = {this.handlePageNumber}/>
+			{ tasks && tasks.totalRecords > 10 ?
+				<Pagination defaultCurrent={1}  total={tasks ? tasks.totalRecords : 10} onChange = {this.handlePageNumber}/> : ''
+			}
 		</div>
 		)
 	}

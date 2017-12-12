@@ -13,10 +13,7 @@ export const fetchTeamList = (pageNumber) => (dispatch) => {
             'authorization' : token
         }})
 		.then((response) => {
-			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, ' Team List');
-			}
-			else {
+			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , ' Team List');
 			}
 			dispatch(action.initiateTeams(response.data));

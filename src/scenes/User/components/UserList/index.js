@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Tooltip, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -10,6 +10,7 @@ import user from './../../../../Assets/userList.json';
 
 class UserList extends Component {
 	serachByRole = '';
+	pageNumber = 1;
 	constructor(props) {
 		super(props);
 
@@ -18,16 +19,11 @@ class UserList extends Component {
 
 		this.state = {
 			visible : false,
-			pageNumber : 1,
 		}
 	}
 
 	handlePageNumber (value) {
-		this.setState({
-			pageNumber : value
-		}, function() {
-			console.log("current page number is", this.state.pageNumber);
-		})
+		this.pageNumber = value;
 		if(this.serachByRole){
 			this.props.dispatch(serachApi.serachByRoles(this.serachByRole, value))
 		}
@@ -37,6 +33,7 @@ class UserList extends Component {
 	}
 
 	deleteUser (item) {
+		alert(" Are u sure u want to delete");
 		this.props.dispatch(userDeleteApi.deleteUser(item))
 	}
 
@@ -50,15 +47,23 @@ class UserList extends Component {
 
 		this.serachByRole = searchedRole;
 
-		let filteredList = users ? users : '';
-		filteredList = filterKeyword && filteredList.result.filter((item, index) => {
-			const itemEmail = item.email.toLowerCase()
-			return itemEmail.indexOf(filterKeyword) > -1 ? item : null
-		}) || filteredList
-
+	    let filteredList = users ? users : '';
+	    let filteredList1 = {result : [], totalRecords : ''};
+	    
+	    if (filterKeyword) {
+			filteredList1.result = filterKeyword && filteredList.result.filter((item, index) => {
+				const itemEmail = item.email.toLowerCase()
+				return itemEmail.indexOf(filterKeyword) > -1 ? item : null
+			}) || filteredList
+			filteredList1.totalRecords = filteredList1.result.length;
+			filteredList = filteredList1;
+			this.pageNumber = 1;
+	    }
+		
 		return(
 			<div>
 				<div className = 'project-list-container'>
+				<p className = 'total-record-style'>Total Users : {filteredList ? filteredList.totalRecords : '0'} </p>
 					<table className = 'table table-striped table-responsive'>
 						<tbody>
 							<tr>
@@ -72,30 +77,35 @@ class UserList extends Component {
 						
 						<tbody>
 						{
-							filteredList ? 
+							filteredList && filteredList.totalRecords  ? 
 							filteredList.result.map((item, index) => (
-									<tr key = {index}>
-										<td>{index + ((this.state.pageNumber - 1) * 10) + 1}</td>
-										<td>{item.firstName} {item.lastName} </td>
-										<td>{item.email} </td>
-										<td>{item.accountType} </td>
-										<td>
-											<Link to={'/dashboard/user/' + item._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
-											<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteUser(item) } aria-hidden="true"></i>
-										</td>
-									</tr>
-							)) :
+								<tr key = {index}>
+									<td>{index + ((this.pageNumber - 1) * 10) + 1}</td>
+									<td>{item.firstName} {item.lastName} </td>
+									<td>{item.email} </td>
+									<td>{item.accountType} </td>
+									<td>
+										<Link to={'/dashboard/user/' + item._id }>
+											<Tooltip title="User Detail Here">
+												<i className="fa fa-eye icon-style" aria-hidden="true"></i>
+											</Tooltip>
+										</Link>
+										<Popconfirm title="Are you sure delete this User ?" onConfirm= {() => this.deleteUser(item) } okText="Yes" cancelText="No">
+											<i className="fa fa-trash-o icon-style" aria-hidden="true"></i>
+										</Popconfirm>
+									</td> 
+								</tr>
+							)) : 
 							<tr>
-								<td colSpan = '5'>
-									<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
-								</td>
+								<td colSpan = '5'>No Record Found </td>
 							</tr>
 						}
 						</tbody>
 					</table>
 				</div>
-
-				<Pagination defaultCurrent={1} total={filteredList ? filteredList.totalRecords : 10} onChange = {this.handlePageNumber}/>
+				{ filteredList && filteredList.totalRecords > 10 ?
+					<Pagination defaultCurrent={1} total={filteredList ? filteredList.totalRecords : 10} onChange = {this.handlePageNumber}/> : ''
+				}
 			</div>
 		)
 	}

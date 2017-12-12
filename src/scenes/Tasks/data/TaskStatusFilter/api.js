@@ -15,10 +15,7 @@ export const TaskStatusFilterApi = () => (dispatch) => {
 	
 	axios.get(url, header)
 	.then(response =>{
-		if(response.data.status == 200) {
-			toast.openNotificationWithIcon('success', response.data.msg, 'Task Status');
-		}
-		else {
+		if(response.data.status !== 200) {
 			toast.openNotificationWithIcon('error', response.data.err , 'Task Status');
 		}
 		dispatch(action.showTask(response));

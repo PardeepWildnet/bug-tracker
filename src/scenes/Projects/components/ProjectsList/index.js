@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Tooltip, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Time from 'react-time';
@@ -44,6 +44,7 @@ class ProjectsList extends Component {
 		return(
 			<div>
 				<div className = 'project-list-container'>
+				<p className = 'total-record-style'>Total Projects :- {projects ? projects.totalRecords : '0'} </p>
 					<table className = 'table table-striped table-responsive'>
 						<tbody>
 							<tr>
@@ -60,31 +61,45 @@ class ProjectsList extends Component {
 						<tbody>
 								{
 								projects ? 
-								projects.data.result.map((project, index) => (
-										<tr key = {index}>
-											<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
-											<td> {project.projectName  ? project.projectName : '-'} </td>
-											<td> {project.projectCreatedBy  ?  project.projectCreatedBy.firstName + " " +project.projectCreatedBy.lastName :'-'} </td>
-											<td> {project.projectDetails ? project.projectDetails : '-'} </td>
-											<td> <Time value={project.projectStartDate} format="DD-MM-YYYY" /> </td>
-											<td> <Time value={project.projectEndDate} format="DD-MM-YYYY" /> </td>
-											<td>
-												<Link to={'/dashboard/projects/' + project._id }><i className="fa fa-eye icon-style" aria-hidden="true"></i></Link>
-												<i className="fa fa-trash-o icon-style" onClick = {() => this.deleteProject(project) } aria-hidden="true"></i>
-											</td>
-										</tr>
+								projects.result.map((project, index) => (
+									projects.totalRecords > 0 ?
+									<tr key = {index}>
+										<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
+										<td> {project.projectName  ? project.projectName : '-'} </td>
+										<td> {project.projectCreatedBy  ?  project.projectCreatedBy.firstName + " " +project.projectCreatedBy.lastName :'-'} </td>
+										<td> {project.projectDetails ? project.projectDetails : '-'} </td>
+										<td> <Time value={project.projectStartDate} format="DD-MM-YYYY" /> </td>
+										<td> <Time value={project.projectEndDate} format="DD-MM-YYYY" /> </td>
+										<td> 
+											<Link to={'/dashboard/projects/' + project._id }>
+												<Tooltip title="Project Detail Here">
+													<i className="fa fa-eye icon-style" aria-hidden="true"></i>
+												</Tooltip>
+											</Link>
+											<Popconfirm title="Are you sure delete this Project ?" onConfirm= {() => this.deleteProject(project) } okText="Yes" cancelText="No">
+												<i className="fa fa-trash-o icon-style" aria-hidden="true"></i>
+											</Popconfirm>
+										</td>
+									</tr> : 
+									<tr>
+										<td colSpan = '7'>
+											No Record Found
+										</td>
+									</tr>	
 								)) :
 								<tr>
 									<td colSpan = '7'>
-										<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
+										<img src={require("./../../../../Assets/loader.gif")} className = 'loader-style'/>
 									</td>
 								</tr>
 								}
 						</tbody>
 					</table>
 				</div>
-			<Pagination defaultCurrent={1}  total={projects ? projects.data.totalRecords : 10} onChange = {this.handlePageNumber}/>
-		</div>
+				{ projects && projects.totalRecords > 10 ?
+					<Pagination defaultCurrent={1}  total={projects.totalRecords} onChange = {this.handlePageNumber}/> : ''
+				} 
+			</div>
 		)
 	}
 }

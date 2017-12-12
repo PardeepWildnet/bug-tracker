@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Time from 'react-time';
 import { Button, Radio, Modal, Form, Input, Select, InputNumber, Progress  } from 'antd';
 
 import * as userApi from './../../../User/data/UserList/api';
@@ -36,7 +37,6 @@ class TaskDetailView extends Component {
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("In Task Detail ", nextProps.editTask)
 		if(nextProps.editTask && nextProps.editTask.data.status === 200){
-			
 			this.forceUpdate();
 		}
 	}
@@ -79,6 +79,8 @@ class TaskDetailView extends Component {
 		    this.setState({
 		    	visible: false,
 		    });
+		    this.props.form.resetFields();
+			this.props.history.push('/dashboard/tasks');
 		  }
 		});
 	}
@@ -95,7 +97,7 @@ class TaskDetailView extends Component {
 
 		const renderParticipants = userLists ? userLists.result.map((user) => (
 	    	<Option 
-	    		value={ user._id } 
+	    		value={ user.firstName + user.lastName } 
 	    		key = { user._id }
 	    	>
 	    		{ user.firstName } { user.lastName }
@@ -109,8 +111,8 @@ class TaskDetailView extends Component {
 				<table className='table table-striped table-responsive table-view'>
 					<tbody>
 						<tr>
-								<th>Key</th>
-								<th>Value</th>
+								<th>Title</th>
+								<th>Description</th>
 						</tr>
 					</tbody>
 				    {taskDetail ?
@@ -121,7 +123,7 @@ class TaskDetailView extends Component {
 				  			</tr>
 							<tr>
 				  				<td>Created At :</td>
-				  				<td> {taskDetail.result.taskCreatedAt ? taskDetail.result.taskCreatedAt : '-'}</td>
+				  				<td> <Time value={taskDetail.result.taskCreatedAt ? taskDetail.result.taskCreatedAt : '-'} format="DD-MM-YYYY" /> </td>
 				  			</tr>
 
 							<tr>
@@ -165,7 +167,7 @@ class TaskDetailView extends Component {
 			  			<tbody>
 			  				<tr>
 								<td colspan = '7'>
-									<img src={require("./../../../../Assets/loader.gif")} role="presentation" className = 'loader-style'/>
+									No Record Found
 								</td>
 							</tr>
 			  			</tbody>

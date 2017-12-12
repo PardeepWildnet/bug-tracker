@@ -15,10 +15,7 @@ export const ShowTaskListApi = (value) => (dispatch) => {
 	
 	axios.get(url, header)
 	.then(response =>{
-		if(response.data.status == 200) {
-			toast.openNotificationWithIcon('success', response.data.msg, 'Show Task List');
-		}
-		else {
+		if(response.data.status !== 200) {
 			toast.openNotificationWithIcon('error', response.data.err , 'Show Task List');
 		}
 		console.log(response.data, "task list response");

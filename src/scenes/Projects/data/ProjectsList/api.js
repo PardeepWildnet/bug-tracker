@@ -5,6 +5,7 @@ import * as config from './../../../../config';
 import * as action from './action';
 
 export const fetchProjectsList = (value) => (dispatch) => {
+	
 	const url = config.base_url + 'project/viewprojects/' + value;
 
 	axios.get(url, {headers: {
@@ -12,13 +13,10 @@ export const fetchProjectsList = (value) => (dispatch) => {
             'authorization' : "jwt " + config.token
         }})
 		.then((response) => {
-			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Projects List ');
-			}
-			else {
+			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , 'Projects List ');
 			}
-			dispatch(action.initiateItems(response));
+			dispatch(action.initiateItems(response.data));
 		},
 		err => {
 			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Projects');

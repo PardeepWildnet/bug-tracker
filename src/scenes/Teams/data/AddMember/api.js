@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as api from './../TeamsList/api';
 import * as toast from './../../../../App.js'
 import * as config from './../../../../config';
 import * as action from './action';
@@ -22,6 +23,7 @@ export const addTeamMember = (data, id) => (dispatch) => {
 			else {
 				toast.openNotificationWithIcon('error', response.data.err , ' Team Member');
 			}
+			dispatch(api.fetchTeamList('1'));
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {

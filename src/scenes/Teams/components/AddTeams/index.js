@@ -99,7 +99,7 @@ class TeamView extends Component {
 	    		value={ tl._id } 
 	    		key = { tl._id }
 	    	>
-	    		{ tl.firstName }
+	    		{ tl.firstName } { tl.lastName}
 	    	</Option>
 	    )) : '';
 

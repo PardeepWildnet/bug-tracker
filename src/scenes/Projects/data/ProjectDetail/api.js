@@ -13,10 +13,7 @@ export const fetchProjectDetail = (data) => (dispatch) => {
     }}
 	axios.post(url, {} , header)
 		.then((response) => {
-			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Project Detail');
-			}
-			else {
+			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , 'Project Detail');
 			}
 			dispatch(action.initiateItems(response.data));

@@ -34,7 +34,6 @@ class ProjectDetailView extends Component {
 	componentWillReceiveProps(nextProps, nextState){
 		console.log("After Login ", nextProps.editProjects)
 		if(nextProps.editProjects && nextProps.editProjects.status === 200){
-			
 			this.forceUpdate();
 		}
 	}
@@ -68,6 +67,7 @@ class ProjectDetailView extends Component {
 		    	visible: false,
 		    });
 		    this.props.form.resetFields();
+			this.props.history.push('/dashboard/projects');
 		  }
 		 
 		});
@@ -89,8 +89,8 @@ class ProjectDetailView extends Component {
 				<table className='table table-striped table-responsive table-view'>
 					<tbody>
 						<tr>
-								<th>Key</th>
-								<th>Value</th>
+								<th>Title</th>
+								<th>Description</th>
 						</tr>
 					</tbody>
 				    {projectDetail ?

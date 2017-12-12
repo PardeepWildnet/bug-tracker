@@ -30,11 +30,11 @@ class Main extends Component {
                         <Route exact path = '/dashboard/user/:id' component = { UserDetail } />
                         <Route path = '/dashboard/edit-profile' component = { EditProfile } />
                         <Route path = '/dashboard/time' component = { TimeLogs } />
-                        <Route path = '/dashboard/home' component = { Dashboard } />                
-                        <Route exact path = '/dashboard/projects' component = { Projects } />                
-                        <Route exact path = '/dashboard/projects/:id' component = { ProjectDetail } />                
-                        <Route exact path = '/dashboard/teams' component = { Teams } />                
-                        <Route exact path = '/dashboard/teams/:id' component = { TeamDetail } />                
+                        <Route path = '/dashboard/home' component = { Dashboard } />
+                        <Route exact path = '/dashboard/projects' component = { Projects } />
+                        <Route exact path = '/dashboard/projects/:id' component = { ProjectDetail } />
+                        <Route exact path = '/dashboard/teams' component = { Teams } />
+                        <Route exact path = '/dashboard/teams/:id' component = { TeamDetail } />
                         <Route exact path = '/dashboard/task' component = { Task }  />
                         <Route exact path = '/dashboard/task/:id' component = { TaskDetail }  />
                         <Route exact path = '/dashboard/task/subtask/:id' component = { SubTask }  />
@@ -42,7 +42,7 @@ class Main extends Component {
                 </Router>
             )
         }
-	}
-}
+			}
+ }
 
 export default Main

@@ -15,10 +15,7 @@ export const fetchUserList = (value) => (dispatch) => {
             'authorization' : token
         }})
 		.then((response) => {
-			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'User List');
-			}
-			else {
+			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , 'User List');
 			}
 			dispatch(action.initiateItems(response.data));

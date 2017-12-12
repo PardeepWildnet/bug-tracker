@@ -18,7 +18,7 @@ class Tasks extends Component {
 
 	componentWillMount (){
 		this.props.dispatch(userApi.fetchUserList('1'));
-		this.props.dispatch(api.ShowTaskListApi());
+		this.props.dispatch(api.ShowTaskListApi('1'));
 	}
 
 	statusFilter(keyword){

@@ -12,6 +12,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class TeamDetailView extends Component {
+	TlArray = [];
 	constructor(props){
 		super(props);
 
@@ -19,7 +20,7 @@ class TeamDetailView extends Component {
 		this.handleLeads = this.handleLeads.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-		
+
 		this.state = {
 			teams : [],
 			visible: false,
@@ -34,16 +35,12 @@ class TeamDetailView extends Component {
 
 	// This method is called after getting any props
 	componentWillReceiveProps(nextProps, nextState){
-		debugger
 		if(nextProps.editTeams && nextProps.editTeams.status === 200){
-			
-		    this.props.form.resetFields();
 			this.forceUpdate();
 		}
 	}
-	
+
 	handleLeads(value) {
-		debugger
 	  console.log(`selected ${value}`);
 	  this.setState({
 	  	teams : value
@@ -77,6 +74,8 @@ class TeamDetailView extends Component {
 		    this.setState({
 		    	visible: false,
 		    });
+		    this.props.form.resetFields();
+			this.props.history.push('/dashboard/teams');
 		  }
 		});
 	}
@@ -88,36 +87,43 @@ class TeamDetailView extends Component {
 			teamDetail,
 			tlList,
 			manager,
-			editTeams, 
+			editTeams,
 			form : { getFieldDecorator }
 		} = this.props;
 
 		const renderManager = manager ? manager.result.map((manager) => (
-	    	<Option 
-	    		value={ manager._id } 
+	    	<Option
+	    		value={ manager._id }
 	    		key = { manager._id }
 	    	>
 	    		{ manager.firstName } { manager.lastName}
 	    	</Option>
 	    )) : '';
 
+
 	    const renderTl = tlList ? tlList.result.map((tl) => (
-	    	<Option 
-	    		value={ tl._id } 
+	    	<Option
+	    		value={ tl._id }
 	    		key = { tl._id }
 	    	>
 	    		{ tl.firstName }
 	    	</Option>
 	    )) : '';
 
+	    let TlArray1 = [];
+	    this.TlArray = teamDetail ? teamDetail.result.teamLeadsId.map((tl, index) => {
+	    	return tl._id;
+	    }) : '';
+
+		console.log(` Leads Array is :-  ${this.TlArray} ${1+1}`);
 		return (
 			<div className = 'team-detail-view'>
 				<p className = 'heading-style team-style'> Team Detail </p>
 				<table className='table table-striped table-responsive table-view'>
 					<tbody>
 						<tr>
-								<th>Key</th>
-								<th>Value</th>
+								<th>Title</th>
+								<th>Description</th>
 						</tr>
 					</tbody>
 				    {teamDetail ?
@@ -126,15 +132,15 @@ class TeamDetailView extends Component {
 				  				<td>Title :</td>
 				  				<td>{teamDetail.result.teamTitle}</td>
 				  			</tr>
-				  			
+
 				  			<tr>
 				  				<td>Details: </td>
 				  				<td>{teamDetail.result.teamDetails} </td>
 				  			</tr>
-							
-							<tr>
+
+							  <tr>
 				  				<td>Manager :</td>
-				  				<td>{teamDetail.result.teamManagerId.firstName} {teamDetail.result.teamManagerId.lastName}</td>
+				  				<td>{teamDetail.result.teamManagerId ? teamDetail.result.teamManagerId.firstName + " " + teamDetail.result.teamManagerId.lastName : '-'} </td>
 				  			</tr>
 
 				  			<tr>
@@ -145,15 +151,26 @@ class TeamDetailView extends Component {
 											<p key = {index}>{tl.firstName} {tl.lastName} </p>
 										))  : '-'
 									}
-								</td>
+								  </td>
 				  			</tr>
-							
+
+								<tr>
+				  				<td>Leads :</td>
+				  				<td>
+					  				{
+					  					teamDetail.result.teamMembersId ? teamDetail.result.teamMembersId.map((tl, index) => (
+											<p key = {index}>{tl.firstName} {tl.lastName} </p>
+										))  : '-'
+									}
+								  </td>
+				  			</tr>
+
 			  				<tr>
 				  				<td colSpan = '2'>
 				  					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Edit Team</Button>
 				  				</td>
 				  			</tr>
-				  		</tbody> : 
+				  		</tbody> :
 			  			<tbody></tbody>
 					}
    				</table>
@@ -165,7 +182,7 @@ class TeamDetailView extends Component {
 		          footer={[]}
 		        >
 		        { teamDetail ?
-					  <Form onSubmit = { this.handleSubmit }>
+					<Form onSubmit = { this.handleSubmit }>
 				        <FormItem>
 				          {
 				          	getFieldDecorator('name', {
@@ -185,31 +202,28 @@ class TeamDetailView extends Component {
 				            <Input placeholder="Detail" />
 				          )}
 				        </FormItem>
-				        
+
 				        <FormItem>
 				          {getFieldDecorator('manager', {
 				            rules: [{ required: true, message: 'Please input team name!' }],
-				            initialValue : teamDetail.result.teamManagerId._id
+				            initialValue : teamDetail.result.teamManagerId ? teamDetail.result.teamManagerId._id : '-'
 				          })(
 					          <Select placeholder="Select manager">
 					            {renderManager}
 					         </Select>
 				          )}
 				        </FormItem>
-				        {
-		  					teamDetail.result.teamLeadsId ? teamDetail.result.teamLeadsId.map((tl, index) => (
-					        <FormItem>
-					          {getFieldDecorator('tl', {
-					            rules: [{ required: true, message: 'Please input manager name!' }],
-					            initialValue : tl._id
-					          })(
-						          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
-						            {renderTl}
-						         </Select>
-					          )}
-					        </FormItem>
-							))  : '-'
-						}
+
+				        <FormItem>
+				          {getFieldDecorator('tl', {
+				            rules: [{ required: true, message: 'Please input manager name!' }],
+				            initialValue : this.TlArray
+				          })(
+					          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
+					            {renderTl}
+					         </Select>
+				          )}
+				        </FormItem>
 
 				        <FormItem>
 				          <Button type="primary" htmlType="submit" className="login-form-button">
@@ -236,4 +250,3 @@ export default connect(
 		})
 	}
 )(TeamDetail);
-			

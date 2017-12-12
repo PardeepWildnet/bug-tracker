@@ -11,6 +11,7 @@ class UserSearch extends Component{
 
 	onSearch(e){
 		// console.log(e.target.value);
+		debugger
 		this.props.onSearch(e.target.value);
 	}
 

@@ -10,6 +10,7 @@ export const editProjectDetails = (data, id) => (dispatch) => {
 
 	let projectDetails = {
 		projectName : data.name,
+		projectCreatedBy : config.userInfo.data.data._id,
 		projectDetails : data.details,
 		projectStartDate  : data.daterange[0],
 		projectEndDate : data.daterange[1],

@@ -14,10 +14,7 @@ export const fetchUserDetail = (data) => (dispatch) => {
     }}
 	axios.post(url, {} , header)
 		.then((response) => {
-			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'User Detail');
-			}
-			else {
+			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , 'User Detail');
 			}
 			dispatch(action.initiateItems(response.data));
