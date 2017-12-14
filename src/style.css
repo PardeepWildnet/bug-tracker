@@ -32,6 +32,13 @@ p {
   font-size: 32px;
   color: #49a9ee;
   width: 100%;
-  padding-left: 5%;
+  padding-left: 5% !important;
   font-weight: bold;
+}
+
+.total-record-style {
+    text-align: right;
+    font-size: 14px;
+    padding: 12px 5%;
+    font-weight: bold;
 }

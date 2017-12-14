@@ -10,17 +10,10 @@ const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
 class StatusFilter extends Component{
-	constructor(props){
-		super(props);
 
-		this.statusFilter = this.statusFilter.bind(this);
-	}
+	componentWillMount = () => this.props.dispatch(api.TaskStatusFilterApi())
 
-	componentWillMount() {
-		this.props.dispatch(api.TaskStatusFilterApi())
-	}
-
-	statusFilter (value) {
+	statusFilter = (value) => {
 		this.props.dispatch(filterApi.FilterApi(value, 1))
 		this.props.statusFilter(value);
 	}
@@ -29,11 +22,11 @@ class StatusFilter extends Component{
 		const { status } = this.props;
 
 		const renderStatus = status ? status.data.taskStatus.map((item) => (
-	    	<Option 
-	    		value={ item.taskStatus } 
+	    	<Option
+	    		value={ item.taskStatus }
 	    		key = { item.id }
 	    	>
-	    		{ item.taskStatus } 
+	    		{ item.taskStatus }
 	    	</Option>
 	    )):'';
 
@@ -42,14 +35,13 @@ class StatusFilter extends Component{
 				<p className = 'search-text-style'> Search by Status </p>
 				<Select placeholder="Select Status" onChange={this.statusFilter} className = 'status-select-style'>
 				 	{renderStatus}
-		        </Select>
+		    </Select>
 			</div>
 		)
 	}
 }
 export default connect(
 	state => {
-		debugger
 		return ({
 			status : state.tasks.data.status[state.tasks.data.status.length - 1]
 		})

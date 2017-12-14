@@ -10,18 +10,11 @@ const FormItem = Form.Item;
 class SignUpView extends Component {
 	constructor(props){
 		super(props);
-		
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.checkPassword = this.checkPassword.bind(this);
-		this.checkConfirm = this.checkConfirm.bind(this);
-		
-		this.state = {
-		    confirmDirty: false,
-	    };
+		this.state = { confirmDirty: false };
 	}
 
 	// This method is used to register the admin
-	handleSubmit (e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
@@ -33,7 +26,7 @@ class SignUpView extends Component {
 	}
 
 	// This method is used to check whether the confirm password is same to password
-	checkPassword(rule, value, callback) {
+	checkPassword = (rule, value, callback) => {
 	    const form = this.props.form;
 	    if (value && value !== form.getFieldValue('password')) {
 	      callback('Two passwords that you enter is inconsistent!');
@@ -43,7 +36,7 @@ class SignUpView extends Component {
 	}
 
 	// This method is used to heck whether the password is same to comfirm password field
-	checkConfirm(rule, value, callback) {
+	checkConfirm = (rule, value, callback) => {
 	    const form = this.props.form;
 	    if (value && this.state.confirmDirty) {
 	      form.validateFields(['confirm'], { force: true });
@@ -79,7 +72,7 @@ class SignUpView extends Component {
 		            		<Input placeholder="Last Name" />
 			          	)}
 			        </FormItem>
-	
+
 			        <FormItem>
 			          {getFieldDecorator('email', {
 			            rules: [{

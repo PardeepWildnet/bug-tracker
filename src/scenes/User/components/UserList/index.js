@@ -13,16 +13,10 @@ class UserList extends Component {
 	pageNumber = 1;
 	constructor(props) {
 		super(props);
-
-		this.handlePageNumber = this.handlePageNumber.bind(this);
-		this.deleteUser = this.deleteUser.bind(this);
-
-		this.state = {
-			visible : false,
-		}
+		this.state = { visible : false }
 	}
 
-	handlePageNumber (value) {
+	handlePageNumber = (value) => {
 		this.pageNumber = value;
 		if(this.serachByRole){
 			this.props.dispatch(serachApi.serachByRoles(this.serachByRole, value))
@@ -32,14 +26,14 @@ class UserList extends Component {
 		}
 	}
 
-	deleteUser (item) {
+	deleteUser = (item) => {
 		alert(" Are u sure u want to delete");
 		this.props.dispatch(userDeleteApi.deleteUser(item))
 	}
 
 	render(){
-		const { 
-			users , 
+		const {
+			users ,
 			userRole,
 			filterKeyword,
 			searchedRole
@@ -49,7 +43,7 @@ class UserList extends Component {
 
 	    let filteredList = users ? users : '';
 	    let filteredList1 = {result : [], totalRecords : ''};
-	    
+
 	    if (filterKeyword) {
 			filteredList1.result = filterKeyword && filteredList.result.filter((item, index) => {
 				const itemEmail = item.email.toLowerCase()
@@ -59,7 +53,7 @@ class UserList extends Component {
 			filteredList = filteredList1;
 			this.pageNumber = 1;
 	    }
-		
+
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -74,10 +68,10 @@ class UserList extends Component {
 								<th>Action</th>
 							</tr>
 						</tbody>
-						
+
 						<tbody>
 						{
-							filteredList && filteredList.totalRecords  ? 
+							filteredList && filteredList.totalRecords  ?
 							filteredList.result.map((item, index) => (
 								<tr key = {index}>
 									<td>{index + ((this.pageNumber - 1) * 10) + 1}</td>
@@ -93,9 +87,9 @@ class UserList extends Component {
 										<Popconfirm title="Are you sure delete this User ?" onConfirm= {() => this.deleteUser(item) } okText="Yes" cancelText="No">
 											<i className="fa fa-trash-o icon-style" aria-hidden="true"></i>
 										</Popconfirm>
-									</td> 
+									</td>
 								</tr>
-							)) : 
+							)) :
 							<tr>
 								<td colSpan = '5'>No Record Found </td>
 							</tr>
@@ -111,5 +105,5 @@ class UserList extends Component {
 	}
 }
 export default connect(
-	
+
 )(UserList);

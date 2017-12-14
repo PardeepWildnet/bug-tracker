@@ -11,16 +11,10 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class UserDetailView extends Component {
+	checkVisibility = false;
 	constructor(props){
 		super(props);
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		
-		this.state = {
-			visible: false,
-		}
+		this.state = { visible: false }
 	}
 
 	componentWillMount() {
@@ -29,26 +23,23 @@ class UserDetailView extends Component {
 	}
 
 	componentWillReceiveProps(nextProps, nextState){
-		console.log("After Login ", nextProps.editUser)
-		if(nextProps.editUser && nextProps.editUser.status === 200){
-			this.forceUpdate();
+		if(nextProps.editUser && nextProps.editUser.status === 200 && this.checkVisibility == false){
+			this.setState({ visible: false });
+		    this.props.form.resetFields();
+				this.forceUpdate();
 		}
 	}
 
-	showModal() {
-		this.setState({
-		  visible: !this.state.visible,
-		}, function () {
-			console.log("show modal button ", this.state.visible);
-		});
+	// This method is used to show the user modal
+	showModal = () => {
+		this.setState({ visible: !this.state.visible });
+		this.checkVisibility = true;
 	}
 
-	handleCancel() {
-		this.setState({
-		  visible: false,
-		}, function() {
-			console.log('Clicked cancel button');
-		});
+	// This method is used to close the user modal
+	handleCancel = () => {
+		this.setState({ visible: false });
+		this.checkVisibility = false;
 	}
 
 	handleSubmit(e) {
@@ -57,11 +48,8 @@ class UserDetailView extends Component {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editUserApi.editUserDetails(values, this.props.match.params.id))
-		    this.setState({
-		    	visible: false,
-		    });
-		    this.props.form.resetFields();
-			this.props.history.push('/dashboard/user');
+				this.checkVisibility = false;
+				this.props.history.push('/dashboard/user');
 		  }
 		});
 	}
@@ -77,14 +65,14 @@ class UserDetailView extends Component {
 		} = this.props;
 
 		const renderDesignation =  role ? role.result.map((item) => (
-	    	<Option 
-	    		value={ item.roleName } 
+	    	<Option
+	    		value={ item.roleName }
 	    		key = { item.roleId }
 	    	>
 	    		{ item.roleName }
 	    	</Option>
 	    )) : '';
-	    
+
 		return (
 			<div className = 'user-detail-view'>
 				<p className = 'heading-style user-style'> User Detail </p>
@@ -114,17 +102,17 @@ class UserDetailView extends Component {
 				  				<td>Designation :</td>
 				  				<td>{userDetail.result.accountType}</td>
 				  			</tr>
-							
+
 			  				<tr>
 				  				<td colSpan = '2'>
 				  					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Edit User</Button>
 				  				</td>
 				  			</tr>
-				  		</tbody> : 
+				  		</tbody> :
 			  			<tbody></tbody>
 					}
    				</table>
-   				
+
 		        <Modal title="Edit User Details"
 		          visible={visible}
 		          onCancel={this.handleCancel}

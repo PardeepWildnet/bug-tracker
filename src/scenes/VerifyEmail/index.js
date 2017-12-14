@@ -7,8 +7,8 @@ class VerifyEmail extends Component {
 		return(
 			<div className = 'verify-email'>
 				<h1> Your account is verified successfully </h1><br />
-        		<NavLink to="/login" activeClassName = 'active' className = 'list-group-item login-btn'> Login </NavLink>
-        	</div>
+      	<NavLink to="/login" activeClassName = 'active' className = 'list-group-item login-btn'> Login </NavLink>
+      </div>
 		)
 	}
 }

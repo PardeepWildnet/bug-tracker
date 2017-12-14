@@ -9,31 +9,16 @@ const FormItem = Form.Item;
 class AddSubTask extends Component {
 	constructor(props){
 		super(props);
-
-		this.cancelTask = this.cancelTask.bind(this);
-		this.addSubTask = this.addSubTask.bind(this);
-		this.addNewTask = this.addNewTask.bind(this);
-		
 		this.state = {
 			selectedAddTaskIndex : 0
 		}
 	}
 
-	addNewTask(id) {
-		console.log("inside addNewTask " + id);
-		this.setState({
-			selectedAddTaskIndex : id 
-		}) 
-	}
+	addNewTask = (id) => this.setState({ selectedAddTaskIndex : id })
 
-	cancelTask() {
-		console.log("inside cancelTask method");
-		this.setState({
-			selectedAddTaskIndex : 0
-		})
-	}
+	cancelTask = () => this.setState({ selectedAddTaskIndex : 0	})
 
-	addSubTask(e) {
+	addSubTask = (e) => {
 		console.log("inside add subtask method");
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -45,7 +30,7 @@ class AddSubTask extends Component {
 		});
 	}
 
-	normFile(e) {
+	normFile = (e) => {
 	    console.log('Upload event:', e);
 	    if (Array.isArray(e)) {
 	      return e;
@@ -60,7 +45,7 @@ class AddSubTask extends Component {
 
 		return(
 			<div>
-				{ this.state.selectedAddTaskIndex !== id ? 
+				{ this.state.selectedAddTaskIndex !== id ?
 					<div>
 						<Button type="primary" className = 'add-new-subtask' htmlType="submit" onClick = { () => this.addNewTask(id) }>
 			            	Add New Task
@@ -99,7 +84,7 @@ class AddSubTask extends Component {
 			         	</Button>
 					</Form>
 				}
-			</div>		
+			</div>
 		)
 	}
 }

@@ -15,67 +15,45 @@ class TeamDetailView extends Component {
 	TlArray = [];
 	constructor(props){
 		super(props);
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleLeads = this.handleLeads.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-
-		this.state = {
-			teams : [],
-			visible: false,
-		}
+		this.state = { visible: false }
 	}
 
-	componentWillMount (){
+	componentWillMount = () => {
 		this.props.dispatch(tlApi.tlApi());
 		this.props.dispatch(managerApi.manager());
 		this.props.dispatch(api.fetchTeamDetail(this.props.match.params.id));
 	}
 
 	// This method is called after getting any props
-	componentWillReceiveProps(nextProps, nextState){
-		if(nextProps.editTeams && nextProps.editTeams.status === 200){
-			this.forceUpdate();
+	componentWillReceiveProps = (nextProps, nextState) => {
+		if(nextProps.editTeams && nextProps.editTeams.status === 200  && this.checkVisibility == false) {
+				this.setState({ visible: false });
+				this.checkVisibility = false;
+		    this.props.form.resetFields();
+				this.forceUpdate();
 		}
 	}
-
-	handleLeads(value) {
-	  console.log(`selected ${value}`);
-	  this.setState({
-	  	teams : value
-	  }, function() {
-	  	console.log("selected Leads are :- ", this.state.teams);
-	  })
+	
+	// This method is used to show the add team modal
+	showModal = () => {
+		this.setState({ visible: !this.state.visible });
+		this.checkVisibility = true;
 	}
 
-	showModal() {
-		this.setState({
-		  visible: !this.state.visible,
-		}, function () {
-			console.log("show modal button ", this.state.visible);
-		});
+	// This method is used to close the add team modal
+	handleCancel = () => {
+		this.setState({ visible: false });
+		this.checkVisibility = false;
 	}
 
-	handleCancel() {
-		this.setState({
-		  visible: false,
-		}, function() {
-			console.log('Clicked cancel button');
-		});
-	}
-
-	handleSubmit(e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(editTeamApi.editTeamDetails(values, this.state.teams, this.props.match.params.id))
-		    this.setState({
-		    	visible: false,
-		    });
-		    this.props.form.resetFields();
-			this.props.history.push('/dashboard/teams');
+				this.checkVisibility = false;
+				this.props.history.push('/dashboard/teams');
 		  }
 		});
 	}
@@ -155,7 +133,7 @@ class TeamDetailView extends Component {
 				  			</tr>
 
 								<tr>
-				  				<td>Leads :</td>
+				  				<td>Members :</td>
 				  				<td>
 					  				{
 					  					teamDetail.result.teamMembersId ? teamDetail.result.teamMembersId.map((tl, index) => (

@@ -1,60 +1,69 @@
-import React, {Component} from 'react';
-// import Chart from 'chart.js'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Card, Icon, Avatar } from 'antd';
+import './style.css';
+
+import { Link } from 'react-router-dom';
+// import App from 'containers/App/App.js';
+/*
+import './assets/css/bootstrap.min.css';
+import './assets/css/animate.min.css';
+import './assets/sass/light-bootstrap-dashboard.css';
+import './assets/css/demo.css';
+import './assets/css/pe-icon-7-stroke.css';*/
+const ContainerStyle = {
+  margin: '0 auto',
+  float: 'none',
+  textAlign: 'center'
+};
 
 class DashboardView extends Component {
-    constructor() {
-        super();
-    }
+	render() {
+		return (
+			<div style = {ContainerStyle}>
+        <div className = 'logo-style-container'>
+          <img src={require("./../../../Assets/logo.jpg")}  />
+        </div>
 
-    componentDidMount() {
-    	/*var ctx = document.getElementById("myChart");
-		var myChart = new Chart(ctx, {
-		    type: 'bar',
-		    data: {
-		        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-		        datasets: [{
-		            label: '# of Votes',
-		            data: [12, 19, 3, 5, 2, 3],
-		            backgroundColor: [
-		                'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
-		            ],
-		            borderColor: [
-		                'rgba(255,99,132,1)',
-		                'rgba(54, 162, 235, 1)',
-		                'rgba(255, 206, 86, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(153, 102, 255, 1)',
-		                'rgba(255, 159, 64, 1)'
-		            ],
-		            borderWidth: 1
-		        }]
-		    },
-		    options: {
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    beginAtZero:true
-		                }
-		            }]
-		        }
-		    }
-		});
-*/
-    }
-    render() {
-		
-        return (
-            <div className="">
-            	jjkj
-            </div>
-        );
-    }
+        <Link to="/dashboard/projects" >
+          <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+             <img alt="example" width="100%" src={require("./../../../Assets/project.jpg")} className="custom-image"/>
+             <div className="custom-card">
+               <h3>Projects</h3>
+             </div>
+           </Card>
+         </Link>
+
+         <Link to="/dashboard/teams" >
+          <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+             <img alt="example" width="100%" src={require("./../../../Assets/team.jpg")} className="custom-image"/>
+             <div className="custom-card">
+               <h3> Teams</h3>
+             </div>
+           </Card>
+         </Link>
+
+         <Link to="/dashboard/user" >
+          <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+             <img alt="example" width="100%" src={require("./../../../Assets/users.jpg")} className="custom-image"/>
+             <div className="custom-card">
+               <h3>Users</h3>
+             </div>
+           </Card>
+          </Link>
+
+          <Link to="/dashboard/task" >
+            <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+               <img alt="example" width="100%" src={require("./../../../Assets/tasks.png")} className="custom-image"/>
+               <div className="custom-card">
+                 <h3>Tasks</h3>
+               </div>
+             </Card>
+          </Link>
+			</div>
+		)
+	}
 }
+
 export default DashboardView;
-                // <LineChart data={chartData} options={chartOptions} width="600" height="250"/>
-            	 // <canvas id="myChart" width="400" height="400"></canvas>
+			// <App />

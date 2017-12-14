@@ -10,7 +10,7 @@ export const AddTaskApi = (task, participants) => (dispatch) => {
 	let taskData = {
 		'taskTitle': task.title,
 		'assignBy': config.userInfo.data.data._id,
-		'assignTo' : participants,
+		'assignTo' : task.assignee,
 		'taskDetails' : task.detail,
 		'visibilityTo' : task.scope,
 		'assignedHours' : task.hours
@@ -22,7 +22,7 @@ export const AddTaskApi = (task, participants) => (dispatch) => {
     }}
 
 	const url = config.base_url + 'tasks/createTasks';
-	
+
 	axios.post(url, taskData, header)
 		.then(response => {
 			if(response.data.status == 200) {

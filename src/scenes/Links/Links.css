@@ -44,14 +44,14 @@
 }
 
 .navigations-style {
-	width: 72%;
+		width: 72%;
     text-align: right;
-	background: #efefef;
+		background: #efefef;
     padding-right: 5%;
 }
 
 .user-profile-style {
-	width: 5%;
+		width: 5%;
     float: right;
     height: 60px;
     margin-right: 3%;
@@ -73,7 +73,7 @@
 }
 
 .logo-style {
-    width: 35%;
+    width: 60%;
     height: 15%;
     /* margin-left: 3%; */
     text-align: center;

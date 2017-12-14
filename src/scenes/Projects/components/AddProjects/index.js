@@ -13,101 +13,84 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
 class AddProjectView extends Component {
+	checkVisibility = false;
 	managerAndLeadArray = [];
 	constructor(props){
 		super(props);
-
-		this.searchByDate = this.searchByDate.bind(this);
-		this.onDeselect = this.onDeselect.bind(this);
-		this.handleTeam = this.handleTeam.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		
-		this.state = {
-			visible: false,
-		}
+		this.state = { visible: false }
 	}
+
+
+	// This method is called after getting any props
+	componentWillReceiveProps = (nextProps, nextState) => {
+			if(nextProps.addProjects && nextProps.addProjects.status === 200  && this.checkVisibility == false){
+				this.setState({ visible: false });
+		    this.props.form.resetFields();
+				this.forceUpdate();
+			}
+		}
 
 	// This method is used to show add project modal
-	showModal() {
-		this.setState({
-		  visible: !this.state.visible,
-		});
+	showModal = () => {
+		this.setState({ visible: !this.state.visible })
+		this.checkVisibility = true;
 	}
 
-	// This method is used to get the team name 
-	handleTeam(value) {
-		console.log(`selected ${value}`);
-		this.props.dispatch(managerAndLeadApi.ManagerAndLeadApi(value))
-	}
+	// This method is used to get the team name
+	handleTeam = (value) => this.props.dispatch(managerAndLeadApi.ManagerAndLeadApi(value))
 
 	// This method is used to search the projects according to date
-	searchByDate (value) {
-		console.log("selected date is", value);
-		this.props.dispatch(serachApi.searchByDate(value))
-	}
+	searchByDate = (value) =>	this.props.dispatch(serachApi.searchByDate(value))
 
-	// This method is called to close the add project modal
-	handleCancel() {
-		console.log('Clicked cancel button');
-		this.setState({
-		  visible: false,
-		});
+	// This method is used to close the add team modal
+	handleCancel = () => {
+		this.setState({ visible: false });
+		this.checkVisibility = false;
 	}
 
 	// This method id used to add project
-	handleSubmit (e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    this.props.dispatch(api.addProject(values))
-		    this.props.form.resetFields();
-		    this.setState({
-		    	visible: false,
-		    });
+				this.checkVisibility = false;
 		  }
 		});
 	}
 
-	onDeselect (value) {
-		console.log("value in onDeselect is", value);
-	}
-
 	render() {
-		const { 
-			visible, 
-		} = this.state;
+		const { visible } = this.state;
 
-		const { 
-			teams, 
+		const {
+			teams,
 			addProjects,
 			form : { getFieldDecorator },
 			managerAndLeads
 		} = this.props;
-		
-		this.managerAndLeadArray  = managerAndLeads;		
+
+		this.managerAndLeadArray  = managerAndLeads;
 		const renderTeams = teams ? teams.result.map((team) => (
-	    	<Option 
-	    		value={ team._id } 
+	    	<Option
+	    		value={ team._id }
 	    		key = { team._id }
 	    	>
 	    		{ team.teamTitle }
 	    	</Option>
 	    )) : '';
-	    
+
 		const renderManagerAndLeads = this.managerAndLeads ? this.managerAndLeads.result.map((item, index) => (
 	    	item.teamLeadsId.map((leads, index) => (
-	    		<Option 
-		    		value={ leads._id } 
+	    		<Option
+		    		value={ leads._id }
 		    		key = { leads._id }
 		    	>
 		    		{ leads.firstName }
 		    	</Option>
-	    	))	
+	    	))
 	    )) : '';
 
-	    console.log("manager and lead dtaa is ", managerAndLeads);
+	  console.log("manager and lead dtaa is ", managerAndLeads);
 		return(
 			<div className = 'add-project-container'>
 				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add Projects</Button><br />
@@ -125,7 +108,7 @@ class AddProjectView extends Component {
 						  	getFieldDecorator('name', {
 						     rules: [{ required: true, message: 'Please input your project name!' }]
 						  })(
-								<Input placeholder="Name the project" />
+								<Input placeholder="Name the Project" />
 						  )}
 						</FormItem>
 
@@ -133,7 +116,7 @@ class AddProjectView extends Component {
 						  {getFieldDecorator('teams', {
 						    rules: [{ required: true, message: 'Please input participant name!' }],
 						  })(
-						      <Select mode="multiple" onDeselect = { this.onDeselect } placeholder="Select teams" onChange={this.handleTeam}>
+						      <Select mode="multiple" placeholder="Select Teams" onChange={this.handleTeam}>
 						        {renderTeams}
 						     </Select>
 						  )}
@@ -169,11 +152,11 @@ class AddProjectView extends Component {
 
 						<FormItem>
 						  <Button type="primary" htmlType="submit" className="login-form-button">
-						    Start the project
+						    Add Project
 						  </Button>
 						</FormItem>
 					</Form>
-		        </Modal>
+		    </Modal>
 			</div>
 		)
 	}
@@ -182,7 +165,6 @@ class AddProjectView extends Component {
 const AddProjects = Form.create()(AddProjectView);
 export default connect(
 	state => {
-		debugger
 		return ({
 			addProjects : state.projects.data.addProjects[state.projects.data.addProjects.length - 1],
 			managerAndLeads : state.projects.data.managerAndLeads[state.projects.data.managerAndLeads.length -1]

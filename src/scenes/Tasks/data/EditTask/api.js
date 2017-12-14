@@ -5,13 +5,13 @@ import * as toast from './../../../../App.js'
 import * as action from './action.js';
 import * as config from './../../../../config.js';
 
-export const editTaskDetails = (task, id, participants) => (dispatch) => {
+export const editTaskDetails = (task, id) => (dispatch) => {
 	const url = config.base_url+'tasks/updateTask/' + id;
 
 	let taskData = {
 		'taskTitle': task.title,
 		'assignBy': config.userInfo.data.data._id,
-		'assignTo' : participants,
+		'assignTo' : task.assignee,
 		'taskDetails' : task.detail,
 		'visibilityTo' : task.scope,
 		'assignedHours' : task.hours

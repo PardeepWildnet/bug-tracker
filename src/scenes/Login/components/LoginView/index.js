@@ -13,10 +13,9 @@ const FormItem = Form.Item;
 class LoginView extends Component{
 	constructor(props){
 		super(props);
-		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	componentWillReceiveProps(nextProps, nextState){
+	componentWillReceiveProps = (nextProps, nextState) => {
 		console.log("After Login ", nextProps.loginState)
 		if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
 			this.props.history.push('/dashboard');
@@ -24,9 +23,9 @@ class LoginView extends Component{
 			this.forceUpdate();
 		}
 	}
-	
-	// This method id used to login the user	
-	handleSubmit (e) {
+
+	// This method id used to login the user
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
@@ -38,9 +37,9 @@ class LoginView extends Component{
 	}
 
 	render(){
-		const { 
-			getFieldDecorator, 
-			loginState 
+		const {
+			getFieldDecorator,
+			loginState
 		} = this.props.form;
 
 		return(

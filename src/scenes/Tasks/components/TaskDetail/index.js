@@ -13,74 +13,49 @@ const RadioGroup = Radio.Group;
 const Option = Select.Option;
 
 class TaskDetailView extends Component {
+	checkVisibility = false;
 	constructor(props){
 		super(props);
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.handleParticipants = this.handleParticipants.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		
-		this.state = {
-			visible: false,
-			participants : []
-		}
+		this.state = { visible: false	}
 	}
 
 	// This method is call before rendering the component to get the task details and user list
-	componentWillMount() {
+	componentWillMount = () => {
 		this.props.dispatch(userApi.fetchUserList('1'));
 		this.props.dispatch(api.fetchTaskDetail(this.props.match.params.id));
 	}
 
 	// This method is called whenever component get any prop
-	componentWillReceiveProps(nextProps, nextState){
+	componentWillReceiveProps = (nextProps, nextState) => {
 		console.log("In Task Detail ", nextProps.editTask)
-		if(nextProps.editTask && nextProps.editTask.data.status === 200){
-			this.forceUpdate();
+		if(nextProps.editTask && nextProps.editTask.data.status === 200  && this.checkVisibility == false){
+				this.setState({ visible: false });
+		    this.props.form.resetFields();
+				this.forceUpdate();
+			}
 		}
-	}
 
-	// This method is used to get the participants to whom the task is assigned
-	handleParticipants(value) {
-	  console.log(`selected ${value}`);
-	  this.setState({
-	  	participants : value
-	  }, function() {
-	  	console.log("selected participants are :- ", this.state.participants);
-	  })
-	}
+		// This method is used to show the add team modal
+		showModal = () => {
+			this.setState({ visible: !this.state.visible });
+			this.checkVisibility = true;
+		}
 
-	// This method is used to show edit task modal
-	showModal() {
-		this.setState({
-		  visible: !this.state.visible,
-		}, function () {
-			console.log("show modal button ", this.state.visible);
-		});
-	}
-
-	// this method is used to close the edit task modal
-	handleCancel() {
-		this.setState({
-		  visible: false,
-		}, function() {
-			console.log('Clicked cancel button');
-		});
-	}
+		// This method is used to close the add team modal
+		handleCancel = () => {
+			this.setState({ visible: false });
+			this.checkVisibility = false;
+		}
 
 	// This method is used to edit the task details
-	handleSubmit(e) {
+	handleSubmit = (e)  => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
-		    this.props.dispatch(editTaskApi.editTaskDetails(values, this.props.match.params.id, this.state.participants))
-		    this.setState({
-		    	visible: false,
-		    });
-		    this.props.form.resetFields();
-			this.props.history.push('/dashboard/tasks');
+		    this.props.dispatch(editTaskApi.editTaskDetails(values, this.props.match.params.id))
+				this.checkVisibility = false;
+				this.props.history.push('/dashboard/tasks');
 		  }
 		});
 	}
@@ -96,8 +71,8 @@ class TaskDetailView extends Component {
 		} = this.props;
 
 		const renderParticipants = userLists ? userLists.result.map((user) => (
-	    	<Option 
-	    		value={ user.firstName + user.lastName } 
+	    	<Option
+	    		value={ user.firstName + user.lastName }
 	    		key = { user._id }
 	    	>
 	    		{ user.firstName } { user.lastName }
@@ -130,7 +105,7 @@ class TaskDetailView extends Component {
 				  				<td>Details :</td>
 				  				<td>{taskDetail.result.taskDetails ? taskDetail.result.taskDetails : '-'}</td>
 				  			</tr>
-	
+
 							<tr>
 				  				<td>Visibility :</td>
 				  				<td>{taskDetail.result.visibilityTo ? taskDetail.result.visibilityTo : '-'}</td>
@@ -142,7 +117,7 @@ class TaskDetailView extends Component {
 				  					{
 				  						taskDetail.result.assignTo ? taskDetail.result.assignTo.map((tl, index) => (
 											<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
-									} 
+									}
 								</td>
 				  			</tr>
 
@@ -150,7 +125,7 @@ class TaskDetailView extends Component {
 				  				<td>Assign By :</td>
 				  				<td>{taskDetail.result.assignBy ? taskDetail.result.assignBy.firstName + " " + taskDetail.result.assignBy.lastName : '-'}</td>
 				  			</tr>
-							
+
 				  			<tr>
 				  				<td colSpan = '2'>
 				  					 <Progress number={taskDetail.result.taskStatus ? taskDetail.result.taskStatus : 50} size="small" />
@@ -163,13 +138,13 @@ class TaskDetailView extends Component {
 				  				</td>
 				  			</tr>
 
-				  		</tbody> : 
+				  		</tbody> :
 			  			<tbody>
 			  				<tr>
-								<td colspan = '7'>
-									No Record Found
-								</td>
-							</tr>
+									<td colspan = '7'>
+										No Record Found
+									</td>
+								</tr>
 			  			</tbody>
 					}
    				</table>
@@ -180,7 +155,7 @@ class TaskDetailView extends Component {
 		          footer={[]}
 		        >
 		        { taskDetail ?
-					<Form onSubmit={this.handleSubmit}  >
+							<Form onSubmit={this.handleSubmit}  >
 				        <FormItem>
 				          {getFieldDecorator('title', {
 				            rules: [{ required: true, message: 'Please input title of task!' }],
@@ -189,13 +164,13 @@ class TaskDetailView extends Component {
 				            <Input placeholder="Give the list a title" />
 				          )}
 				        </FormItem>
-						
-						<FormItem>
+
+								<FormItem>
 				          {getFieldDecorator('assignee', {
 				            rules: [{ required: true, message: 'Please input participant name!' }],
 				            initialValue : taskDetail.result.assignTo._id
 				          })(
-					         <Select mode = 'multiple' placeholder="Select default Assignee" onChange={this.handleParticipants}>
+					         <Select mode = 'multiple' placeholder="Select default Assignee" >
 					            {renderParticipants}
 					         </Select>
 				          )}
@@ -210,7 +185,7 @@ class TaskDetailView extends Component {
 				        </FormItem>
 
 				        <p style = {{marginTop : '16px'}}> Who can view this task list :-</p>
-				        
+
 				        <FormItem>
 				          {getFieldDecorator('scope', {
 				            initialValue : 'Everyone'
@@ -223,7 +198,7 @@ class TaskDetailView extends Component {
 				        </FormItem>
 
 					    <div>
-					    	<span> Select number of days </span> 
+					    	<span> Select number of days </span>
 					    	<FormItem>
 					          {getFieldDecorator('days', {
 					            rules: [{ required: true, message: 'Please input your task option!' }],
@@ -235,12 +210,12 @@ class TaskDetailView extends Component {
 					    </div>
 
 						<Button type="primary" htmlType="submit" className="login-form-add-button">
-			            	SAVE
-			         	</Button>
-			         	<br />	
-	         		</Form>	: ''
+	            	SAVE
+	         	</Button>
+			         	<br />
+	        </Form>	: ''
 				}
-	        </Modal>
+	     </Modal>
 		</div>
 		)
 	}
@@ -257,4 +232,3 @@ export default connect(
 		})
 	}
 )(TaskDetail);
-			

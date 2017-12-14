@@ -7,6 +7,7 @@ import * as action from './action';
 
 export const addProject = (data) => (dispatch) => {
 	const url = config.base_url + 'project/createproject';
+
 	const projectDetails = {
 		projectName : data.name,
 		projectCreatedBy : config.userInfo.data.data._id,
@@ -15,11 +16,10 @@ export const addProject = (data) => (dispatch) => {
 		projectEndDate: data.daterange[1]
 	}
 
-	const token = "jwt " + config.token
 	let header =  {headers: {
             'Content-Type': 'application/json',
-            'authorization' : token
-    }}
+            'authorization' : "jwt " + config.token
+  }}
 	axios.post(url, projectDetails, header)
 		.then((response) => {
 			if(response.data.status == 200) {

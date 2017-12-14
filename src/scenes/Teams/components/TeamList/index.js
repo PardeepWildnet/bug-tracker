@@ -15,34 +15,23 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 
 class TeamsListView extends Component {
+	pageNumber = 1;
 	constructor() {
 		super();
-
-		this.handlePageNumber = this.handlePageNumber.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.deleteTeam = this.deleteTeam.bind(this);
-
 		this.state = {
 			visible : false,
 			id : '',
-			pageNumber : 1
 		}
 	}
 
-	handlePageNumber (value) {
-		this.setState({
-			pageNumber : value
-		}, function() {
-			console.log("current page number is", this.state.pageNumber);
-		})
+	handlePageNumber = (value) => {
+		this.pageNumber = value;
 		this.props.dispatch(teamListApi.fetchTeamList(value));
 	}
 
 
 	// This method is used to show the add team modal
-	showModal (values) {
+	showModal = (values) => {
 		this.props.dispatch(getMemberApi.getMemberList(values))
 		this.setState({
 		  visible: !this.state.visible,
@@ -51,23 +40,16 @@ class TeamsListView extends Component {
 	}
 
 	// This method is used to close the add team modal
-	handleCancel () {
-		console.log('Clicked cancel button');
-		this.setState({
-		  visible: false,
-		});
-	}
+	handleCancel = () => this.setState({ visible: false	});
 
 	// This method is used to add team
-	handleSubmit (e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(addMemberApi.addTeamMember(values, this.state.id))
-		    this.setState({
-			  visible: false,
-			});
+		    this.setState({ visible: false });
 		  }
 		});
 	}
@@ -82,10 +64,7 @@ class TeamsListView extends Component {
 	  })
 	}*/
 
-	deleteTeam (team) {
-		this.props.dispatch(api.deleteTeam(team))
-		console.log("inside delete team", team);
-	}
+	deleteTeam = (team) => this.props.dispatch(api.deleteTeam(team))
 
 	render(){
 		const {
@@ -94,7 +73,6 @@ class TeamsListView extends Component {
 			form : {getFieldDecorator}
 		} = this.props;
 
-		debugger
 		const renderMemberList = teamMember ? teamMember.result.map((tl) => (
 	    	<Option
 	    		value={ tl._id }
@@ -125,7 +103,7 @@ class TeamsListView extends Component {
 							teams ?
 							teams.result.map((team, index) => (
 								<tr key = {index}>
-									<td> {index + ((this.state.pageNumber - 1) * 10) + 1}</td>
+									<td> {index + ((this.pageNumber - 1) * 10) + 1}</td>
 									<td> {team.teamTitle ? team.teamTitle : '-'} </td>
 									<td> {team.teamManagerId ? team.teamManagerId.firstName + " " + team.teamManagerId.lastName : '-'} </td>
 									<td>
@@ -176,10 +154,10 @@ class TeamsListView extends Component {
 				          {getFieldDecorator('teamMember', {
 				            rules: [{ required: true, message: 'Please input TL name!' }],
 				          })(
-							<Select  mode="multiple" placeholder="Select Team Member" onChange={this.handleTeamMembers} >
-						        {renderMemberList}
-						    </Select>
-						  )}
+										<Select  mode="multiple" placeholder="Select Team Member" onChange={this.handleTeamMembers} >
+						        	{renderMemberList}
+						    		</Select>
+						  		)}
 				        </FormItem>
 
 				        <FormItem>

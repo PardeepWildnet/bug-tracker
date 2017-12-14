@@ -13,63 +13,50 @@ const dateFormat = 'YYYY-MM-DD';
 const FormItem = Form.Item;
 
 class ProjectDetailView extends Component {
+	checkVisibility = false;
 	constructor(props){
 		super(props);
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		
-		this.state = {
-			visible: false,
-		}
+		this.state = { visible: false }
 	}
 
 	// This method is called before rendering the component and to get details of project
-	componentWillMount (){
-		this.props.dispatch(fetchDetailApi.fetchProjectDetail(this.props.match.params.id));
-	}
+	componentWillMount = () => 	this.props.dispatch(fetchDetailApi.fetchProjectDetail(this.props.match.params.id))
 
 	// This method is called after getting any props
-	componentWillReceiveProps(nextProps, nextState){
+	componentWillReceiveProps = (nextProps, nextState) => {
 		console.log("After Login ", nextProps.editProjects)
-		if(nextProps.editProjects && nextProps.editProjects.status === 200){
-			this.forceUpdate();
+		if(nextProps.projectDetail && nextProps.projectDetail.status === 200  && this.checkVisibility == false){
+			this.setState({
+		    	visible: false,
+		    });
+				this.checkVisibility = false;
+		    this.props.form.resetFields();
+				this.forceUpdate();
 		}
 	}
 
-	// This method is used to show edit project details modal
-	showModal() {
-		this.setState({
-		  visible: !this.state.visible,
-		}, function () {
-			console.log("show modal button ", this.state.visible);
-		});
+	// This method is used to show the add team modal
+	showModal = () => {
+		this.setState({ visible: !this.state.visible });
+		this.checkVisibility = true;
 	}
 
-	// This method is used to close the edit project modal
-	handleCancel() {
-		this.setState({
-		  visible: false,
-		}, function() {
-			console.log('Clicked cancel button');
-		});
+	// This method is used to close the add team modal
+	handleCancel = () => {
+		this.setState({ visible: false });
+		this.checkVisibility = false;
 	}
 
 	// This method is used to edit project details
-	handleSubmit(e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
 		    this.props.dispatch(api.editProjectDetails(values, this.props.match.params.id))
-		    this.setState({
-		    	visible: false,
-		    });
-		    this.props.form.resetFields();
-			this.props.history.push('/dashboard/projects');
+				this.checkVisibility = false;
+				this.props.history.push('/dashboard/projects');
 		  }
-		 
 		});
 	}
 
@@ -117,13 +104,13 @@ class ProjectDetailView extends Component {
 				  				<td>Details :</td>
 				  				<td>{projectDetail.result.projectDetails}</td>
 				  			</tr>
-							
+
 			  				<tr>
 				  				<td colSpan = '2'>
 				  					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Edit Project</Button>
 				  				</td>
 				  			</tr>
-				  		</tbody> : 
+				  		</tbody> :
 			  			<tbody></tbody>
 					}
    				</table>
@@ -187,4 +174,3 @@ export default connect(
 		})
 	}
 )(ProjectDetail);
-			

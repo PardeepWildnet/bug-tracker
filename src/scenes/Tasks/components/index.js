@@ -11,25 +11,20 @@ import * as api from './../data/TaskList/api';
 class Tasks extends Component {
 	filterKeyword = '';
 
-	constructor(props){
-		super(props);
-		this.statusFilter = this.statusFilter.bind(this);
-	}
-
-	componentWillMount (){
+	componentWillMount = () => {
 		this.props.dispatch(userApi.fetchUserList('1'));
 		this.props.dispatch(api.ShowTaskListApi('1'));
 	}
 
-	statusFilter(keyword){
+	statusFilter = (keyword) => {
 		this.filterKeyword = keyword;
 		this.forceUpdate();
 	}
 
 	render () {
-		const { 
-			taskLists, 
-			id 
+		const {
+			taskLists,
+			id
 		} = this.props;
 
 		return (

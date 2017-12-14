@@ -10,33 +10,20 @@ import './ProjectList.css'
 
 
 class ProjectsList extends Component {
+	pageNumber = 1;
 	constructor(props) {
 		super(props);
-
-		this.deleteProject = this.deleteProject.bind(this);
-		this.handlePageNumber = this.handlePageNumber.bind(this);
-		
-		this.state = {
-			visible : false,
-			pageNumber : 1,
-		}
+		this.state = { visible : false }
 	}
 
 	// This method is used to render list of projects with page number
-	handlePageNumber (value) {
-		this.setState({
-			pageNumber : value
-		}, function() {
-			console.log("current page number is", this.state.pageNumber);
-		})
+	handlePageNumber = (value) => {
+		this.pageNumber = value;
 		this.props.dispatch(projectListApi.fetchProjectsList(value));
 	}
-	
+
 	// This method is used to delete the project
-	deleteProject (project) {
-		this.props.dispatch(api.deleteProject(project))
-		console.log("inside delete project", project);
-	}
+	deleteProject = (project) => this.props.dispatch(api.deleteProject(project))
 
 	render(){
 		const { projects } = this.props;
@@ -57,20 +44,20 @@ class ProjectsList extends Component {
 								<th>Action</th>
 							</tr>
 						</tbody>
-						
+
 						<tbody>
 								{
-								projects ? 
+								projects ?
 								projects.result.map((project, index) => (
 									projects.totalRecords > 0 ?
 									<tr key = {index}>
-										<td> {index + ((this.state.pageNumber - 1) * 10) + 1} </td>
+										<td> {index + ((this.pageNumber - 1) * 10) + 1} </td>
 										<td> {project.projectName  ? project.projectName : '-'} </td>
 										<td> {project.projectCreatedBy  ?  project.projectCreatedBy.firstName + " " +project.projectCreatedBy.lastName :'-'} </td>
 										<td> {project.projectDetails ? project.projectDetails : '-'} </td>
 										<td> <Time value={project.projectStartDate} format="DD-MM-YYYY" /> </td>
 										<td> <Time value={project.projectEndDate} format="DD-MM-YYYY" /> </td>
-										<td> 
+										<td>
 											<Link to={'/dashboard/projects/' + project._id }>
 												<Tooltip title="Project Detail Here">
 													<i className="fa fa-eye icon-style" aria-hidden="true"></i>
@@ -80,12 +67,12 @@ class ProjectsList extends Component {
 												<i className="fa fa-trash-o icon-style" aria-hidden="true"></i>
 											</Popconfirm>
 										</td>
-									</tr> : 
+									</tr> :
 									<tr>
 										<td colSpan = '7'>
 											No Record Found
 										</td>
-									</tr>	
+									</tr>
 								)) :
 								<tr>
 									<td colSpan = '7'>
@@ -96,9 +83,10 @@ class ProjectsList extends Component {
 						</tbody>
 					</table>
 				</div>
-				{ projects && projects.totalRecords > 10 ?
-					<Pagination defaultCurrent={1}  total={projects.totalRecords} onChange = {this.handlePageNumber}/> : ''
-				} 
+				{
+					projects && projects.totalRecords > 10 ?
+						<Pagination defaultCurrent={1}  total={projects.totalRecords} onChange = {this.handlePageNumber}/> : ''
+				}
 			</div>
 		)
 	}

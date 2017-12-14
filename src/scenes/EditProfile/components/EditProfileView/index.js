@@ -13,16 +13,11 @@ console.clear();
 class EditProfile extends Component {
 	constructor(props) {
 		super(props);
-		
-		this.handleSubmit = this.handleSubmit.bind(this);
-
-		this.state = {
-			fileList: [],
-		}
-	} 
+		this.state = { fileList: [] }
+	}
 
 	// This method id used to edit profile of admin
-	handleSubmit (e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {

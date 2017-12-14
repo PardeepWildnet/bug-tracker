@@ -14,37 +14,26 @@ class Users extends Component {
 	filterKeyword = '';
 	searchedRole = '';
 
-	constructor(props){
-		super(props);
-		this.SearchByRole = this.SearchByRole.bind(this);
-		this.onSearch = this.onSearch.bind(this);
-	}
-
-	componentWillMount(){
+	componentWillMount = () => {
 		this.props.dispatch(api.fetchUserList('1'));
 		this.props.dispatch(userRoleApi.userRole());
 	}
 
-	componentWillReceiveProps(nextProps, nextState){
-		console.log("Inside Add Projects", nextProps);
-	}
-
-	onSearch(keyword){
+	onSearch = (keyword) => {
 		this.filterKeyword = keyword;
 		this.forceUpdate();
 	}
 
-	SearchByRole(role){
+	SearchByRole = (role) => {
 		this.searchedRole = role;
 		this.forceUpdate();
 	}
 
 	render() {
-		const { 
+		const {
 			userLists,
 			userRole
 		} = this.props;
-		debugger
 		return (
 			<div>
 				<p className = 'heading-style project-style'> Users </p>

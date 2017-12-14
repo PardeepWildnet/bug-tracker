@@ -14,7 +14,7 @@ export const editTeamDetails = (data, teamLeads, id) => (dispatch) => {
 		teamManagerId : data.manager,
 		teamTitle  : data.name,
 		teamDetails  : data.details,
-		teamLeadsId : teamLeads
+		teamLeadsId : data.assignee
 	}
 	const token = "jwt " + config.token
 	let header =  {headers: {

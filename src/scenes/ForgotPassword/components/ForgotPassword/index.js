@@ -9,15 +9,9 @@ import './ForgotPassword.css';
 const FormItem = Form.Item;
 
 class ForgotPassword extends Component{
-	constructor(props){
-		super(props);
-		
-		this.handleSubmit = this.handleSubmit.bind(this);
-		console.log(this.props, "this props")
-	}
 
 	// This method is used to handle forgot password api
-	handleSubmit (e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
@@ -63,5 +57,5 @@ class ForgotPassword extends Component{
 const ForgotPasswordForm = Form.create()(ForgotPassword);
 
 export default connect(
-	
+
 )(ForgotPasswordForm);

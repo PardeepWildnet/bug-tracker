@@ -14,7 +14,7 @@ export const addTeam = (data, teamLeads) => (dispatch) => {
 		teamManagerId : data.manager,
 		teamTitle  : data.name,
 		teamDetails  : data.details,
-		teamLeadsId : teamLeads
+		teamLeadsId : data.tl
 	}
 
 	let header =  {headers: {

@@ -10,18 +10,18 @@ import * as tlApi from './../data/TL/api';
 import * as api from './../data/TeamsList/api';
 
 class Teams extends Component {
-	componentWillMount(){
+	componentWillMount = () => {
 		this.props.dispatch(managerApi.manager());
 		this.props.dispatch(tlApi.tlApi());
 		this.props.dispatch(api.fetchTeamList(1));
 	}
 
-	componentWillReceiveProps(nextProps, nextState){
+	componentWillReceiveProps = (nextProps, nextState) => {
 		console.log("Inside Team ", nextProps);
 	}
 
 	render() {
-		const { 
+		const {
 			teamLists,
 			manager ,
 			tlList

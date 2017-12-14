@@ -11,83 +11,65 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
 class TeamView extends Component {
+	checkVisibility = false;
+
 	constructor(props){
 		super(props);
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleLeads = this.handleLeads.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-
-		this.state = {
-			visible: false,
-			teams : [],
-		}
+		this.state = { visible: false }
 	}
 
 	// This method is called after getting any props
-	componentWillReceiveProps(nextProps, nextState){
-		if(nextProps.addTeam && nextProps.addTeam.status === 200){
+	componentWillReceiveProps = (nextProps, nextState) => {
+		if(nextProps.addTeam && nextProps.addTeam.status === 200  && this.checkVisibility == false){
 			this.setState({
 		    	visible: false,
 		    });
+				this.checkVisibility = false;
 		    this.props.form.resetFields();
-			this.forceUpdate();
+				this.forceUpdate();
 		}
 	}
 
 	// This method is used to show the add team modal
-	showModal () {
-		this.setState({
-		  visible: !this.state.visible,
-		});
+	showModal = () => {
+		this.setState({ visible: !this.state.visible });
+		this.checkVisibility = true;
 	}
 
 	// This method is used to close the add team modal
-	handleCancel () {
-		console.log('Clicked cancel button');
-		this.setState({
-		  visible: false,
-		});
+	handleCancel = () => {
+		this.setState({ visible: false });
+		this.checkVisibility = false;
 	}
 
 	// This method is used to add team
-	handleSubmit (e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values);
-		    this.props.dispatch(api.addTeam(values, this.state.teams))
+		    this.props.dispatch(api.addTeam(values))
+				this.checkVisibility = false;
 		  }
 		});
 	}
-	
-	// This method is used to get the leads
-	handleLeads(value) {
-	  console.log(`selected ${value}`);
-	  this.setState({
-	  	teams : value
-	  }, function() {
-	  	console.log("selected Leads are :- ", this.state.teams);
-	  })
-	}
 
 	render(){
-		const { 
-			visible, 
-			ModalText 
+		const {
+			visible,
+			ModalText
 		} = this.state;
 
 		const {
-			managerList, 
+			managerList,
 			tlList,
 			addTeam,
 			form : { getFieldDecorator }
 		} = this.props;
 
 		const renderManager = managerList ? managerList.result.map((manager) => (
-	    	<Option 
-	    		value={ manager._id } 
+	    	<Option
+	    		value={ manager._id }
 	    		key = { manager._id }
 	    	>
 	    		{ manager.firstName } { manager.lastName}
@@ -95,8 +77,8 @@ class TeamView extends Component {
 	    )) : '';
 
 	    const renderTl = tlList ? tlList.result.map((tl) => (
-	    	<Option 
-	    		value={ tl._id } 
+	    	<Option
+	    		value={ tl._id }
 	    		key = { tl._id }
 	    	>
 	    		{ tl.firstName } { tl.lastName}
@@ -129,27 +111,27 @@ class TeamView extends Component {
 			            <Input placeholder="Detail" />
 			          )}
 			        </FormItem>
-			        
+
 			        <FormItem>
 			          {getFieldDecorator('manager', {
 			            rules: [{ required: true, message: 'Please input manager name!' }],
 			          })(
-				          <Select placeholder="Select manager" >
+				          <Select placeholder="Select Manager" >
 				            {renderManager}
 				         </Select>
 			          )}
-			        </FormItem>  
+			        </FormItem>
 
 			        <FormItem>
 			          {getFieldDecorator('tl', {
 			            rules: [{ required: true, message: 'Please input TL name!' }],
 			          })(
-				          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
+				          <Select  mode="multiple" placeholder="Select TLs" >
 				            {renderTl}
 				         </Select>
 			          )}
 			        </FormItem>
-			       
+
 			        <FormItem>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			          	Add Team
