@@ -12,10 +12,11 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class TeamDetailView extends Component {
-	TlArray = [];
 	constructor(props){
 		super(props);
-		this.state = { visible: false }
+		this.state = { visible: false };
+		this.TlArrayName = [];
+		this.TlArrayId = [];
 	}
 
 	componentWillMount = () => {
@@ -27,13 +28,13 @@ class TeamDetailView extends Component {
 	// This method is called after getting any props
 	componentWillReceiveProps = (nextProps, nextState) => {
 		if(nextProps.editTeams && nextProps.editTeams.status === 200  && this.checkVisibility == false) {
-				this.setState({ visible: false });
-				this.checkVisibility = false;
+			this.setState({ visible: false });
+			this.checkVisibility = false;
 		    this.props.form.resetFields();
-				this.forceUpdate();
+			this.forceUpdate();
 		}
 	}
-	
+
 	// This method is used to show the add team modal
 	showModal = () => {
 		this.setState({ visible: !this.state.visible });
@@ -44,6 +45,13 @@ class TeamDetailView extends Component {
 	handleCancel = () => {
 		this.setState({ visible: false });
 		this.checkVisibility = false;
+	}
+
+	handleLeads = (value) => {
+		console.log(`array of tl is before ${this.TlArrayId}`);
+		console.log(` lead is ${value}`);
+		this.TlArrayId.push(value);
+		console.log(`array of tl is after ${this.TlArrayId}`);
 	}
 
 	handleSubmit = (e) => {
@@ -88,16 +96,22 @@ class TeamDetailView extends Component {
 	    	</Option>
 	    )) : '';
 
-	    let TlArray1 = [];
-	    this.TlArray = teamDetail ? teamDetail.result.teamLeadsId.map((tl, index) => {
-	    	return tl._id;
-	    }) : '';
+		if(teamDetail && teamDetail.result && teamDetail.result.teamLeadsId) {
+		    this.TlArrayName = teamDetail.result.teamLeadsId ? teamDetail.result.teamLeadsId.map((tl, index) => {
+		    	return tl.firstName + tl.lastName;
+		    }) : '';
+		}
 
-		console.log(` Leads Array is :-  ${this.TlArray} ${1+1}`);
+		if(teamDetail && teamDetail.result && teamDetail.result.teamLeadsId) {
+		    this.TlArrayId = teamDetail.result.teamLeadsId ? teamDetail.result.teamLeadsId.map((tl, index) => {
+		    	return tl._id;
+		    }) : '';
+		}
+
 		return (
 			<div className = 'team-detail-view'>
 				<p className = 'heading-style team-style'> Team Detail </p>
-				<table className='table table-striped table-responsive table-view'>
+				<table className='table table-striped table-view'>
 					<tbody>
 						<tr>
 								<th>Title</th>
@@ -153,14 +167,13 @@ class TeamDetailView extends Component {
 					}
    				</table>
 
-
-		        <Modal title="Edit Team Details"
+		      <Modal title="Edit Team Details"
 		          visible={visible}
 		          onCancel={this.handleCancel}
 		          footer={[]}
 		        >
 		        { teamDetail ?
-					<Form onSubmit = { this.handleSubmit }>
+							<Form onSubmit = { this.handleSubmit }>
 				        <FormItem>
 				          {
 				          	getFieldDecorator('name', {
@@ -194,8 +207,8 @@ class TeamDetailView extends Component {
 
 				        <FormItem>
 				          {getFieldDecorator('tl', {
-				            rules: [{ required: true, message: 'Please input manager name!' }],
-				            initialValue : this.TlArray
+				            rules: [{ required: false, message: 'Please input manager name!' }],
+				            initialValue : this.TlArrayName
 				          })(
 					          <Select  mode="multiple" placeholder="Select TLs" onChange={this.handleLeads}>
 					            {renderTl}

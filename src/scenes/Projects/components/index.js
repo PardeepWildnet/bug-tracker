@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect }  from 'react-redux';
+import { BackTop } from 'antd';
 
 import AddProjects from './AddProjects';
 import ProjectsList from './ProjectsList';
@@ -8,6 +9,10 @@ import * as teamsApi from './../data/Teams/api';
 import * as api from './../data/ProjectsList/api';
 
 console.clear();
+
+const ContainerStyle = {
+	padding : '2% 5%'
+};
 
 class Projects extends Component {
 	componentWillMount(){
@@ -26,10 +31,11 @@ class Projects extends Component {
 		} = this.props;
 
 		return (
-			<div>
+			<div style = { ContainerStyle }>
 				<p className = 'heading-style project-style'> Projects </p>
 				<AddProjects teams = { teams }/>
 				<ProjectsList projects = { productLists } />
+				<BackTop />
 			</div>
 		)
 	}

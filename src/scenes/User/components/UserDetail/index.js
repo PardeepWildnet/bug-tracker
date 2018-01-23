@@ -4,6 +4,7 @@ import { Button, Radio, Icon, Modal, Form, Input, Select, Upload } from 'antd';
 
 import * as userRoleApi from './../../data/UserRole/api';
 import * as editUserApi from './../../data/EditUser/api';
+import Loader from './../../../Loader';
 import * as api from './../../data/UserDetail/api';
 import './UserDetail.css';
 
@@ -42,7 +43,7 @@ class UserDetailView extends Component {
 		this.checkVisibility = false;
 	}
 
-	handleSubmit(e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
@@ -76,7 +77,7 @@ class UserDetailView extends Component {
 		return (
 			<div className = 'user-detail-view'>
 				<p className = 'heading-style user-style'> User Detail </p>
-				<table className='table table-striped table-responsive table-view'>
+				<table className='table table-striped table-view'>
 					<tbody>
 						<tr>
 								<th>Title</th>
@@ -109,7 +110,13 @@ class UserDetailView extends Component {
 				  				</td>
 				  			</tr>
 				  		</tbody> :
-			  			<tbody></tbody>
+			  			<tbody>
+			  				<tr>
+								<td colspan = '2'>
+									<Loader />
+								</td>
+							</tr>
+			  			</tbody>
 					}
    				</table>
 

@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
 import { connect }  from 'react-redux';
+import { BackTop } from 'antd';
 
 import AddTasks from './AddTasks';
 import TaskList from './TaskList';
@@ -26,16 +27,17 @@ class Tasks extends Component {
 			taskLists,
 			id
 		} = this.props;
-
 		return (
-			<div>
+
+			<div className = 'container-style'>
 				<p className = 'heading-style'> Tasks </p>
 				<AddTasks />
 				<br />
 				<StatusFilter statusFilter = {this.statusFilter}/>
 				<p className = 'heading-style'> Task List </p>
 				<br />
-				<TaskList tasks = { this.props.taskLists } filterKeyword = {this.filterKeyword}/>
+				<TaskList tasks = { taskLists } filterKeyword = {this.filterKeyword}/>
+				<BackTop />
 			</div>
 		)
 	}

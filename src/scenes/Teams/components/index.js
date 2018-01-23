@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect }  from 'react-redux';
+import { BackTop } from 'antd';
 
 import AddTeams from './AddTeams';
 import TeamList from './TeamList';
@@ -32,6 +33,7 @@ class Teams extends Component {
 				<p className = 'heading-style project-style'> Teams </p>
 				<AddTeams managerList = { manager } tlList = { tlList }/>
 				<TeamList teams = { teamLists } />
+				<BackTop />
 			</div>
 		)
 	}

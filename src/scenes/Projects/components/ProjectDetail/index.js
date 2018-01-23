@@ -7,6 +7,7 @@ import moment from 'moment';
 import * as api from './../../data/EditProject/api';
 import * as fetchDetailApi from './../../data/ProjectDetail/api';
 import './ProjectDetail.css';
+import Loader from './../../../Loader';
 
 const {  RangePicker } = DatePicker;
 const dateFormat = 'YYYY-MM-DD';
@@ -73,7 +74,7 @@ class ProjectDetailView extends Component {
 		return (
 			<div className = 'project-detail-view'>
 			<p className = 'heading-style project-style'> Project Detail </p>
-				<table className='table table-striped table-responsive table-view'>
+				<table className='table table-striped table-view'>
 					<tbody>
 						<tr>
 								<th>Title</th>
@@ -105,13 +106,31 @@ class ProjectDetailView extends Component {
 				  				<td>{projectDetail.result.projectDetails}</td>
 				  			</tr>
 
+				  			<tr>
+				  				<td>Teams Assigned :</td>
+									<td>
+										{
+											projectDetail.result.assigneeTeam ? projectDetail.result.assigneeTeam.map((team, index) => (
+												<p key = {index}>
+														{team ? team.teamTitle : '-'}
+												</p> ))  : '-'
+										}
+									</td>
+				  			</tr>
+
 			  				<tr>
 				  				<td colSpan = '2'>
 				  					<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Edit Project</Button>
 				  				</td>
 				  			</tr>
 				  		</tbody> :
-			  			<tbody></tbody>
+			  			<tbody>
+			  				<tr>
+								<td colspan = '2'>
+									<Loader />
+								</td>
+							</tr>
+			  			</tbody>
 					}
    				</table>
 
@@ -148,7 +167,7 @@ class ProjectDetailView extends Component {
 				            rules: [{ required: false, message: 'Please input time duration!' }],
 				            initialValue : [moment(projectDetail.result.projectStartDate, dateFormat), moment(projectDetail.result.projectEndDate, dateFormat)]
 				          })(
-							<RangePicker className = 'range-picker'/>
+											<RangePicker className = 'range-picker'/>
 				          )}
 				        </FormItem>
 

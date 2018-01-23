@@ -1,3 +1,5 @@
 .project-style {
-	padding-left: 5% !important;
+	max-width: 1024px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
 }

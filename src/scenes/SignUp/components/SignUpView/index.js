@@ -49,6 +49,9 @@ class SignUpView extends Component {
 
 		return(
 			<div className = 'signup-container'>
+				<div className = 'title-img-container'>
+					<img src={require("./../../../../Assets/logo.jpg")} role="presentation" className = 'title-img-style' />
+				</div>
 				<Form onSubmit = { this.handleSubmit } className = "signup">
 					<p className = 'heading-style sign-up-heading'> Sign Up </p>
 			        <FormItem>

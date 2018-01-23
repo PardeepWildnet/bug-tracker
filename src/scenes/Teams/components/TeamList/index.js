@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import * as teamListApi from './../../data/TeamsList/api';
 import * as api from './../../data/DeleteTeam/api';
 import * as addMemberApi from './../../data/AddMember/api';
+import Loader from './../../../Loader';
 import * as getMemberApi from './../../data/GetMember/api';
 // import EditTeam from './../EditTeamDetails';
 import './TeamList.css'
@@ -84,7 +85,7 @@ class TeamsListView extends Component {
 
 	  console.log("memberList is", teamMember);
 		return(
-			<div className = 'project-list-container'>
+			<div className = 'team-list-container'>
 				<p className = 'total-record-style'>Total Teams : {teams ? teams.totalRecords : '0'} </p>
 				<table width = '100%' className = 'table table-striped table-responsive'>
 					<tbody>
@@ -105,17 +106,32 @@ class TeamsListView extends Component {
 								<tr key = {index}>
 									<td> {index + ((this.pageNumber - 1) * 10) + 1}</td>
 									<td> {team.teamTitle ? team.teamTitle : '-'} </td>
-									<td> {team.teamManagerId ? team.teamManagerId.firstName + " " + team.teamManagerId.lastName : '-'} </td>
 									<td>
 										{
-											team.teamLeadsId ? team.teamLeadsId.map((tl, index) => (
-												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
+											team.teamManagerId ?
+												<Link to={'/dashboard/user/' + team.teamManagerId._id }>
+													{team.teamManagerId.firstName + " " + team.teamManagerId.lastName}
+												</Link> : '-'
 										}
+									</td>
+									<td>
+											{
+												team.teamLeadsId ? team.teamLeadsId.map((tl, index) => (
+													<p key = {index}>
+														<Link to={'/dashboard/user/' + tl._id }>
+															{tl ? tl.firstName + " " + tl.lastName : '-'}
+														</Link>
+													</p> ))  : '-'
+											}
 									</td>
 									<td>
 										{
 											team.teamMembersId ? team.teamMembersId.map((tl, index) => (
-												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
+												<p key = {index}>
+													<Link to={'/dashboard/user/' + tl._id }>
+														{tl ? tl.firstName + " " + tl.lastName : '-'}
+													</Link>
+												</p> ))  : '-'
 										}
 									</td>
 									<td>
@@ -137,7 +153,7 @@ class TeamsListView extends Component {
 							)) :
 							<tr>
 								<td colSpan = '6'>
-									No Record Found
+									<Loader />
 								</td>
 							</tr>
 						}

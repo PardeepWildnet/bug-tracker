@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import { Pagination, Tooltip, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as serachApi from './../../data/SearchByRole/api';
 import * as api from './../../data/UserList/api';
 import * as userDeleteApi from './../../data/UserDelete/api';
+import Loader from './../../../Loader';
 import user from './../../../../Assets/userList.json';
+import './style.css';
 
 class UserList extends Component {
-	serachByRole = '';
-	pageNumber = 1;
 	constructor(props) {
 		super(props);
+		this.serachByRole = '';
+		this.pageNumber = 1;
+		localStorage.setItem('loader', true);
 		this.state = { visible : false }
 	}
 
@@ -26,10 +30,7 @@ class UserList extends Component {
 		}
 	}
 
-	deleteUser = (item) => {
-		alert(" Are u sure u want to delete");
-		this.props.dispatch(userDeleteApi.deleteUser(item))
-	}
+	deleteUser = (item) => this.props.dispatch(userDeleteApi.deleteUser(item))
 
 	render(){
 		const {
@@ -53,10 +54,36 @@ class UserList extends Component {
 			filteredList = filteredList1;
 			this.pageNumber = 1;
 	    }
+	    
+	    if( filteredList === '') {
+          	return  (
+				<div className = 'project-list-container'>
+	          	<table className = 'table table-striped table-responsive'>
+					<tbody>
+						<tr>
+							<th>S No.</th>
+							<th> Name</th>
+							<th>Email</th>
+							<th>Role</th>
+							<th>Action</th>
+						</tr>
+					</tbody>
 
+					<tbody>
+						<tr>
+							<td colSpan = '5'>
+								<Loader />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			)
+	    }
+	    else {
 		return(
 			<div>
-				<div className = 'project-list-container'>
+				<div className = 'user-list-container' style = {{ background : this.context.background}}>
 				<p className = 'total-record-style'>Total Users : {filteredList ? filteredList.totalRecords : '0'} </p>
 					<table className = 'table table-striped table-responsive'>
 						<tbody>
@@ -102,8 +129,15 @@ class UserList extends Component {
 				}
 			</div>
 		)
-	}
+	}}
 }
+
+
+UserList.contextTypes = {
+  color: PropTypes.string,
+  background : PropTypes.string
+};
+
 export default connect(
 
 )(UserList);

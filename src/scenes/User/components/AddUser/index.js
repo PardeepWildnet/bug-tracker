@@ -95,7 +95,7 @@ class AddUserView extends Component {
 
 		return(
 			<div className = 'add-project-container'>
-				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} >Add User</Button> <br />
+				<Button type="primary"  icon="plus-circle-o" onClick={this.showModal} className = 'add-btn-style'>Add User</Button> <br />
 				<p className = 'search-heading-style'> Search By Role </p>
 
 				<Select placeholder="Search By Roles" className = 'search-by-role' onChange = {this.SearchByRole}>
@@ -134,10 +134,11 @@ class AddUserView extends Component {
 						    </FormItem>
 
 							<FormItem>
-						      {
-						      	getFieldDecorator('email', {
-						         rules: [{ required: true, message: 'Please input email!' }]
-						      })(
+								{getFieldDecorator('email', {
+									rules: [{type: 'email', message: 'The input is not valid E-mail!' }, {
+										required: true, message: 'Please input your E-mail!',
+									}],
+								})(
 						    		<Input placeholder="Email" />
 						      )}
 						    </FormItem>

@@ -15,12 +15,14 @@ export const fetchUserList = (value) => (dispatch) => {
             'authorization' : token
         }})
 		.then((response) => {
+			localStorage.setItem('loader', false);
 			if(response.data.status !== 200) {
 				toast.openNotificationWithIcon('error', response.data.err , 'User List');
 			}
 			dispatch(action.initiateItems(response.data));
 		},
 		err => {
+			localStorage.setItem('loader', false);
 			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Users List');
 			dispatch({type: "error"});
 		})

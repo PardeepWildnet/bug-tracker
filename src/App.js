@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
+import PropTypes from 'prop-types';
 import { notification } from 'antd';
 
 import store from './store';
@@ -15,7 +16,6 @@ import VerifyEmail from './scenes/VerifyEmail';
 import './style.css';
 
 export const openNotificationWithIcon = (type, msg, title) => {
-  console.log("msg is ", this.msg);
   notification[type]({
     message: title,
     description: msg,
@@ -23,14 +23,26 @@ export const openNotificationWithIcon = (type, msg, title) => {
 };
 
 class App extends Component {
+    componentDidUpdate(prevProps, prevState) {
+      console.log('Component DID UPDATE!')
+      console.log("LKLKLK", localStorage.getItem('userDetail'))
+   }
+
+   getChildContext() {
+      return {
+        color: "red",
+        background : "white"
+      };
+    }
+
     render () {
         return (
-            <LocaleProvider locale={enUS}> 
+            <LocaleProvider locale={enUS}>
                 <Provider store={store}>
                      <Router>
                         <Switch>
                             <Route exact path = '/' component = { Login } />
-                            <Route path = '/dashboard' component = { Main }  /> 
+                            <Route path = '/dashboard' component = { Main }  />
                             <Route path = '/sign-up' component = { SignUp } />
                             <Route path = '/login' component = { Login } />
                             <Route path = '/forgot-password' component = { ForgotPassword } />
@@ -45,4 +57,11 @@ class App extends Component {
         )
     }
 }
- export default App;
+
+
+App.childContextTypes = {
+  color: PropTypes.string,
+  background : PropTypes.string
+};
+
+export default App;

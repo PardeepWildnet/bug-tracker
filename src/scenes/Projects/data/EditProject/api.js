@@ -20,7 +20,6 @@ export const editProjectDetails = (data, id) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : "jwt " + config.token
     }}
-    debugger
 	axios.put(url, projectDetails, header)
 		.then(response => {
 			if(response.data.status == 200) {

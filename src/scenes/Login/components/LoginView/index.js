@@ -4,8 +4,10 @@ import { Form, Icon, Input, Button } from 'antd';
 import { withRouter } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
+import Loader from './../../../Loader';
 import * as loginAPI from './../../data/LoginView/api';
 import './Login.css';
+import './Loader.css';
 
 console.clear();
 const FormItem = Form.Item;
@@ -13,11 +15,16 @@ const FormItem = Form.Item;
 class LoginView extends Component{
 	constructor(props){
 		super(props);
+		localStorage.setItem('loader', false);
 	}
 
 	componentWillReceiveProps = (nextProps, nextState) => {
 		console.log("After Login ", nextProps.loginState)
-		if(nextProps.loginState.length && nextProps.loginState[0].data.status === 200){
+		if(
+			nextProps.loginState[nextProps.loginState.length - 1] &&
+			nextProps.loginState[nextProps.loginState.length - 1].data &&
+			nextProps.loginState[nextProps.loginState.length - 1].data.status == 200
+		){
 			this.props.history.push('/dashboard');
 			console.log("After Login in componentWillReceiveProps ");
 			this.forceUpdate();
@@ -27,6 +34,7 @@ class LoginView extends Component{
 	// This method id used to login the user
 	handleSubmit = (e) => {
 		e.preventDefault();
+		localStorage.setItem('loader', true);
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
@@ -38,23 +46,25 @@ class LoginView extends Component{
 
 	render(){
 		const {
-			getFieldDecorator,
+			form : { getFieldDecorator },
 			loginState
-		} = this.props.form;
+		} = this.props;
 
 		return(
 			<div className = 'login-container'>
+				<div className = 'title-img-container'>
+					<img src={require("./../../../../Assets/logo.jpg")} role="presentation" className = 'title-img-style' />
+				</div>
+				{ localStorage.getItem('loader') == 'true' ? <div className="loading" v-if='loader'></div> : ''}
 				<Form onSubmit = { this.handleSubmit } className = "login">
 					<p className = 'heading-style login-heading'> Login</p>
 			        <FormItem>
 			          {getFieldDecorator('email', {
-			            rules: [{
-			              type: 'email', message: 'The input is not valid E-mail!',
-			            }, {
+			            rules: [{type: 'email', message: 'The input is not valid E-mail!' }, {
 			              required: true, message: 'Please input your E-mail!',
 			            }],
 			          })(
-		            		<Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
+		            	  <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
 			          	)}
 			        </FormItem>
 
@@ -68,15 +78,15 @@ class LoginView extends Component{
 					</FormItem>
 
 			        <FormItem>
-        			  <NavLink to="/forgot-password" className = 'list-group-item-signIn'>
+		    		  <NavLink to="/forgot-password" className = 'list-group-item-signIn'>
 			           	Forgot Password
 			          </NavLink>
 			          <Button type="primary" htmlType="submit" className="login-form-button">
 			            Login
 			          </Button>
-        			  <NavLink to="/sign-up" className = 'list-group-item-signIn'>
-        			  	Register Now
-        			  </NavLink>
+		    			  <NavLink to="/sign-up" className = 'list-group-item-signIn'>
+		    			  	Register Now
+		    			  </NavLink>
 			        </FormItem>
 			    </Form>
 			</div>
@@ -87,7 +97,9 @@ class LoginView extends Component{
 const LoginViewForm = Form.create()(LoginView);
 
 export default connect(
-	state => ({
-		loginState: state.login.data.loginview
-	})
+	state => {
+		return ({
+			loginState: state.login.data.loginview
+		})
+	}
 )(withRouter(LoginViewForm));

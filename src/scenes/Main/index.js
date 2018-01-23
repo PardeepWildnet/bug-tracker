@@ -42,7 +42,7 @@ class Main extends Component {
                 </Router>
             )
         }
-			}
+	}
  }
 
 export default Main

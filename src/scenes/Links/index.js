@@ -19,7 +19,7 @@ class Links extends Component {
         super(props);
         this.state = { open: false };
     }
-
+    
     // This method id used to render menu items
     handleMenu = (e) => {
         if(e.key === '2') {
@@ -45,6 +45,7 @@ class Links extends Component {
                 <Menu.Item key = '2'> Logout </Menu.Item>
             </Menu>
         );
+
         return (
             <MuiThemeProvider>
                   <Affix>
@@ -53,7 +54,7 @@ class Links extends Component {
                           <AppBar
                               title="Bug Tracker"
                               iconElementRight= {<Dropdown overlay={menu} trigger={['click']}>
-                                  <img src={require("./../../Assets/userProfile.png")} role="presentation" style = {{height : '60px', cursor : 'pointer'}} />
+                                  <img src={require("./../../Assets/userProfile.png")} role="presentation" style = {{height : '60px', cursor : 'pointer', width : '60px', marginTop : 3}} />
                               </Dropdown>}
                               onLeftIconButtonTouchTap = {this.handleToggle}
                               className = 'appbar-style'

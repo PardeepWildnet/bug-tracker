@@ -52,6 +52,9 @@ class ResetPassword extends Component{
 
 		return(
 			<div className = 'reset-password-container'>
+				<div className = 'title-img-container'>
+					<img src={require("./../../../../Assets/logo.jpg")} role="presentation" className = 'title-img-style' />
+				</div>
 				<Form onSubmit = { this.handleSubmit } className = "reset-password">
 					<p className = 'heading-style reset-password-heading'> Reset Password </p>
 			        <FormItem>

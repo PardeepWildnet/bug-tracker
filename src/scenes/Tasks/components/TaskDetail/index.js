@@ -7,6 +7,7 @@ import * as userApi from './../../../User/data/UserList/api';
 import * as api from './../../data/TaskDetail/api';
 import * as editTaskApi from './../../data/EditTask/api';
 import './TaskDetail.css';
+import Loader from './../../../Loader';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -83,7 +84,7 @@ class TaskDetailView extends Component {
 		return (
 			<div className = 'task-detail-view'>
 				<p className = 'heading-style task-style'> Task Detail </p>
-				<table className='table table-striped table-responsive table-view'>
+				<table className='table table-striped table-view'>
 					<tbody>
 						<tr>
 								<th>Title</th>
@@ -140,11 +141,11 @@ class TaskDetailView extends Component {
 
 				  		</tbody> :
 			  			<tbody>
-			  				<tr>
-									<td colspan = '7'>
-										No Record Found
-									</td>
-								</tr>
+		  					<tr>
+								<td colspan = '2'>
+									<Loader />
+								</td>
+							</tr>
 			  			</tbody>
 					}
    				</table>
@@ -224,7 +225,6 @@ const TaskDetail = Form.create()(TaskDetailView);
 
 export default connect(
 	state => {
-		debugger
 		return ({
 			userLists : state.user.data.userList[state.user.data.userList.length -1],
 			taskDetail : state.tasks.data.taskDetail[state.tasks.data.taskDetail.length - 1],

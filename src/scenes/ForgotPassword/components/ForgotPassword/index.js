@@ -27,6 +27,9 @@ class ForgotPassword extends Component{
 
 		return(
 			<div className = 'forgot-password-container'>
+				<div className = 'title-img-container'>
+					<img src={require("./../../../../Assets/logo.jpg")} role="presentation" className = 'title-img-style' />
+				</div>
 				<Form onSubmit = { this.handleSubmit } className = "forgot-password">
 					<p className = 'heading-style forgot-password-heading'> Forgot Password </p>
 			        <FormItem>

@@ -1,69 +1,50 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Card, Icon, Avatar } from 'antd';
-import './style.css';
 
-import { Link } from 'react-router-dom';
-// import App from 'containers/App/App.js';
-/*
-import './assets/css/bootstrap.min.css';
-import './assets/css/animate.min.css';
-import './assets/sass/light-bootstrap-dashboard.css';
-import './assets/css/demo.css';
-import './assets/css/pe-icon-7-stroke.css';*/
-const ContainerStyle = {
-  margin: '0 auto',
-  float: 'none',
-  textAlign: 'center'
-};
+
+// import 'font-awesome/css/font-awesome.css';
+import styled from "styled-components";
+import { Chart } from 'primereact/components/chart/Chart';
+import {InputText} from 'primereact/components/inputtext/InputText';
+// import {Bar} from 'react-chartjs-2';
+
 
 class DashboardView extends Component {
-	render() {
-		return (
-			<div style = {ContainerStyle}>
-        <div className = 'logo-style-container'>
-          <img src={require("./../../../Assets/logo.jpg")}  />
-        </div>
+    
+    render() {
+        var data = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'My First dataset',
+                    backgroundColor: '#42A5F5',
+                    borderColor: '#1E88E5',
+                    fill : false,
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'My Second dataset',
+                    backgroundColor: '#9CCC65',
+                    borderColor: '#7CB342',
+                    fill : false,
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]    
+        };
 
-        <Link to="/dashboard/projects" >
-          <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
-             <img alt="example" width="100%" src={require("./../../../Assets/project.jpg")} className="custom-image"/>
-             <div className="custom-card">
-               <h3>Projects</h3>
-             </div>
-           </Card>
-         </Link>
+        return (
+            <div>
+                <div className="content-section introduction">
+                    <div className="feature-intro">
+                        <h1>BarChart</h1>
+                        <p>A bar chart or bar graph is a chart that presents Grouped data with rectangular bars with lengths proportional to the values that they represent.</p>
+                    </div>
+                </div>
 
-         <Link to="/dashboard/teams" >
-          <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
-             <img alt="example" width="100%" src={require("./../../../Assets/team.jpg")} className="custom-image"/>
-             <div className="custom-card">
-               <h3> Teams</h3>
-             </div>
-           </Card>
-         </Link>
+                <Chart type="line" data={data} width = {45}/>
 
-         <Link to="/dashboard/user" >
-          <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
-             <img alt="example" width="100%" src={require("./../../../Assets/users.jpg")} className="custom-image"/>
-             <div className="custom-card">
-               <h3>Users</h3>
-             </div>
-           </Card>
-          </Link>
-
-          <Link to="/dashboard/task" >
-            <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
-               <img alt="example" width="100%" src={require("./../../../Assets/tasks.png")} className="custom-image"/>
-               <div className="custom-card">
-                 <h3>Tasks</h3>
-               </div>
-             </Card>
-          </Link>
-			</div>
-		)
-	}
+            </div>
+        )
+    }
 }
 
-export default DashboardView;
-			// <App />
+export default DashboardView;;

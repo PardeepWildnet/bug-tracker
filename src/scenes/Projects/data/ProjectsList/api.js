@@ -5,9 +5,9 @@ import * as config from './../../../../config';
 import * as action from './action';
 
 export const fetchProjectsList = (value) => (dispatch) => {
-	
-	const url = config.base_url + 'project/viewprojects/' + value;
 
+	const url = config.base_url + 'project/viewprojects/' + value;
+	
 	axios.get(url, {headers: {
             'Content-Type': 'application/json',
             'authorization' : "jwt " + config.token
@@ -20,6 +20,6 @@ export const fetchProjectsList = (value) => (dispatch) => {
 		},
 		err => {
 			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Projects');
-			dispatch({type: "error"});
+			dispatch(action.initiateItems(err));
 		})
 }

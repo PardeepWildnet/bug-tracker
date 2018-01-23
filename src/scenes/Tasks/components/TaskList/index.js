@@ -7,12 +7,17 @@ import * as api from './../../data/TaskList/api';
 import AddSubTask from './../SubTask';
 import * as filterApi from './../../data/Filter/api';
 import * as deleteApi from './../../data/DeleteTask/api';
+import Loader from './../../../Loader';
 import './TaskList.css';
 import { SubTaskList } from './../SubTaskList';
 
 class TaskList extends Component {
-	filterKeyword = '';
-	pageNumber = 1;
+	constructor(props) {
+		super(props);
+		localStorage.setItem('loader', true);
+		this.filterKeyword = '';
+		this.pageNumber = 1;
+	}
 
 	// This method is used to delete the task
 	deleteTask = (project) =>	this.props.dispatch(deleteApi.deleteProject(project))
@@ -45,7 +50,7 @@ class TaskList extends Component {
 		} = this.props;
 
 		this.filterKeyword = filterKeyword;
-
+		console.log('tasks in task list component is', tasks);
 		return(
 			<div>
 				<div className = 'project-list-container'>
@@ -61,46 +66,54 @@ class TaskList extends Component {
 								<th>Action</th>
 							</tr>
 						</tbody>
-
-						<tbody>
-						{
-							tasks ?
-							tasks.result.map((item, index) => (
-								<tr key = {item._id}>
-									<td> {index + ((this.pageNumber - 1) * 10) + 1} </td>
-									<td> {item.taskTitle ? this.checkLength(item.taskTitle) : '-'} </td>
-									<td> {item.taskDetails ? this.checkLength(item.taskDetails) : '-'} </td>
-									<td>
-										{
-											item.assignTo ? item.assignTo.map((tl, index) => (
-												<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
-										}
-									</td>
-									<td> {item.assignBy ? item.assignBy.firstName + " " + item.assignBy.lastName : '-'} </td>
-									<td>
-										<Link to={'/dashboard/task/' + item._id }>
-											<Tooltip title="Task Detail Here">
-												<i className="fa fa-eye icon-style" aria-hidden="true"></i>
-											</Tooltip>
-										</Link>
-										<Popconfirm title="Are you sure delete this Task ?" onConfirm= {() => this.deleteTask(item) } okText="Yes" cancelText="No">
-											<i className="fa fa-trash-o icon-style"  aria-hidden="true"></i>
-										</Popconfirm>
-										<Link to = {'/dashboard/task/subtask/' + item._id }>
-											<Button type="primary" htmlType="submit" className="login-form-add-button">
-									        	Add Sub Task
-									     	</Button>
-									    </Link>
+						{ tasks ? 	
+							<tbody>
+							{
+								tasks.result ?
+								tasks.result.map((item, index) => (
+									<tr key = {item._id}>
+										<td> {index + ((this.pageNumber - 1) * 10) + 1} </td>
+										<td> {item.taskTitle ? this.checkLength(item.taskTitle) : '-'} </td>
+										<td> {item.taskDetails ? this.checkLength(item.taskDetails) : '-'} </td>
+										<td>
+											{
+												item.assignTo ? item.assignTo.map((tl, index) => (
+													<p key = {index}>{tl ? tl.firstName + " " + tl.lastName : '-'}</p>))  : '-'
+											}
+										</td>
+										<td> {item.assignBy ? item.assignBy.firstName + " " + item.assignBy.lastName : '-'} </td>
+										<td>
+											<Link to={'/dashboard/task/' + item._id }>
+												<Tooltip title="Task Detail Here">
+													<i className="fa fa-eye icon-style" aria-hidden="true"></i>
+												</Tooltip>
+											</Link>
+											<Popconfirm title="Are you sure delete this Task ?" onConfirm= {() => this.deleteTask(item) } okText="Yes" cancelText="No">
+												<i className="fa fa-trash-o icon-style"  aria-hidden="true"></i>
+											</Popconfirm>
+											<Link to = {'/dashboard/task/subtask/' + item._id }>
+												<Button type="primary" htmlType="submit" className="login-form-add-button">
+										        	Add Sub Task
+										     	</Button>
+										    </Link>
+										</td>
+									</tr>
+								)) :
+								<tr>
+									<td colSpan = '8'>
+										No Record Found
 									</td>
 								</tr>
-							)) :
-							<tr>
-								<td colSpan = '6'>
-									No Record Found
-								</td>
-							</tr>
+							}
+							</tbody> : 
+							<tbody>
+								<tr>
+									<td colSpan = '8'>
+										<Loader />
+									</td>
+								</tr>
+							</tbody>
 						}
-						</tbody>
 					</table>
 				</div>
 			{ tasks && tasks.totalRecords > 10 ?
@@ -111,19 +124,3 @@ class TaskList extends Component {
 	}
 }
 export default connect()(TaskList);
-
-				/*{
- 					this.props.tasks &&
-					this.props.tasks.map((task) => (
-						<div key = {task.id}>
-							<p>{ task.title }</p>
-							<p>{ task.days }</p>
-							<p>{ task.desc }</p><br /><br />
-							<AddSubTask id = {task.id} />
-							<br />
-							<hr />
-						</div>
-					))
-				}*/
-										/*<td> {item.assignTo.assigneeId ? item.assignTo.assigneeId : '-'} </td>
-										<td> {item.assignBy.assigner ? item.assignBy.assigner : '-'} </td>*/

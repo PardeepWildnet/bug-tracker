@@ -2,7 +2,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
- 
 }
 
 .app-bar-style{
@@ -13,7 +12,20 @@ body {
 
 .link-style {
 	padding: 0 24px;
+}
 
+.canvas.chartjs-render-monitor {
+  width : 100%;
+  height : 200px !important;
+}
+
+.title-img-container {
+  text-align: center;
+}
+
+.title-img-style{
+    width : 100%;
+    margin : 50px 0;
 }
 
 h3 {
@@ -24,7 +36,7 @@ h3 {
 
 p {
 	overflow: hidden;
-  text-overflow: ellipsis;	
+  text-overflow: ellipsis;
 }
 
 .heading-style {
@@ -32,7 +44,9 @@ p {
   font-size: 32px;
   color: #49a9ee;
   width: 100%;
-  padding-left: 5% !important;
+  max-width: 1024px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
   font-weight: bold;
 }
 
@@ -41,4 +55,8 @@ p {
     font-size: 14px;
     padding: 12px 5%;
     font-weight: bold;
+}
+
+.ant-back-top {
+  right : 30px;
 }

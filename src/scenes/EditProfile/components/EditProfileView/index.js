@@ -4,6 +4,7 @@ import { Form, Input, Button, Upload, Icon } from 'antd';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import * as config from './../../../../config';
+import * as imageApi from './../../data/UploadImage/api';
 import * as api from './../../data/EditProfileView/api';
 
 const FormItem = Form.Item;
@@ -16,12 +17,13 @@ class EditProfile extends Component {
 		this.state = { fileList: [] }
 	}
 
-	// This method id used to edit profile of admin
+	// This method is used to edit profile of admin
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 		  if (!err) {
 		    console.log('Received values of form: ', values, this.props.history);
+		    this.props.dispatch(imageApi.UploadImageAPI(values, this.state.fileList))
 		    this.props.dispatch(api.EditProfileAPI(values, this.state.fileList))
 		    this.props.form.resetFields();
 		  }

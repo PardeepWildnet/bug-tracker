@@ -5,29 +5,33 @@ import * as toast from './../../../../App.js'
 import * as action from './action';
 import * as config from './../../../../config';
 
-export const EditProfileAPI = (data) => (dispatch) => {
+export const UploadImageAPI = (data) => (dispatch) => {
+	console.log("data in edit profile api is :- ", data);
 
-	let editProfileDetails = {
+/*	let editProfileDetails = {
 		"firstName" : data.firstName,
 		"lastName" : data.lastName,
 		"email" : data.email,
 		"accountType" : data.accountType,
-	}
+	}*/
+	let formData = new FormData();
+	formData.append('userPhoto', data.upload);
+
 	console.log("ghfhgjk", config.userInfo.data.data._id);
-	const url = config.base_url + 'users/updateUserById/' + config.userInfo.data.data._id;
-	axios.post(url, editProfileDetails)
+	const url = config.base_url + 'api/imageUpload';
+	axios.post(url, formData)
 		.then(response => {
 			dispatch(action.editActions(response))
 			if(response.data.status == 200) {
-				toast.openNotificationWithIcon('success', response.data.msg, 'Edit Profile');
+				toast.openNotificationWithIcon('success', response.data.msg, 'Image Upload');
 			}
 			else {
-				toast.openNotificationWithIcon('error', response.data.err, 'Edit Profile');
+				toast.openNotificationWithIcon('error', response.data.err, 'Image Upload');
 			}
 			console.log(response, "edit profile response");
 		},
 		err => {
-			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Edit Profile Failed' , 'Edit Profile');
+			toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'Image Upload Failed' , 'Image Upload');
 			dispatch({type: 'error'})
 			console.log(err, "edit profile error response");
 		})

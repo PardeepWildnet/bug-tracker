@@ -6,11 +6,12 @@
 	display: inline-block;
 }
 
-.project-list-container {
+.team-list-container {
 	text-align: center;
-	margin: 20px 5%;
     border: 1px solid lightgray;
     border-radius: 5px;
+    max-width: 1024px;
+    margin : 20px auto !important ;
 }
 
 .project-block-style {

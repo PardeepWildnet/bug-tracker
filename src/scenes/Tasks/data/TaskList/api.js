@@ -12,9 +12,10 @@ export const ShowTaskListApi = (value) => (dispatch) => {
             'Content-Type': 'application/json',
             'authorization' : "jwt " + config.token
     }}
-	
+
 	axios.get(url, header)
 	.then(response =>{
+		localStorage.setItem('loader', false);
 		if(response.data.status !== 200) {
 			toast.openNotificationWithIcon('error', response.data.err , 'Show Task List');
 		}
@@ -23,9 +24,12 @@ export const ShowTaskListApi = (value) => (dispatch) => {
 		// dispatch(action.showTask(taskList));
 	},
 	err =>{
+		localStorage.setItem('loader', false);
 		toast.openNotificationWithIcon('error', err.response ? err.response.data.msg : 'No Record Found' , 'Tasks');
 		console.log("error in fetching task");
-		dispatch({type : 'error'});
+		dispatch(action.showTask(err));
+		// dispatch(action.showTask(err));
+
 		// dispatch({type: 'error'})
 	})
 }

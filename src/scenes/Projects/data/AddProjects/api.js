@@ -13,7 +13,8 @@ export const addProject = (data) => (dispatch) => {
 		projectCreatedBy : config.userInfo.data.data._id,
 		projectDetails : data.details,
 		projectStartDate : data.daterange[0],
-		projectEndDate: data.daterange[1]
+		projectEndDate: data.daterange[1],
+		assigneeTeam : data.teams
 	}
 
 	let header =  {headers: {

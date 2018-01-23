@@ -1,3 +1,4 @@
+
 .login {
 	/*border : 1px solid rgb(238,238,238);
 	padding: 16px;
@@ -30,11 +31,12 @@
     -moz-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
     margin: 0 auto;
-    
+
     position:initial;
     top: initial;
     left: initial;
     transform: initial;
+    background: #091432;
 }
 
 .login-container {
@@ -51,11 +53,13 @@
 	display : block;
 	border : none;
 	float: right;
+  color : white;
 }
 
 .login-heading {
 	text-align: center !important;
-    padding-left: 0 !important;
+  padding-left: 0 !important;
+  color : white;
 }
 
 @media screen and (max-height: 450px){
@@ -65,4 +69,10 @@
 		left: initial;
 		transform: initial;
 	}
+}
+
+@media( min-width : 768px) {
+  .title-img-style {
+    width : auto !important;
+  }
 }

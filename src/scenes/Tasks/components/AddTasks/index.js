@@ -84,13 +84,13 @@ class AddTasksView extends Component {
 			          })(
 			    		<InputNumber min={1} max={30} />
 			          )}
-  	        </FormItem>
+  	       		</FormItem>
 
-						<Button type="primary" htmlType="submit" className="login-form-add-button">
-			          Add Task
-			      </Button>
-			     	<br />
-       	</Form>
+				<Button type="primary" htmlType="submit" className="login-form-add-button">
+			        Add Task
+			    </Button>
+			    <br />
+       		</Form>
 		)
 	}
 }

@@ -1,0 +1,8 @@
+
+.user-list-container {
+	text-align: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    max-width: 1024px;
+    margin : 20px auto;
+}
